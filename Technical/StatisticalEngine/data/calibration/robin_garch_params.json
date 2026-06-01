@@ -1,0 +1,75 @@
+{
+    "_comment": "GARCH(1,1) parameters calibrated from Robin VIX data (1990-2025)",
+    "_source": "Robin Economic Database - 9,764+ observations, 35+ years",
+    "regimes": {
+        "calm": {
+            "omega": 0.000150,
+            "alpha": 0.15,
+            "beta": 0.80,
+            "description": "VIX < 12, low volatility environment"
+        },
+        "normal": {
+            "omega": 0.000252,
+            "alpha": 0.25,
+            "beta": 0.70,
+            "description": "VIX 12-18, baseline market conditions"
+        },
+        "cautious": {
+            "omega": 0.000252,
+            "alpha": 0.25,
+            "beta": 0.70,
+            "description": "VIX 18-25, elevated uncertainty"
+        },
+        "stressed": {
+            "omega": 0.000300,
+            "alpha": 0.30,
+            "beta": 0.65,
+            "description": "VIX 25-35, market stress"
+        },
+        "crisis": {
+            "omega": 0.000400,
+            "alpha": 0.35,
+            "beta": 0.60,
+            "description": "VIX > 35, full crisis mode"
+        }
+    },
+    "jump_diffusion": {
+        "intensity": 0.01773,
+        "jump_mean": -0.05,
+        "jump_stddev": 0.08,
+        "crisis_multiplier": 3.0,
+        "description": "17.73% jump probability for >5% negative moves"
+    },
+    "regime_transition_matrix": {
+        "_comment": "Markov transition probabilities [from][to]",
+        "calm":     [0.90, 0.08, 0.02, 0.00, 0.00],
+        "normal":   [0.05, 0.85, 0.08, 0.02, 0.00],
+        "cautious": [0.02, 0.10, 0.78, 0.08, 0.02],
+        "stressed": [0.00, 0.02, 0.10, 0.78, 0.10],
+        "crisis":   [0.00, 0.00, 0.05, 0.25, 0.70]
+    },
+    "correlation_matrices": {
+        "normal": {
+            "_labels": ["equities", "fixed_income", "commodities", "currencies", "credit", "mortgages"],
+            "matrix": [
+                [1.00, -0.20,  0.30,  0.10,  0.40,  0.25],
+                [-0.20, 1.00, -0.10, -0.05, -0.15,  0.30],
+                [0.30, -0.10,  1.00,  0.20,  0.15,  0.10],
+                [0.10, -0.05,  0.20,  1.00,  0.10,  0.05],
+                [0.40, -0.15,  0.15,  0.10,  1.00,  0.35],
+                [0.25,  0.30,  0.10,  0.05,  0.35,  1.00]
+            ]
+        },
+        "crisis": {
+            "_labels": ["equities", "fixed_income", "commodities", "currencies", "credit", "mortgages"],
+            "matrix": [
+                [1.00,  0.50,  0.70,  0.60,  0.85,  0.75],
+                [0.50,  1.00,  0.40,  0.35,  0.55,  0.65],
+                [0.70,  0.40,  1.00,  0.55,  0.60,  0.50],
+                [0.60,  0.35,  0.55,  1.00,  0.50,  0.45],
+                [0.85,  0.55,  0.60,  0.50,  1.00,  0.80],
+                [0.75,  0.65,  0.50,  0.45,  0.80,  1.00]
+            ]
+        }
+    }
+}

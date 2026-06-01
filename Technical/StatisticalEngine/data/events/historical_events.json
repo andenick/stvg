@@ -1,0 +1,3549 @@
+[
+    {
+        "id": "evt_ve_day_conversion",
+        "title": "War-to-Peace Industrial Conversion",
+        "description": "The war is over and factories must convert from tanks to Chevrolets. Industrial firms need massive credit lines to retool. Banks that lend aggressively now will build relationships that last decades.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1945,
+            "latest": 1948
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                5,
+                15
+            ],
+            "successProbability": 0.85,
+            "duration": 3,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.3,
+        "historicalNote": "US industrial production fell 35% from 1945-46 as war orders ceased, then surged as consumer demand exploded. Corporate lending doubled by 1948."
+    },
+    {
+        "id": "evt_bretton_woods_order",
+        "title": "Bretton Woods New World Order",
+        "description": "The dollar is now the world's reserve currency, pegged to gold at $35 per ounce. International trade is booming under the new monetary system. Banks with foreign correspondent relationships are perfectly positioned.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1945,
+            "latest": 1950
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                4,
+                12
+            ],
+            "successProbability": 0.85,
+            "duration": 5,
+            "failureLoss": 0.03,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "InternationalBanking",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "44 nations signed the Bretton Woods agreement in 1944. The IMF and World Bank were established. US held 75% of world gold reserves."
+    },
+    {
+        "id": "evt_gi_bill_mortgages",
+        "title": "GI Bill Mortgage Boom",
+        "description": "Millions of returning veterans qualify for VA-backed mortgages. Housing demand is explosive. Banks that expand mortgage lending now will ride a decade-long wave.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1946,
+            "latest": 1955
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                5,
+                12
+            ],
+            "successProbability": 0.9,
+            "duration": 4,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "MortgageLending",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.5,
+        "historicalNote": "13 million new homes built in the 1950s. Banks with mortgage operations saw steady 8-12% returns."
+    },
+    {
+        "id": "evt_regulation_q",
+        "title": "Regulation Q Interest Rate Caps",
+        "description": "The Fed has imposed strict interest rate ceilings on savings deposits. Your bank cannot pay more than the prescribed rate. This squeezes margins but also limits competition. Smart bankers will find ways around it.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 1946,
+            "latest": 1955
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                -5,
+                8
+            ],
+            "successProbability": 0.75,
+            "duration": 4,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending"
+            ],
+            "suffers": [
+                "TrustAndCustody"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Reg Q capped savings rates at 2.5% through the 1950s. Banks competed on service and branch locations instead of rates."
+    },
+    {
+        "id": "evt_cold_war_deposits",
+        "title": "Cold War Capital Flight",
+        "description": "Wealthy Europeans fear Soviet expansion and are moving capital to American banks. Foreign deposits are pouring into New York. Your trust department can manage these assets for handsome fees.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1948,
+            "latest": 1955
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                4,
+                12
+            ],
+            "successProbability": 0.8,
+            "duration": 4,
+            "failureLoss": 0.03,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 1.8
+        },
+        "affects": {
+            "benefits": [
+                "TrustAndCustody",
+                "WealthManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "Foreign deposits in US banks grew from $4B in 1945 to $12B by 1955. New York became the unchallenged center of global finance."
+    },
+    {
+        "id": "evt_korean_war_bonds",
+        "title": "Korean War Defense Mobilization",
+        "description": "The Korean War demands rapid military spending. Defense contractors need working capital loans and the Treasury is issuing new bonds. War mobilization lending is low-risk and patriotic.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1950,
+            "latest": 1953
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                3,
+                10
+            ],
+            "successProbability": 0.9,
+            "duration": 3,
+            "failureLoss": 0.03,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "TrustAndCustody"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "US defense spending tripled from $13B to $50B between 1950-53. Banks loaded up on Treasury securities yielding 2.5-3%."
+    },
+    {
+        "id": "evt_suburban_boom",
+        "title": "Suburban Development Boom",
+        "description": "Levittown is the model and America is following. New suburbs are springing up everywhere. Construction loans, home mortgages, and commercial lending to strip malls offer a massive pipeline of safe, profitable lending.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1950,
+            "latest": 1960
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                6,
+                14
+            ],
+            "successProbability": 0.85,
+            "duration": 5,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "MortgageLending",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.2,
+        "historicalNote": "US homeownership rose from 44% in 1940 to 62% by 1960. Levittown built 17,447 homes in a single development."
+    },
+    {
+        "id": "evt_treasury_accord",
+        "title": "The Treasury-Fed Accord",
+        "description": "The Federal Reserve breaks free from wartime yield pegging. Interest rates are now market-determined, creating massive repricing across all fixed-income holdings.",
+        "category": "market",
+        "era": {
+            "earliest": 1951,
+            "latest": 1955
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                25
+            ],
+            "successProbability": 0.55,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Bond yields jumped from 2.5% to 3%+ after decades of pegging."
+    },
+    {
+        "id": "evt_eisenhower_highway",
+        "title": "Interstate Highway Act",
+        "description": "President Eisenhower signs the Federal-Aid Highway Act, authorizing $25 billion for 41,000 miles of interstate highways. Construction firms need credit, real estate along routes will boom, and auto lending will surge.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1956,
+            "latest": 1962
+        },
+        "risk": {
+            "riskLevel": 2,
+            "returnRange": [
+                5,
+                15
+            ],
+            "successProbability": 0.85,
+            "duration": 5,
+            "failureLoss": 0.04,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "MortgageLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.1,
+        "historicalNote": "The 1956 Highway Act was the largest public works project in history. It created $129B in construction spending over 35 years."
+    },
+    {
+        "id": "evt_eurodollar_birth",
+        "title": "Offshore Dollars",
+        "description": "US dollars are accumulating in European banks, creating an unregulated offshore lending market. Banks with London operations can lend without reserve requirements or interest rate caps.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1957,
+            "latest": 1970
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                10,
+                40
+            ],
+            "successProbability": 0.7,
+            "duration": 4,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "InternationalBanking",
+                "TradingDesk"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "Citibank's Walter Wriston built an empire on Eurodollar lending. By 1970, the market exceeded $50B."
+    },
+    {
+        "id": "evt_credit_card_revolution",
+        "title": "Credit Card Revolution",
+        "description": "A new financial product \u00e2\u20ac\u201d the revolving credit card \u00e2\u20ac\u201d is transforming consumer banking. Banks that launch credit card programs now will capture a massive new revenue stream.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1958,
+            "latest": 1970
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                10,
+                30
+            ],
+            "successProbability": 0.65,
+            "duration": 6,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "CreditCards",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.2,
+        "historicalNote": "BankAmericard (1958) became Visa. Mastercard followed. By 1970, credit cards were a $50B market."
+    },
+    {
+        "id": "evt_kennedy_tax_cut",
+        "title": "Kennedy Tax Stimulus",
+        "description": "President Kennedy proposes cutting the top income tax rate from 91% to 70% and corporate rates from 52% to 47%. If Congress passes it, economic growth will accelerate and loan demand will surge.",
+        "category": "market",
+        "era": {
+            "earliest": 1962,
+            "latest": 1965
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                5,
+                18
+            ],
+            "successProbability": 0.75,
+            "duration": 3,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "InvestmentBanking"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "The Revenue Act of 1964 passed after Kennedy's assassination. GDP growth averaged 5.8% from 1964-66. Corporate profits surged 67%."
+    },
+    {
+        "id": "evt_vietnam_inflation",
+        "title": "Vietnam War Guns-and-Butter",
+        "description": "President Johnson is financing both the Vietnam War and the Great Society without raising taxes. Inflation is rising and the Fed is tightening. The economy is overheating and your fixed-rate loan portfolio is losing real value.",
+        "category": "market",
+        "era": {
+            "earliest": 1965,
+            "latest": 1969
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                -10,
+                12
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "MortgageLending",
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Inflation rose from 1.6% in 1965 to 5.5% by 1969. Defense spending hit $80B annually. The Fed raised rates to 6%."
+    },
+    {
+        "id": "evt_conglomerate_wave",
+        "title": "Conglomerate Merger Wave",
+        "description": "ITT, Gulf+Western, and LTV are acquiring everything in sight. Conglomerate mergers need massive syndicated loans and advisory fees. Your investment banking division can earn millions arranging these deals.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1965,
+            "latest": 1970
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                8,
+                30
+            ],
+            "successProbability": 0.6,
+            "duration": 3,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "Over 6,000 mergers occurred in 1969 alone. ITT acquired 350 companies in a decade. The conglomerate bubble burst by 1970."
+    },
+    {
+        "id": "evt_credit_crunch_1966",
+        "title": "1966 Credit Crunch",
+        "description": "The Fed has tightened sharply to fight inflation. Reg Q caps prevent you from raising deposit rates to compete with T-bills. Deposits are fleeing to money market instruments. Liquidity is dangerously tight.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1966,
+            "latest": 1967
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                10
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "MortgageLending",
+                "CommercialLending"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "The 1966 crunch was the first post-war liquidity crisis. Savings outflows hit S&Ls hard. Housing starts fell 25%."
+    },
+    {
+        "id": "evt_penn_central",
+        "title": "Penn Central Railroad Bankruptcy",
+        "description": "Penn Central, America's largest railroad, has filed for bankruptcy owing $3.5 billion. The commercial paper market is frozen. Corporations cannot roll over their short-term debt. A liquidity crisis looms.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1970,
+            "latest": 1971
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                15
+            ],
+            "successProbability": 0.4,
+            "duration": 2,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Penn Central's $3.5B bankruptcy was the largest in US history at the time. The Fed opened the discount window to prevent contagion."
+    },
+    {
+        "id": "evt_gold_window",
+        "title": "Nixon Closes the Gold Window",
+        "description": "President Nixon suspends dollar convertibility to gold, ending the Bretton Woods system. Currency markets are in chaos. FX traders have never seen volatility like this.",
+        "category": "market",
+        "era": {
+            "earliest": 1971,
+            "latest": 1973
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -20,
+                30
+            ],
+            "successProbability": 0.45,
+            "duration": 3,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "InternationalBanking"
+            ],
+            "suffers": [
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "The dollar fell 8% immediately. FX trading volumes exploded. Banks with trading desks thrived."
+    },
+    {
+        "id": "evt_oil_embargo",
+        "title": "Arab Oil Embargo",
+        "description": "OPEC nations embargo oil exports to the US. Oil prices quadruple from $3 to $12 per barrel. Inflation surges. The economy is heading into recession.",
+        "category": "market",
+        "era": {
+            "earliest": 1973,
+            "latest": 1975
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                -30,
+                15
+            ],
+            "successProbability": 0.35,
+            "duration": 4,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "MortgageLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Stagflation hit the US economy. Banks with energy lending exposure suffered. Commodity traders thrived."
+    },
+    {
+        "id": "evt_petrodollar_recycling",
+        "title": "Petrodollar Recycling",
+        "description": "Oil-rich nations are depositing billions in Western banks. You can lend these petrodollars to developing nations at high interest rates. Enormous opportunity \u00e2\u20ac\u201d if they repay.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1974,
+            "latest": 1982
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                15,
+                35
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "InternationalBanking",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "Banks lent aggressively to Latin America. Mexico defaulted in 1982, triggering a crisis."
+    },
+    {
+        "id": "evt_reit_bust_1974",
+        "title": "REIT Bust of 1974",
+        "description": "Real estate investment trusts loaded up on construction loans during the boom. Now with recession biting, projects are stalling and REIT shares have collapsed 70%. Banks exposed to REIT lending face massive writedowns.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1974,
+            "latest": 1976
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -25,
+                10
+            ],
+            "successProbability": 0.35,
+            "duration": 3,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "MortgageLending"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "REIT assets fell from $20B to $7B. Chase Manhattan, First National City, and others took hundreds of millions in losses."
+    },
+    {
+        "id": "evt_franklin_national",
+        "title": "Franklin National Bank Failure",
+        "description": "Franklin National, the 20th largest US bank, is collapsing due to massive foreign exchange losses and fraud. The FDIC has never handled a failure this large. Confidence in the banking system is shaken.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1974,
+            "latest": 1975
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -15,
+                8
+            ],
+            "successProbability": 0.4,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "InternationalBanking",
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Franklin National lost $40M on unauthorized FX trades by Michele Sindona. It was the largest US bank failure until Continental Illinois in 1984."
+    },
+    {
+        "id": "evt_volcker_shock",
+        "title": "Volcker Rate Shock",
+        "description": "Fed Chairman Paul Volcker raises the federal funds rate to 20% to crush inflation. Bond markets are in freefall. S&Ls are being destroyed. But those who can survive will emerge into a golden age.",
+        "category": "market",
+        "era": {
+            "earliest": 1979,
+            "latest": 1982
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                -25,
+                50
+            ],
+            "successProbability": 0.4,
+            "duration": 6,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "MortgageLending",
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.2,
+        "historicalNote": "Fed Funds hit 20% in June 1981. Over 1,000 S&Ls failed. Banks that survived dominated the 1980s."
+    },
+    {
+        "id": "evt_second_oil_shock",
+        "title": "Iranian Revolution Oil Shock",
+        "description": "The Shah has fallen and Iranian oil exports have ceased. Oil prices double from $14 to $31 per barrel. Inflation is raging again. Energy companies need emergency credit lines while consumer borrowers default.",
+        "category": "market",
+        "era": {
+            "earliest": 1979,
+            "latest": 1981
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -20,
+                20
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "InternationalBanking",
+                "TradingDesk"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "MortgageLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Oil hit $39/barrel by April 1980. Inflation peaked at 14.8% in March 1980. Banks with energy lending portfolios profited while others suffered."
+    },
+    {
+        "id": "evt_atm_revolution",
+        "title": "ATM Network Expansion",
+        "description": "Automated Teller Machines are transforming retail banking. Banks that invest in ATM networks can reduce branch costs and capture customers from competitors. But the technology investment is significant.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1980,
+            "latest": 1988
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                3,
+                15
+            ],
+            "successProbability": 0.75,
+            "duration": 4,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 1.8
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "CreditCards"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "ATM installations grew from 18,500 in 1980 to 83,500 by 1988. Citibank spent $100M building its New York ATM network."
+    },
+    {
+        "id": "evt_latin_debt_crisis",
+        "title": "Latin American Debt Crisis",
+        "description": "Mexico has just defaulted on $80 billion in foreign debt. Brazil, Argentina, and Venezuela may follow. Your international loan portfolio is a ticking time bomb. The Fed is scrambling to organize a rescue.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1982,
+            "latest": 1985
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                -35,
+                10
+            ],
+            "successProbability": 0.3,
+            "duration": 4,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "InternationalBanking",
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.1,
+        "historicalNote": "Citibank had $5B in Latin American exposure, equal to its entire equity. The nine largest US banks had 176% of capital in Latin loans."
+    },
+    {
+        "id": "evt_reagan_deregulation",
+        "title": "Reagan Deregulation Wave",
+        "description": "The Garn-St. Germain Act frees S&Ls to invest in commercial real estate and junk bonds. Regulation Q rate caps are being phased out. Banks can finally compete for deposits and expand into new business lines.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 1982,
+            "latest": 1986
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                25
+            ],
+            "successProbability": 0.7,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "MortgageLending",
+                "AssetManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "Garn-St. Germain (1982) and DIDMCA (1980) ended rate ceilings. S&L assets grew 56% in 4 years, then spectacularly imploded."
+    },
+    {
+        "id": "evt_continental_illinois",
+        "title": "Continental Illinois Bailout",
+        "description": "Continental Illinois, the 7th largest US bank, is experiencing an electronic bank run. Institutional depositors are pulling billions. The FDIC is about to engineer the first 'too big to fail' rescue. Your bank may be next.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1984,
+            "latest": 1985
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -20,
+                12
+            ],
+            "successProbability": 0.35,
+            "duration": 2,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "CommercialLending",
+                "InternationalBanking"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Continental Illinois lost $10B in deposits in 10 days. The FDIC injected $4.5B, coining 'too big to fail.'"
+    },
+    {
+        "id": "evt_junk_bond_lbo",
+        "title": "Junk Bond LBO Frenzy",
+        "description": "Michael Milken has created a market for high-yield bonds that finances leveraged buyouts. Fees are astronomical. Returns are enormous. So are the risks.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1985,
+            "latest": 1989
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                20,
+                100
+            ],
+            "successProbability": 0.45,
+            "duration": 4,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 4.0
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "PrivateEquity"
+            ],
+            "suffers": []
+        },
+        "weight": 1.3,
+        "historicalNote": "Drexel earned $4B in fees before collapsing. KKR's RJR Nabisco deal was $25B. Milken went to prison."
+    },
+    {
+        "id": "evt_plaza_accord",
+        "title": "Plaza Accord Currency Realignment",
+        "description": "The G5 nations agree to devalue the dollar at the Plaza Hotel. The dollar will fall 40% against the yen and mark over two years. FX traders who position correctly will make fortunes. Get it wrong and the losses are catastrophic.",
+        "category": "market",
+        "era": {
+            "earliest": 1985,
+            "latest": 1987
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                35
+            ],
+            "successProbability": 0.5,
+            "duration": 2,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "InternationalBanking"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "The dollar fell from 240 yen to 120 yen between 1985-87. Bankers Trust made $500M on FX trading in 1986."
+    },
+    {
+        "id": "evt_black_monday",
+        "title": "Black Monday",
+        "description": "The stock market crashes 22.6% in a single day \u00e2\u20ac\u201d the largest one-day drop in history. Portfolio insurance and program trading amplify the selloff. Panic is total.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1987,
+            "latest": 1988
+        },
+        "risk": {
+            "riskLevel": 10,
+            "returnRange": [
+                -35,
+                40
+            ],
+            "successProbability": 0.3,
+            "duration": 2,
+            "failureLoss": 0.35,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 4.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "AssetManagement"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Dow dropped 508 points. But markets recovered within 2 years. Those who bought the dip made fortunes."
+    },
+    {
+        "id": "evt_interstate_banking",
+        "title": "Interstate Banking Revolution",
+        "description": "States are dismantling barriers to interstate banking. Regional bank mergers are creating powerhouses. If you acquire strategically, you can build a coast-to-coast franchise before your competitors.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 1987,
+            "latest": 1994
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                25
+            ],
+            "successProbability": 0.65,
+            "duration": 5,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "MortgageLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.1,
+        "historicalNote": "The Riegle-Neal Act (1994) allowed nationwide branching. NationsBank, First Union, and BankAmerica grew through hundreds of acquisitions."
+    },
+    {
+        "id": "evt_sl_bargain_hunt",
+        "title": "S&L Crisis Bargains",
+        "description": "The RTC is liquidating failed savings & loans at pennies on the dollar. Their loan portfolios and branches are available for acquisition. Due diligence required \u00e2\u20ac\u201d some assets are toxic.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1989,
+            "latest": 1995
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                15,
+                50
+            ],
+            "successProbability": 0.6,
+            "duration": 6,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "MortgageLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.1,
+        "historicalNote": "Over 1,000 S&Ls failed. Acquirers like Washington Mutual grew enormously. Some assets were gems, others trash."
+    },
+    {
+        "id": "evt_derivatives_revolution",
+        "title": "Derivatives Revolution",
+        "description": "Interest rate swaps, credit default swaps, and exotic options are creating entirely new profit centers. Banks that build derivatives desks now will lead the next decade of finance.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1990,
+            "latest": 1999
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                20,
+                60
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.5
+        },
+        "affects": {
+            "benefits": [
+                "DerivativesDesk",
+                "TradingDesk"
+            ],
+            "suffers": []
+        },
+        "weight": 1.2,
+        "historicalNote": "Notional derivatives outstanding grew from $1T (1987) to $100T (2000). JP Morgan pioneered credit derivatives."
+    },
+    {
+        "id": "evt_orange_county",
+        "title": "Orange County Bankruptcy",
+        "description": "Orange County's treasurer leveraged the county investment pool 3-to-1 with inverse floaters and lost $1.7 billion. The wealthiest county in America has filed for bankruptcy. Derivatives counterparties face massive exposure.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1994,
+            "latest": 1995
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                8
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "DerivativesDesk",
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.7,
+        "historicalNote": "Treasurer Robert Citron leveraged $7.5B pool to $20B using inverse floaters. Merrill Lynch paid $400M in settlements."
+    },
+    {
+        "id": "evt_bond_massacre_1994",
+        "title": "1994 Bond Massacre",
+        "description": "The Fed is raising rates aggressively and the bond market is in freefall. Mortgage-backed securities are getting crushed by convexity-driven selling. Trading desks are hemorrhaging money. The losses are global.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1994,
+            "latest": 1995
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -25,
+                15
+            ],
+            "successProbability": 0.35,
+            "duration": 2,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "MortgageLending",
+                "Securitization"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Global bond losses exceeded $1.5 trillion. Askin Capital lost $600M. Kidder Peabody collapsed. The 10-year yield jumped from 5.5% to 8%."
+    },
+    {
+        "id": "evt_peso_crisis",
+        "title": "Mexican Peso Crisis",
+        "description": "Mexico has devalued the peso and its financial system is collapsing. US banks with Mexican exposure face massive losses. But the Clinton administration is organizing a $50B rescue package.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1994,
+            "latest": 1996
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                15
+            ],
+            "successProbability": 0.4,
+            "duration": 2,
+            "failureLoss": 0.18,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "InternationalBanking"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "The peso fell 50% in weeks. The US Treasury and IMF provided $50B in loans. Mexico repaid early, and those who bought distressed Mexican bonds tripled their money."
+    },
+    {
+        "id": "evt_internet_banking",
+        "title": "Internet Banking Arrives",
+        "description": "Online banking is here. Customers can check balances and transfer funds from home. First-movers can dramatically cut branch costs and reach new markets. But the technology investment is huge and security risks are unknown.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 1996,
+            "latest": 2001
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                3,
+                20
+            ],
+            "successProbability": 0.6,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "Fintech",
+                "CreditCards"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "Wells Fargo launched online banking in 1995. By 2000, over 2,000 banks offered internet services. NetBank launched as the first internet-only bank."
+    },
+    {
+        "id": "evt_asian_crisis",
+        "title": "Asian Financial Crisis",
+        "description": "Thailand's baht has collapsed, and the contagion is spreading across Asia. South Korea, Indonesia, and Malaysia are in freefall. Banks with Asian trade finance and lending exposure face devastating losses.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1997,
+            "latest": 1998
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -25,
+                20
+            ],
+            "successProbability": 0.35,
+            "duration": 3,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring",
+                "TradingDesk"
+            ],
+            "suffers": [
+                "InternationalBanking"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Asian currencies fell 30-80%. South Korea's IMF bailout was $57B. JP Morgan and Citibank had billions in Asian exposure."
+    },
+    {
+        "id": "evt_megamerger_mania",
+        "title": "Bank Megamerger Mania",
+        "description": "The biggest banks are combining into financial supermarkets. Citicorp-Travelers, BankAmerica-NationsBank, Deutsche-Bankers Trust. If you don't grow, you'll be acquired. Every CEO faces the same choice: eat or be eaten.",
+        "category": "market",
+        "era": {
+            "earliest": 1997,
+            "latest": 2001
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                5,
+                30
+            ],
+            "successProbability": 0.55,
+            "duration": 3,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "The Citicorp-Travelers merger created the world's largest financial firm with $700B in assets. Over $2.4T in banking M&A occurred in 1998 alone."
+    },
+    {
+        "id": "evt_ltcm_collapse",
+        "title": "LTCM Implosion",
+        "description": "Long-Term Capital Management, the Nobel Prize-winning hedge fund, is on the verge of collapse. Its $125B in positions threaten the entire financial system. The Fed is organizing a bailout.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1998,
+            "latest": 1999
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                -30,
+                25
+            ],
+            "successProbability": 0.35,
+            "duration": 2,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "DerivativesDesk"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "14 banks contributed $3.6B to bail out LTCM. Its collapse nearly triggered systemic crisis."
+    },
+    {
+        "id": "evt_russian_default",
+        "title": "Russian Sovereign Default",
+        "description": "Russia has defaulted on its ruble-denominated debt and declared a moratorium on foreign debt payments. Emerging market bonds are in freefall worldwide. The contagion from Asia has now reached Europe.",
+        "category": "crisis",
+        "era": {
+            "earliest": 1998,
+            "latest": 1999
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -30,
+                20
+            ],
+            "successProbability": 0.35,
+            "duration": 2,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "InternationalBanking",
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Russia defaulted on $40B in domestic debt. Emerging market bond spreads tripled. The crisis combined with LTCM nearly crashed global markets."
+    },
+    {
+        "id": "evt_glass_steagall_repeal",
+        "title": "Glass-Steagall Repealed",
+        "description": "The Gramm-Leach-Bliley Act tears down the wall between commercial and investment banking. For the first time since 1933, your bank can underwrite securities, trade derivatives, and sell insurance.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 1999,
+            "latest": 2001
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                5,
+                30
+            ],
+            "successProbability": 0.8,
+            "duration": 4,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "DerivativesDesk",
+                "Securitization"
+            ],
+            "suffers": []
+        },
+        "weight": 1.5,
+        "historicalNote": "Citicorp merged with Travelers the year before. Every major bank rushed to become a universal bank."
+    },
+    {
+        "id": "evt_dotcom_crash",
+        "title": "Dot-Com Bubble Bursts",
+        "description": "The NASDAQ has lost 78% from its peak. Tech IPO underwriting fees have evaporated. But equity research is still valuable, and distressed tech debt is dirt cheap.",
+        "category": "market",
+        "era": {
+            "earliest": 2000,
+            "latest": 2002
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -40,
+                10
+            ],
+            "successProbability": 0.3,
+            "duration": 6,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "InvestmentBanking",
+                "VentureCapital"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "NASDAQ fell from 5,048 to 1,139. $5 trillion in market value evaporated. Tech IPO pipeline went to zero."
+    },
+    {
+        "id": "evt_enron_worldcom",
+        "title": "Enron & WorldCom Scandals",
+        "description": "Enron and WorldCom have collapsed in the biggest corporate fraud scandals in history. Banks that arranged their financing and advised on deals face massive legal liability. Trust in corporate America is shattered.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2001,
+            "latest": 2003
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                5
+            ],
+            "successProbability": 0.35,
+            "duration": 3,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "InvestmentBanking",
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Enron's $63B bankruptcy was the largest in history until Lehman. Citigroup and JP Morgan paid $4.6B combined in Enron settlements."
+    },
+    {
+        "id": "evt_sarbanes_oxley",
+        "title": "Sarbanes-Oxley Compliance",
+        "description": "Congress passes sweeping corporate governance reform in response to Enron and WorldCom. New audit requirements, internal controls mandates, and CEO certifications dramatically increase compliance costs for banks.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2002,
+            "latest": 2005
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                -8,
+                5
+            ],
+            "successProbability": 0.75,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.02,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [
+                "TrustAndCustody"
+            ],
+            "suffers": [
+                "InvestmentBanking"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "SOX compliance cost averaged $4.36M per company in the first year. Audit fees rose 45%. Banks' compliance departments doubled in size."
+    },
+    {
+        "id": "evt_subprime_machine",
+        "title": "Subprime Mortgage Machine",
+        "description": "Originating subprime mortgages, packaging them into MBS, and selling them to investors is generating obscene profits. Everyone is doing it. The rating agencies say it's safe. What could go wrong?",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2003,
+            "latest": 2007
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                30,
+                80
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.4,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "Securitization",
+                "MortgageLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.3,
+        "historicalNote": "Countrywide originated $97B in subprime loans in 2006 alone. The entire market collapsed in 2007-08."
+    },
+    {
+        "id": "evt_hedge_fund_explosion",
+        "title": "Hedge Fund Prime Brokerage Boom",
+        "description": "Hedge fund assets have tripled in five years. Prime brokerage \u00e2\u20ac\u201d lending, clearing, and custody for hedge funds \u00e2\u20ac\u201d is the most profitable business on Wall Street. The fees are enormous and the relationships are sticky.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2003,
+            "latest": 2007
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                10,
+                35
+            ],
+            "successProbability": 0.65,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "TradingDesk",
+                "AssetManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "Hedge fund AUM grew from $500B in 2000 to $2T by 2007. Goldman Sachs and Morgan Stanley dominated prime brokerage, earning $5B+ annually."
+    },
+    {
+        "id": "evt_cdo_factory",
+        "title": "CDO Structured Products",
+        "description": "Collateralized Debt Obligations are the hottest product on Wall Street. Slice risk into tranches, get AAA ratings, sell to pension funds. The fees are 2-3% on billions. Pure profit \u00e2\u20ac\u201d unless the models are wrong.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2004,
+            "latest": 2007
+        },
+        "risk": {
+            "riskLevel": 10,
+            "returnRange": [
+                40,
+                100
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.5,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 4.0
+        },
+        "affects": {
+            "benefits": [
+                "Securitization",
+                "DerivativesDesk",
+                "InvestmentBanking"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "Global CDO issuance peaked at $520B in 2006. By 2009, losses exceeded $300B. Goldman made $4B shorting them."
+    },
+    {
+        "id": "evt_housing_bubble",
+        "title": "Housing Bubble Euphoria",
+        "description": "Home prices are rising 15% per year nationally and 25% in hot markets. No-doc loans, ARM teaser rates, and 100% financing are standard. The origination fees are irresistible. The models say prices never fall nationally.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2004,
+            "latest": 2006
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                20,
+                60
+            ],
+            "successProbability": 0.5,
+            "duration": 3,
+            "failureLoss": 0.4,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "MortgageLending",
+                "Securitization"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "National home prices rose 124% from 1997-2006. Countrywide originated $463B in mortgages in 2003. 27% of purchases were investor-owned."
+    },
+    {
+        "id": "evt_hurricane_katrina",
+        "title": "Hurricane Katrina Devastation",
+        "description": "Katrina has destroyed New Orleans and the Gulf Coast. Insurance claims will exceed $80 billion. Banks with Gulf Coast mortgage portfolios face massive losses. But disaster recovery lending will be enormously profitable.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2005,
+            "latest": 2006
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                15
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending"
+            ],
+            "suffers": [
+                "MortgageLending"
+            ]
+        },
+        "weight": 0.7,
+        "historicalNote": "Katrina caused $125B in damage. 300,000 homes were destroyed. SBA disaster loans exceeded $10B. Regional banks in the Gulf suffered massive loan losses."
+    },
+    {
+        "id": "evt_quant_crisis_2007",
+        "title": "Quant Meltdown",
+        "description": "In August 2007, quantitative equity strategies simultaneously unwind as multiple funds hit stop-losses. Billions in losses occur in days as crowded trades reverse. It's the canary in the coal mine \u00e2\u20ac\u201d something deeper is breaking.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2007,
+            "latest": 2008
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -25,
+                10
+            ],
+            "successProbability": 0.35,
+            "duration": 2,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "AssetManagement"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Goldman's Global Alpha fund lost 40%. AQR's flagship lost 13% in a week. The August 2007 quant meltdown preceded the broader financial crisis."
+    },
+    {
+        "id": "evt_bear_lehman",
+        "title": "Bear Stearns / Lehman Collapse",
+        "description": "Bear Stearns and Lehman Brothers have collapsed. The global financial system is freezing. Credit markets are shut. The government is debating a $700B bailout. This is the moment that defines a generation of bankers.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2008,
+            "latest": 2009
+        },
+        "risk": {
+            "riskLevel": 10,
+            "returnRange": [
+                -50,
+                100
+            ],
+            "successProbability": 0.3,
+            "duration": 4,
+            "failureLoss": 0.5,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 5.0
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "TradingDesk",
+                "InvestmentBanking",
+                "Securitization",
+                "MortgageLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Lehman filed the largest bankruptcy in history ($639B). TARP injected $700B. JP Morgan bought Bear for $2/share."
+    },
+    {
+        "id": "evt_tarp_distressed",
+        "title": "TARP-Era Distressed Deals",
+        "description": "The government is practically giving away failed bank assets. FDIC-assisted deals offer loss-sharing agreements. If you have capital and courage, there are once-in-a-generation bargains available.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2008,
+            "latest": 2010
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                20,
+                100
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 4.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "MortgageLending",
+                "Restructuring"
+            ],
+            "suffers": []
+        },
+        "weight": 1.2,
+        "historicalNote": "465 banks failed 2008-2012. Acquirers like BB&T and PNC grew enormously through FDIC-assisted deals."
+    },
+    {
+        "id": "evt_dodd_frank",
+        "title": "Dodd-Frank Wall of Regulation",
+        "description": "The most sweeping financial regulation since the 1930s is enacted. Higher capital requirements, the Volcker Rule banning prop trading, stress testing, and living wills. Compliance costs will be enormous.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2010,
+            "latest": 2013
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                -10,
+                5
+            ],
+            "successProbability": 0.7,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.02,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "DerivativesDesk",
+                "Securitization"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Banks spent $36B on compliance in the first 5 years. Prop trading desks shut down. Revenue shifted to fees."
+    },
+    {
+        "id": "evt_european_debt_crisis",
+        "title": "European Sovereign Debt Crisis",
+        "description": "Greece is bankrupt. Ireland, Portugal, Spain, and Italy may follow. European bank stocks are in freefall. Your counterparty exposure to European banks is suddenly a potential existential threat.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2010,
+            "latest": 2012
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -25,
+                20
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "Restructuring"
+            ],
+            "suffers": [
+                "InternationalBanking"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Greek debt restructuring imposed 53% haircuts on bondholders. EU banks held $2.6T in PIIGS sovereign debt. ECB's 'whatever it takes' saved the euro."
+    },
+    {
+        "id": "evt_flash_crash",
+        "title": "2010 Flash Crash",
+        "description": "The Dow Jones plunges 1,000 points in minutes, then recovers. High-frequency trading algorithms have gone haywire. Blue-chip stocks trade at one cent. The market's plumbing is broken and nobody understands why.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2010,
+            "latest": 2011
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                12
+            ],
+            "successProbability": 0.45,
+            "duration": 1,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "AssetManagement"
+            ]
+        },
+        "weight": 0.7,
+        "historicalNote": "The Dow fell 998 points in 36 minutes on May 6, 2010. Over 20,000 trades were later cancelled. Waddell & Reed's $4.1B sell order was blamed."
+    },
+    {
+        "id": "evt_libor_scandal",
+        "title": "LIBOR Manipulation Scandal",
+        "description": "Regulators have discovered that major banks have been rigging LIBOR, the benchmark rate underpinning $350 trillion in financial contracts. Fines will be billions. Litigation will be worse. Your bank may be implicated.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2012,
+            "latest": 2015
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                3
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.02,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "InternationalBanking",
+                "DerivativesDesk"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Banks paid $9B in LIBOR fines. Barclays' CEO resigned. UBS, Deutsche Bank, and RBS were among the hardest hit. LIBOR was eventually replaced by SOFR."
+    },
+    {
+        "id": "evt_student_loan_bubble",
+        "title": "Student Loan Portfolio Opportunity",
+        "description": "Outstanding student debt has crossed $1 trillion and is still growing. Private student loan origination offers high yields with government-guaranteed income streams. But default rates are climbing and political risk of forgiveness looms.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2012,
+            "latest": 2016
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                5,
+                20
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "Securitization"
+            ],
+            "suffers": []
+        },
+        "weight": 0.7,
+        "historicalNote": "US student loan debt grew from $600B in 2008 to $1.2T by 2015. Sallie Mae's private lending arm was spun off as Navient in 2014."
+    },
+    {
+        "id": "evt_volcker_rule",
+        "title": "Volcker Rule Implementation",
+        "description": "The Volcker Rule ban on proprietary trading is finally being implemented. Your profitable prop trading desk must be shut down or spun off. Compliance is expensive and the line between market-making and prop trading is blurry.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2013,
+            "latest": 2015
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                -12,
+                3
+            ],
+            "successProbability": 0.65,
+            "duration": 3,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.02,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "DerivativesDesk"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Goldman Sachs spun off its proprietary trading group as a separate fund. Banks collectively lost an estimated $10B in annual prop trading revenue."
+    },
+    {
+        "id": "evt_taper_tantrum",
+        "title": "Taper Tantrum",
+        "description": "Fed Chairman Bernanke merely mentions reducing quantitative easing and global bond markets convulse. Emerging market currencies crash. Treasury yields spike 100 basis points in weeks. Portfolios positioned for low rates are devastated.",
+        "category": "market",
+        "era": {
+            "earliest": 2013,
+            "latest": 2014
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                12
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "MortgageLending",
+                "InternationalBanking"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "10-year Treasury yields jumped from 1.6% to 3.0% in four months. India's rupee fell 20%. Mortgage originations dropped 50%."
+    },
+    {
+        "id": "evt_oil_price_collapse",
+        "title": "Oil Price Collapse",
+        "description": "OPEC refuses to cut production and oil crashes from $110 to $26 per barrel. Energy companies are defaulting on billions in loans. Your energy lending portfolio is facing catastrophic losses. The shale boom has turned to bust.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2014,
+            "latest": 2016
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                12
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "InvestmentBanking"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Oil fell from $115 to $26 between June 2014 and February 2016. Over 100 energy companies filed for bankruptcy. Banks reserved $10B+ for energy losses."
+    },
+    {
+        "id": "evt_negative_rates",
+        "title": "Negative Interest Rate World",
+        "description": "Central banks in Europe and Japan have pushed rates below zero. Over $17 trillion in bonds trade at negative yields. Traditional banking profitability is under existential threat. How do you make money when rates are negative?",
+        "category": "market",
+        "era": {
+            "earliest": 2015,
+            "latest": 2019
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                -10,
+                8
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "CommercialLending",
+                "TrustAndCustody",
+                "MortgageLending"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "ECB's deposit rate hit -0.5%. BOJ went negative in 2016. $17T in negative-yielding debt by 2019. European bank stocks fell 50% from 2015-19."
+    },
+    {
+        "id": "evt_fintech_disruption",
+        "title": "Fintech Disruption Wave",
+        "description": "Startups are eating your lunch. Square handles payments, SoFi refinances student loans, Lending Club makes personal loans. Do you partner, acquire, or build your own digital platform? Time is running out.",
+        "category": "market",
+        "era": {
+            "earliest": 2015,
+            "latest": 2020
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                3,
+                25
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Fintech"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "CreditCards"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Global fintech investment grew from $9B in 2014 to $105B in 2020. Goldman launched Marcus in 2016. JPM spent $11B on technology in 2019."
+    },
+    {
+        "id": "evt_brexit_shock",
+        "title": "Brexit Vote Shock",
+        "description": "Britain has voted to leave the EU. The pound has crashed 10% overnight. London's role as Europe's financial capital is in question. Banks must plan for regulatory fragmentation and consider relocating operations.",
+        "category": "market",
+        "era": {
+            "earliest": 2016,
+            "latest": 2018
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -15,
+                15
+            ],
+            "successProbability": 0.45,
+            "duration": 3,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "InternationalBanking"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Sterling fell from $1.50 to $1.32 on June 24, 2016. Major banks moved 7,500 jobs from London to EU cities. Goldman made $100M trading the night of the vote."
+    },
+    {
+        "id": "evt_crypto_2017",
+        "title": "2017 Crypto Mania",
+        "description": "Bitcoin has surged from $1,000 to $19,000. ICOs are raising billions without regulation. Your wealth management clients demand crypto exposure. Do you embrace the revolution or dismiss it as a bubble?",
+        "category": "market",
+        "era": {
+            "earliest": 2017,
+            "latest": 2018
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -40,
+                200
+            ],
+            "successProbability": 0.35,
+            "duration": 2,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 5.0
+        },
+        "affects": {
+            "benefits": [
+                "CryptoCustody",
+                "TradingDesk"
+            ],
+            "suffers": []
+        },
+        "weight": 0.7,
+        "historicalNote": "Bitcoin rose 1,900% in 2017, then fell 84% in 2018. ICOs raised $6.3B in 2017. Jamie Dimon called Bitcoin 'a fraud' while JPM prepared crypto products."
+    },
+    {
+        "id": "evt_trump_deregulation",
+        "title": "Trump-Era Bank Deregulation",
+        "description": "The new administration is rolling back Dodd-Frank. Community and regional banks get relief from stress testing. The Volcker Rule is being loosened. Risk appetites are rising and deal-making is back.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2017,
+            "latest": 2019
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                5,
+                18
+            ],
+            "successProbability": 0.75,
+            "duration": 3,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "TradingDesk",
+                "InvestmentBanking"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "The EGRRCPA (2018) raised the SIFI threshold from $50B to $250B in assets. Banks bought back $125B in stock in 2018. ROE rose to 12%."
+    },
+    {
+        "id": "evt_repo_crisis_2019",
+        "title": "Repo Market Seizure",
+        "description": "The overnight repo rate spikes from 2% to 10% in a single day. Banks are hoarding cash and the plumbing of the financial system is broken. The Fed must inject $75 billion daily to keep markets functioning.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2019,
+            "latest": 2020
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -12,
+                10
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "CommercialLending"
+            ]
+        },
+        "weight": 0.7,
+        "historicalNote": "The repo rate spiked to 10% on September 17, 2019. The Fed injected $500B over 3 months. JP Morgan was criticized for hoarding $120B in reserves."
+    },
+    {
+        "id": "evt_covid_crash",
+        "title": "COVID Market Crash",
+        "description": "A global pandemic triggers the fastest bear market in history. Markets fell 34% in 23 days. But the Fed's unprecedented response \u00e2\u20ac\u201d unlimited QE, zero rates, direct lending \u00e2\u20ac\u201d may create the greatest buying opportunity of a lifetime.",
+        "category": "market",
+        "era": {
+            "earliest": 2020,
+            "latest": 2021
+        },
+        "risk": {
+            "riskLevel": 10,
+            "returnRange": [
+                -35,
+                80
+            ],
+            "successProbability": 0.5,
+            "duration": 2,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.2,
+            "windfallMultiplier": 4.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "AssetManagement"
+            ],
+            "suffers": [
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "S&P fell 34% in 23 days, then rallied 68% by year-end. Banks that held through made enormous returns."
+    },
+    {
+        "id": "evt_crypto_custody",
+        "title": "Crypto Custody Launch",
+        "description": "Institutional demand for cryptocurrency custody is surging. Banks that offer crypto custody can capture billions in assets under management. But regulatory clarity is lacking and the technology is new.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2020,
+            "latest": 2023
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                10,
+                200
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 5.0
+        },
+        "affects": {
+            "benefits": [
+                "CryptoCustody",
+                "AssetManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "BNY Mellon launched crypto custody in 2022. Bitcoin went from $30K to $69K to $16K to $70K."
+    },
+    {
+        "id": "evt_spac_boom",
+        "title": "SPAC Blank Check Frenzy",
+        "description": "Special Purpose Acquisition Companies are the hottest thing in finance. Every celebrity and hedge fund manager is launching a SPAC. The fees for underwriting and advising are enormous. But most targets are overvalued.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2020,
+            "latest": 2022
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                10,
+                60
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "VentureCapital"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "613 SPACs raised $162B in 2021 alone. By 2023, over 60% of SPAC mergers traded below $10. Citigroup and Goldman led SPAC underwriting."
+    },
+    {
+        "id": "evt_qe_infinity",
+        "title": "Infinite Quantitative Easing",
+        "description": "The Fed is buying $120 billion per month in Treasuries and MBS. Asset prices are detached from fundamentals. Your bank can borrow at near-zero and invest in anything. It's free money \u00e2\u20ac\u201d until it isn't.",
+        "category": "market",
+        "era": {
+            "earliest": 2020,
+            "latest": 2022
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                5,
+                30
+            ],
+            "successProbability": 0.65,
+            "duration": 3,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "MortgageLending",
+                "AssetManagement"
+            ],
+            "suffers": [
+                "TrustAndCustody"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Fed balance sheet grew from $4.2T to $8.9T in 2 years. Mortgage rates hit 2.65% in January 2021. S&P 500 returned 100% from March 2020 lows."
+    },
+    {
+        "id": "evt_pandemic_bonds",
+        "title": "Pandemic Bond Issuance",
+        "description": "COVID-era fiscal stimulus created $5 trillion in new government debt. Sovereign bond issuance at these volumes creates underwriting fees but also threatens a fiscal crisis. The bond vigilantes are watching.",
+        "category": "market",
+        "era": {
+            "earliest": 2020,
+            "latest": 2022
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                5,
+                20
+            ],
+            "successProbability": 0.6,
+            "duration": 3,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "TradingDesk"
+            ],
+            "suffers": []
+        },
+        "weight": 0.7,
+        "historicalNote": "US national debt grew from $23T to $31T between 2020-22. Treasury auction sizes doubled. Primary dealers earned record underwriting fees."
+    },
+    {
+        "id": "evt_meme_mania",
+        "title": "Meme Stock Mania",
+        "description": "Reddit's WallStreetBets is driving GameStop, AMC, and other heavily-shorted stocks to insane valuations. Retail traders are battling hedge funds. Your trading desk is caught in the crossfire.",
+        "category": "market",
+        "era": {
+            "earliest": 2021,
+            "latest": 2022
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -30,
+                200
+            ],
+            "successProbability": 0.35,
+            "duration": 1,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.15,
+            "windfallMultiplier": 5.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "AssetManagement"
+            ]
+        },
+        "weight": 0.7,
+        "historicalNote": "GameStop rose from $17 to $483 in 3 weeks. Melvin Capital lost $6.8B. Robinhood halted trading."
+    },
+    {
+        "id": "evt_supply_chain_finance",
+        "title": "Supply Chain Finance Innovation",
+        "description": "Global supply chain disruptions have made working capital management critical. Banks offering dynamic discounting, reverse factoring, and supply chain platforms can capture enormous new fee income from desperate corporates.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2021,
+            "latest": 2025
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                20
+            ],
+            "successProbability": 0.65,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending",
+                "InternationalBanking",
+                "Fintech"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "Greensill Capital collapsed in 2021 with $10B in exposure, but the supply chain finance market grew to $1.8T. HSBC and Citi led the space."
+    },
+    {
+        "id": "evt_inflation_return",
+        "title": "Inflation's Violent Return",
+        "description": "CPI hits 9.1% \u00e2\u20ac\u201d the highest in 40 years. Supply chains are broken, wages are surging, and the Fed is behind the curve. Your fixed-rate loan portfolio is losing real value daily. The era of easy money is ending.",
+        "category": "market",
+        "era": {
+            "earliest": 2022,
+            "latest": 2023
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -15,
+                15
+            ],
+            "successProbability": 0.45,
+            "duration": 2,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk"
+            ],
+            "suffers": [
+                "MortgageLending",
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "US CPI peaked at 9.1% in June 2022. Fed raised rates from 0% to 5.25% in 16 months \u00e2\u20ac\u201d the fastest tightening since Volcker."
+    },
+    {
+        "id": "evt_rate_hike_bloodbath",
+        "title": "Rate Hike Bond Losses",
+        "description": "The Fed's fastest rate hike cycle in 40 years has destroyed bond portfolios. Unrealized losses in bank HTM portfolios exceed $600 billion. If depositors notice and flee, your bank could face an SVB-style run.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2022,
+            "latest": 2024
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -25,
+                10
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "CommercialLending",
+                "TrustAndCustody",
+                "MortgageLending"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "US banks reported $620B in unrealized losses by Q3 2022. SVB, Signature, and First Republic collapsed in 2023 from duration mismatches."
+    },
+    {
+        "id": "evt_sanctions_complexity",
+        "title": "Sanctions Enforcement Crackdown",
+        "description": "Russia's invasion of Ukraine triggers the most complex sanctions regime in history. Banks must screen every transaction against thousands of entities. Compliance failures mean billion-dollar fines. International payments are a minefield.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2022,
+            "latest": 2025
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                -10,
+                5
+            ],
+            "successProbability": 0.55,
+            "duration": 3,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "InternationalBanking",
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Over 12,000 Russia-related sanctions were imposed in 2022. $300B in Russian central bank reserves were frozen. BNP Paribas had paid $8.9B for earlier sanctions violations."
+    },
+    {
+        "id": "evt_svb_bank_run",
+        "title": "SVB Social Media Bank Run",
+        "description": "Silicon Valley Bank collapsed in 48 hours after depositors withdrew $42B via mobile banking, triggered by viral social media panic. The fastest bank run in history. Is your bank next?",
+        "category": "crisis",
+        "era": {
+            "earliest": 2023,
+            "latest": 2024
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -20,
+                15
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "CommercialLending",
+                "AssetManagement"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "SVB had $209B in assets. $42B fled in one day. FDIC seized it in 48 hours. Depositors made whole by government."
+    },
+    {
+        "id": "evt_ai_trading",
+        "title": "AI-Driven Trading Platform",
+        "description": "Machine learning models are outperforming human traders. Banks that invest in AI trading infrastructure now will have a decisive competitive advantage. But the technology is expensive and unproven at scale.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2023,
+            "latest": 2030
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                10,
+                40
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "AssetManagement",
+                "Fintech"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "Renaissance Technologies' Medallion Fund returned 66% annually using quantitative methods. Citadel and Two Sigma followed."
+    },
+    {
+        "id": "evt_regional_bank_panic",
+        "title": "Regional Bank Contagion",
+        "description": "After SVB, depositors are fleeing all regional banks. First Republic, PacWest, and Western Alliance are under siege. The KBW Regional Bank Index has crashed 35%. Are you a survivor or a target?",
+        "category": "crisis",
+        "era": {
+            "earliest": 2023,
+            "latest": 2024
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                25
+            ],
+            "successProbability": 0.4,
+            "duration": 2,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "MortgageLending"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "First Republic lost $100B in deposits and was seized by FDIC, sold to JPMorgan. KBW Regional Bank Index fell 35% in March-May 2023."
+    },
+    {
+        "id": "evt_private_credit_boom",
+        "title": "Private Credit Supercycle",
+        "description": "Banks retreating from leveraged lending have created a void that private credit funds are filling. Your bank can originate and distribute, earning fees without balance sheet risk. Or you can launch your own private credit arm.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2023,
+            "latest": 2028
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                8,
+                30
+            ],
+            "successProbability": 0.6,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "PrivateEquity",
+                "InvestmentBanking",
+                "AssetManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "Private credit AUM grew from $800B in 2020 to $1.7T by 2024. Apollo, Ares, and Blackstone dominated. Banks partnered or competed."
+    },
+    {
+        "id": "evt_commercial_re_crisis",
+        "title": "Commercial Real Estate Reckoning",
+        "description": "Remote work has permanently slashed office demand. Office vacancies hit 20%. $1.5 trillion in commercial real estate loans come due in the next two years. Banks with heavy CRE exposure face a wave of defaults.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2024,
+            "latest": 2027
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -20,
+                10
+            ],
+            "successProbability": 0.4,
+            "duration": 4,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Restructuring"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "MortgageLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "US office vacancy hit 19.6% in Q4 2023, the highest in 30 years. Over $1.5T in CRE loans mature by 2025. Some buildings sell for 50% below peak values."
+    },
+    {
+        "id": "evt_embedded_finance",
+        "title": "Embedded Finance Revolution",
+        "description": "Every tech company is becoming a bank. Apple offers savings accounts, Amazon provides small business loans, Shopify handles payments. Banking is disappearing into platforms. Do you provide the infrastructure or get disintermediated?",
+        "category": "market",
+        "era": {
+            "earliest": 2024,
+            "latest": 2028
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                5,
+                25
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Fintech"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "CreditCards"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "Apple Savings attracted $10B in deposits in 4 months. Embedded finance market projected at $7T by 2030. Goldman's Marcus platform struggled to compete."
+    },
+    {
+        "id": "evt_open_banking",
+        "title": "Open Banking Mandate",
+        "description": "Regulators mandate that banks share customer data with authorized third parties via APIs. Fintechs can now access your customers' transaction data. Your data moat is dissolving. But open banking also enables new product partnerships.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2024,
+            "latest": 2027
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                -5,
+                15
+            ],
+            "successProbability": 0.6,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "Fintech"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "CreditCards"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "The UK's Open Banking launched in 2018, reaching 7 million users by 2023. The CFPB finalized Section 1033 open banking rules in 2024."
+    },
+    {
+        "id": "evt_ai_regulation",
+        "title": "AI Banking Regulation",
+        "description": "Regulators impose strict rules on AI use in credit decisions, trading algorithms, and customer service. Your bank must audit every algorithm for bias, explain every AI decision, and maintain human oversight. Innovation meets bureaucracy.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2025,
+            "latest": 2028
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                -8,
+                5
+            ],
+            "successProbability": 0.65,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "Fintech",
+                "TradingDesk",
+                "CreditCards"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "The EU AI Act (2024) classified credit scoring and algorithmic trading as high-risk. US regulators issued joint guidance on AI in banking in 2025."
+    },
+    {
+        "id": "evt_great_demographic_shift",
+        "title": "Great Wealth Transfer",
+        "description": "Baby Boomers are dying and $84 trillion is transferring to Millennials and Gen Z. These heirs want digital-first, ESG-aligned, low-fee wealth management. Your traditional private banking model is obsolete overnight.",
+        "category": "market",
+        "era": {
+            "earliest": 2025,
+            "latest": 2035
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                25
+            ],
+            "successProbability": 0.6,
+            "duration": 5,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "WealthManagement",
+                "AssetManagement",
+                "Fintech"
+            ],
+            "suffers": [
+                "TrustAndCustody"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "The $84T wealth transfer is the largest in history. 70% of heirs fire their parents' financial advisor. Millennials prefer digital platforms over branch relationships."
+    },
+    {
+        "id": "evt_global_minimum_tax",
+        "title": "Global Minimum Tax Implementation",
+        "description": "The OECD's 15% global minimum corporate tax is now being enforced across 140 countries. Tax arbitrage strategies that saved your international operations billions are suddenly worthless. Offshore booking centers lose their edge.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2025,
+            "latest": 2028
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                -10,
+                3
+            ],
+            "successProbability": 0.65,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.02,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "InternationalBanking",
+                "PrivateEquity"
+            ]
+        },
+        "weight": 0.7,
+        "historicalNote": "137 countries agreed to the OECD Pillar Two framework in 2021. EU implemented it in 2024. Ireland raised its rate from 12.5% to 15%."
+    },
+    {
+        "id": "evt_basel_endgame",
+        "title": "Basel III Endgame",
+        "description": "The final Basel III capital rules are being implemented, requiring significantly higher capital for trading books and operational risk. Your bank needs billions more in reserves. Return on equity will fall unless you restructure aggressively.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2025,
+            "latest": 2028
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                -8,
+                5
+            ],
+            "successProbability": 0.7,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.02,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "InvestmentBanking",
+                "DerivativesDesk"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Basel III Endgame proposed a 19% average capital increase for the 8 largest US banks. Industry lobbying reduced the final increase to approximately 9%."
+    },
+    {
+        "id": "evt_stablecoin_regulation",
+        "title": "Stablecoin Regulatory Framework",
+        "description": "Congress finally passes comprehensive stablecoin legislation, requiring bank-like reserves and licensing. Tether and Circle must comply or exit the US market. Banks can now legally issue their own stablecoins, entering a $200B market.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2025,
+            "latest": 2028
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                25
+            ],
+            "successProbability": 0.6,
+            "duration": 3,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "CryptoCustody",
+                "Fintech",
+                "InternationalBanking"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "Stablecoin market cap reached $160B by 2024. USDT settled $18T in 2023. JPM Coin processed $1B daily in institutional payments."
+    },
+    {
+        "id": "evt_climate_mandates",
+        "title": "Climate Risk Disclosure Mandates",
+        "description": "Regulators now require climate stress testing and mandatory disclosure of financed emissions. Coal and oil lending faces punitive capital charges. Green finance earns preferential treatment. The entire credit model is being rewritten.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2026,
+            "latest": 2030
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                -8,
+                15
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "AssetManagement",
+                "InvestmentBanking"
+            ],
+            "suffers": [
+                "CommercialLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "The SEC finalized climate disclosure rules in 2024. European banks began climate stress testing in 2022. Global green bond issuance reached $500B annually."
+    },
+    {
+        "id": "evt_tokenized_assets",
+        "title": "Tokenized Securities Revolution",
+        "description": "Real-world assets \u00e2\u20ac\u201d stocks, bonds, real estate \u00e2\u20ac\u201d are being tokenized on blockchain. Settlement goes from T+2 to instant. Fractional ownership democratizes investing. Your custody and settlement business must adapt or die.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2026,
+            "latest": 2032
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                8,
+                35
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "CryptoCustody",
+                "TrustAndCustody",
+                "Fintech"
+            ],
+            "suffers": [
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "BlackRock launched a tokenized Treasury fund (BUIDL) in 2024. Boston Consulting Group projected tokenized assets at $16T by 2030."
+    },
+    {
+        "id": "evt_global_payment_war",
+        "title": "Global Payment System Fragmentation",
+        "description": "China's CIPS, India's UPI, and Brazil's PIX are challenging SWIFT's dominance. Real-time payment systems are fracturing the global financial plumbing. Banks must navigate multiple systems or risk losing cross-border flows.",
+        "category": "market",
+        "era": {
+            "earliest": 2026,
+            "latest": 2032
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                -5,
+                20
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "Fintech",
+                "InternationalBanking"
+            ],
+            "suffers": [
+                "TrustAndCustody"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "India's UPI processed 12 billion transactions monthly by 2024. China's CIPS handled $14T in 2023. FedNow launched in the US in 2023."
+    },
+    {
+        "id": "evt_green_bond_supercycle",
+        "title": "Green Bond Supercycle",
+        "description": "Climate transition financing demands $4 trillion annually. Green bonds, sustainability-linked loans, and transition credits are the fastest-growing segment in finance. Banks that build green underwriting capabilities dominate the next decade.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2026,
+            "latest": 2035
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                8,
+                25
+            ],
+            "successProbability": 0.65,
+            "duration": 5,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "InvestmentBanking",
+                "AssetManagement",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 1.0,
+        "historicalNote": "Green bond issuance grew from $50B in 2015 to $575B in 2023. Climate Policy Initiative estimated $4.3T needed annually by 2030 for net-zero."
+    },
+    {
+        "id": "evt_cbdc_launch",
+        "title": "Digital Dollar Launch",
+        "description": "The Federal Reserve launches a Central Bank Digital Currency. Commercial bank deposits could migrate to the Fed's balance sheet, threatening your funding model. But CBDC infrastructure services offer new revenue opportunities.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2027,
+            "latest": 2032
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -10,
+                20
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "Fintech",
+                "CryptoCustody"
+            ],
+            "suffers": [
+                "CommercialLending"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "By 2024, 130 countries representing 98% of global GDP were exploring CBDCs. China's digital yuan pilot reached 260 million users."
+    },
+    {
+        "id": "evt_defi_institutional",
+        "title": "DeFi Goes Institutional",
+        "description": "Decentralized finance protocols are now handling institutional-grade transactions. Permissioned DeFi pools offer 8-12% yields with regulatory compliance. Traditional lending margins look pathetic by comparison. Ignore DeFi at your peril.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2027,
+            "latest": 2033
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                10,
+                45
+            ],
+            "successProbability": 0.45,
+            "duration": 4,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "CryptoCustody",
+                "Fintech",
+                "DerivativesDesk"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "DeFi TVL grew from $1B in 2020 to $170B by 2021, crashed to $40B, then institutional pools began rebuilding. Aave and MakerDAO led permissioned lending."
+    },
+    {
+        "id": "evt_biometric_banking",
+        "title": "Biometric Identity Banking",
+        "description": "Facial recognition, iris scans, and behavioral biometrics replace passwords and PINs entirely. Fraud drops 90% at banks that adopt early. But privacy lawsuits and regulatory pushback could derail the technology.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2027,
+            "latest": 2033
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                20
+            ],
+            "successProbability": 0.6,
+            "duration": 3,
+            "failureLoss": 0.1,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "Fintech",
+                "CreditCards"
+            ],
+            "suffers": []
+        },
+        "weight": 0.7,
+        "historicalNote": "India's Aadhaar biometric system covered 1.4 billion people by 2024. JPMorgan piloted palm-payment in 2023. Mastercard launched biometric checkout globally."
+    },
+    {
+        "id": "evt_deglobalization",
+        "title": "Financial Deglobalization",
+        "description": "US-China tensions split global finance into competing blocs. Cross-border capital flows plummet. Banks must choose between Western and Eastern markets. Dual compliance regimes double costs. The era of one global financial system is over.",
+        "category": "market",
+        "era": {
+            "earliest": 2027,
+            "latest": 2034
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -10,
+                15
+            ],
+            "successProbability": 0.45,
+            "duration": 5,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "InternationalBanking",
+                "TradingDesk"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "US-China bilateral investment fell 90% from 2016-2024. BRICS nations launched alternative payment systems. Foreign holdings of US Treasuries plateaued at $8T."
+    },
+    {
+        "id": "evt_carbon_trading_desk",
+        "title": "Carbon Credit Trading Boom",
+        "description": "Mandatory carbon pricing is now law in the US. Carbon credit markets are exploding. Banks that build carbon trading desks can capture enormous spreads in this volatile new commodity market.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2028,
+            "latest": 2035
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                10,
+                40
+            ],
+            "successProbability": 0.5,
+            "duration": 4,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "DerivativesDesk"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "EU ETS carbon prices rose from 5 EUR in 2017 to 100 EUR by 2023. Global carbon markets exceeded $900B in traded value by 2024."
+    },
+    {
+        "id": "evt_ai_wealth_management",
+        "title": "AI Wealth Advisor Disruption",
+        "description": "AI-powered wealth advisors now match or exceed human performance at a fraction of the cost. High-net-worth clients are demanding AI augmentation. Your expensive army of relationship managers faces obsolescence.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2028,
+            "latest": 2035
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                8,
+                30
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "WealthManagement",
+                "AssetManagement",
+                "Fintech"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "Robo-advisors managed $2.5T by 2025. Vanguard's hybrid human-AI model captured $300B. Goldman's Marcus pivoted to AI-first wealth management."
+    },
+    {
+        "id": "evt_synthetic_fraud_wave",
+        "title": "Synthetic Identity Fraud Epidemic",
+        "description": "Deepfake technology enables industrial-scale synthetic identity fraud. AI-generated faces, voices, and documents bypass KYC checks. Losses from synthetic fraud exceed $50 billion annually. Your fraud detection models are obsolete.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2028,
+            "latest": 2033
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                -15,
+                8
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.18,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "CreditCards",
+                "CommercialLending",
+                "Fintech"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Synthetic identity fraud cost US lenders $6B in 2023 and was growing 100% annually. Deepfake voice attacks tricked a UK energy CEO out of $243K in 2019."
+    },
+    {
+        "id": "evt_banking_platform_war",
+        "title": "Platform Banking Wars",
+        "description": "Banking is becoming a platform business. The winner takes all \u00e2\u20ac\u201d whoever controls the ecosystem captures the data, the customers, and the margins. Apple, Google, and Amazon are your new competitors. Traditional banks must become platforms or become utilities.",
+        "category": "market",
+        "era": {
+            "earliest": 2028,
+            "latest": 2035
+        },
+        "risk": {
+            "riskLevel": 6,
+            "returnRange": [
+                -5,
+                35
+            ],
+            "successProbability": 0.45,
+            "duration": 5,
+            "failureLoss": 0.15,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.0
+        },
+        "affects": {
+            "benefits": [
+                "Fintech"
+            ],
+            "suffers": [
+                "CommercialLending",
+                "CreditCards",
+                "MortgageLending"
+            ]
+        },
+        "weight": 1.0,
+        "historicalNote": "WeChat Pay and Alipay handled $40T in transactions in China by 2023. Apple Pay processed $6T globally. Traditional bank branch visits fell 40% from 2019-24."
+    },
+    {
+        "id": "evt_digital_divide",
+        "title": "Digital Banking Divide",
+        "description": "Regulators crack down on digital-only banking after millions of underserved Americans lose access to financial services. Community Reinvestment Act 2.0 mandates digital inclusion. Banks must invest in accessibility or face penalties.",
+        "category": "regulatory",
+        "era": {
+            "earliest": 2028,
+            "latest": 2032
+        },
+        "risk": {
+            "riskLevel": 3,
+            "returnRange": [
+                -5,
+                8
+            ],
+            "successProbability": 0.7,
+            "duration": 3,
+            "failureLoss": 0.05,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [
+                "CommercialLending"
+            ],
+            "suffers": [
+                "Fintech"
+            ]
+        },
+        "weight": 0.6,
+        "historicalNote": "FDIC reported 4.5% of US households remained unbanked in 2023. Branch closures exceeded 4,000 annually. CRA modernization was finalized in 2024."
+    },
+    {
+        "id": "evt_cyber_war",
+        "title": "State-Sponsored Cyber Attack on Banks",
+        "description": "A coordinated state-sponsored cyber attack targets the SWIFT network and major clearing systems. Several banks are locked out of their systems for days. Customer data is compromised. The cost of cyber defense doubles overnight.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2029,
+            "latest": 2034
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                -25,
+                5
+            ],
+            "successProbability": 0.3,
+            "duration": 2,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.03,
+            "windfallMultiplier": 1.5
+        },
+        "affects": {
+            "benefits": [],
+            "suffers": [
+                "TradingDesk",
+                "InternationalBanking",
+                "Fintech",
+                "CryptoCustody"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "Bangladesh Bank lost $81M via SWIFT hacking in 2016. SolarWinds breach (2020) compromised US Treasury. Global cybercrime costs reached $10.5T annually by 2025."
+    },
+    {
+        "id": "evt_insurance_convergence",
+        "title": "Banking-Insurance Convergence",
+        "description": "Climate catastrophes make traditional insurance unaffordable. Banks step in with parametric insurance products, catastrophe bonds, and embedded coverage. The lines between banking and insurance blur completely.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2029,
+            "latest": 2036
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                8,
+                25
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "DerivativesDesk",
+                "InvestmentBanking",
+                "AssetManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "Insured catastrophe losses hit $140B in 2023. Cat bond issuance reached $16B. State Farm and Allstate exited California homeowners insurance."
+    },
+    {
+        "id": "evt_sovereign_debt_crisis",
+        "title": "Global Sovereign Debt Reckoning",
+        "description": "Global government debt exceeds $100 trillion. Several G20 nations face debt-to-GDP ratios above 150%. Bond markets are demanding risk premiums not seen since the 1990s. A cascade of downgrades threatens the entire fixed-income universe.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2030,
+            "latest": 2036
+        },
+        "risk": {
+            "riskLevel": 9,
+            "returnRange": [
+                -30,
+                25
+            ],
+            "successProbability": 0.35,
+            "duration": 4,
+            "failureLoss": 0.3,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.5
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "Restructuring"
+            ],
+            "suffers": [
+                "InternationalBanking",
+                "TrustAndCustody"
+            ]
+        },
+        "weight": 0.9,
+        "historicalNote": "Global government debt hit $92T by 2024. US debt-to-GDP exceeded 120%. Japan's exceeded 260%. IMF warned of 'fiscal dominance' risk."
+    },
+    {
+        "id": "evt_longevity_finance",
+        "title": "Longevity Economy Finance",
+        "description": "Life expectancy passes 85 in developed nations. Retirement planning horizons extend by decades. Pension funds are chronically underfunded. Banks that develop longevity-linked products \u00e2\u20ac\u201d annuities, reverse mortgages, healthcare trusts \u00e2\u20ac\u201d capture a massive demographic wave.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2030,
+            "latest": 2038
+        },
+        "risk": {
+            "riskLevel": 4,
+            "returnRange": [
+                5,
+                20
+            ],
+            "successProbability": 0.65,
+            "duration": 5,
+            "failureLoss": 0.08,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "WealthManagement",
+                "AssetManagement",
+                "TrustAndCustody"
+            ],
+            "suffers": []
+        },
+        "weight": 0.8,
+        "historicalNote": "US pension underfunding exceeded $4T by 2024. Global population over 65 will reach 1.6 billion by 2050. Japan's centenarian population exceeded 90,000."
+    },
+    {
+        "id": "evt_water_rights_market",
+        "title": "Water Rights Commodity Market",
+        "description": "Water scarcity creates a new commodity market. Water rights futures trade on the CME. Agricultural and industrial borrowers need water-hedging products. Banks that build water-finance expertise own a market that will only grow as the planet heats up.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2030,
+            "latest": 2038
+        },
+        "risk": {
+            "riskLevel": 5,
+            "returnRange": [
+                8,
+                30
+            ],
+            "successProbability": 0.55,
+            "duration": 4,
+            "failureLoss": 0.12,
+            "windfallProbability": 0.08,
+            "windfallMultiplier": 2.5
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "DerivativesDesk",
+                "CommercialLending"
+            ],
+            "suffers": []
+        },
+        "weight": 0.7,
+        "historicalNote": "CME launched Nasdaq Veles California Water Index futures in 2020. By 2024, global water infrastructure investment needs exceeded $1T annually."
+    },
+    {
+        "id": "evt_quantum_threat",
+        "title": "Quantum Computing Encryption Threat",
+        "description": "Quantum computers can now crack RSA-2048 encryption. Every financial transaction, every secure communication, every digital signature is vulnerable. Banks must migrate to post-quantum cryptography immediately or face catastrophic breaches.",
+        "category": "crisis",
+        "era": {
+            "earliest": 2032,
+            "latest": 2037
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                -20,
+                15
+            ],
+            "successProbability": 0.4,
+            "duration": 3,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.05,
+            "windfallMultiplier": 2.0
+        },
+        "affects": {
+            "benefits": [
+                "Fintech"
+            ],
+            "suffers": [
+                "TradingDesk",
+                "CryptoCustody",
+                "InternationalBanking"
+            ]
+        },
+        "weight": 0.8,
+        "historicalNote": "NIST finalized post-quantum cryptography standards in 2024. IBM's quantum roadmap targets 100,000+ qubits by 2033. Migration costs estimated at $50B+ for global banking."
+    },
+    {
+        "id": "evt_space_economy",
+        "title": "Space Economy Financing",
+        "description": "The space economy is projected to reach $1 trillion by 2040. Satellite companies, space tourism, and asteroid mining ventures need financing. The risks are literally astronomical, but the first bank to crack space finance will own a new frontier.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2032,
+            "latest": 2040
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                15,
+                80
+            ],
+            "successProbability": 0.35,
+            "duration": 5,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 4.0
+        },
+        "affects": {
+            "benefits": [
+                "VentureCapital",
+                "InvestmentBanking"
+            ],
+            "suffers": []
+        },
+        "weight": 0.7,
+        "historicalNote": "SpaceX was valued at $180B in 2024. Morgan Stanley projected the space economy at $1T by 2040. Satellite broadband alone was a $30B market."
+    },
+    {
+        "id": "evt_autonomous_finance",
+        "title": "Autonomous Finance Platform",
+        "description": "AI agents can now manage entire banking relationships autonomously \u00e2\u20ac\u201d from credit underwriting to portfolio management to compliance. Banks that deploy autonomous finance will cut costs 60%. But one algorithm error could be catastrophic.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2033,
+            "latest": 2040
+        },
+        "risk": {
+            "riskLevel": 7,
+            "returnRange": [
+                15,
+                50
+            ],
+            "successProbability": 0.45,
+            "duration": 5,
+            "failureLoss": 0.2,
+            "windfallProbability": 0.12,
+            "windfallMultiplier": 3.5
+        },
+        "affects": {
+            "benefits": [
+                "Fintech",
+                "AssetManagement",
+                "WealthManagement"
+            ],
+            "suffers": []
+        },
+        "weight": 0.9,
+        "historicalNote": "By 2025, AI chatbots handled 95% of customer service at leading banks. Robo-advisors managed $2T+ globally. Full autonomous lending trials began in 2028."
+    },
+    {
+        "id": "evt_neural_trading",
+        "title": "Neural-Interface Trading",
+        "description": "Brain-computer interfaces allow traders to execute strategies at the speed of thought. Neuralink-equipped quant teams dominate markets. Banks without neural-interface capabilities cannot compete in latency-sensitive strategies.",
+        "category": "opportunity",
+        "era": {
+            "earliest": 2036,
+            "latest": 2040
+        },
+        "risk": {
+            "riskLevel": 8,
+            "returnRange": [
+                15,
+                60
+            ],
+            "successProbability": 0.4,
+            "duration": 4,
+            "failureLoss": 0.25,
+            "windfallProbability": 0.1,
+            "windfallMultiplier": 3.5
+        },
+        "affects": {
+            "benefits": [
+                "TradingDesk",
+                "DerivativesDesk",
+                "Fintech"
+            ],
+            "suffers": []
+        },
+        "weight": 0.6,
+        "historicalNote": "Neuralink received FDA approval for human trials in 2023. High-frequency trading already operated at nanosecond latency. Neural-interface finance was projected for the mid-2030s."
+    }
+]

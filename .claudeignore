@@ -1,0 +1,39 @@
+# STVG Claude Ignore File
+
+# Unity-generated files and folders
+Technical/Unity/Library/
+Technical/Unity/Temp/
+Technical/Unity/Obj/
+Technical/Unity/Build/
+Technical/Unity/Builds/
+Technical/Unity/Logs/
+Technical/Unity/*.csproj
+Technical/Unity/*.sln
+Technical/Unity/*.user
+Technical/Unity/*.pidb
+Technical/Unity/*.userprefs
+
+# Output builds (large binary files)
+Output/Builds/**/*.exe
+Output/Builds/**/*.app
+Output/Builds/**/*.apk
+Output/Builds/**/*.aab
+Output/Builds/**/*.ipa
+
+# Large assets
+Technical/Assets/**/*.psd
+Technical/Assets/**/*.wav
+Technical/Assets/**/*.mp3
+Technical/Assets/**/*.mov
+Technical/Assets/**/*.mp4
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Keep documentation and source code accessible
+!Technical/Scripts/
+!Technical/Data/
+!Docs/

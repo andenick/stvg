@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Interstate Highway Construction Loan",
+        "description": "The federal government is building 41,000 miles of highways. Construction firms need $50M in credit lines.",
+        "requiredDivision": "CommercialLending",
+        "eraRange": [1956, 1970],
+        "risk": { "riskLevel": 2, "returnRange": [4, 10], "successProbability": 0.90, "duration": 6 },
+        "investmentRequired": 50000000
+    },
+    {
+        "title": "Suburban Housing Development",
+        "description": "Levittown-style developments need mortgage origination for 500 homes.",
+        "requiredDivision": "MortgageLending",
+        "eraRange": [1947, 1965],
+        "risk": { "riskLevel": 2, "returnRange": [5, 12], "successProbability": 0.85, "duration": 4 },
+        "investmentRequired": 25000000
+    },
+    {
+        "title": "War Bond Rollover Program",
+        "description": "Maturing war bonds need to be rolled into treasury securities. Handle $200M in transitions.",
+        "requiredDivision": "TrustAndCustody",
+        "eraRange": [1945, 1955],
+        "risk": { "riskLevel": 1, "returnRange": [2, 5], "successProbability": 0.95, "duration": 2 },
+        "investmentRequired": 10000000
+    },
+    {
+        "title": "Department Store Credit Account",
+        "description": "A major retailer wants a revolving credit program for 100,000 customers.",
+        "requiredDivision": "CreditCards",
+        "eraRange": [1960, 1975],
+        "risk": { "riskLevel": 3, "returnRange": [8, 20], "successProbability": 0.75, "duration": 4 },
+        "investmentRequired": 15000000
+    },
+    {
+        "title": "Marshall Plan Trade Finance",
+        "description": "European reconstruction creates demand for trade finance and letters of credit.",
+        "requiredDivision": "InternationalBanking",
+        "eraRange": [1948, 1955],
+        "risk": { "riskLevel": 3, "returnRange": [6, 15], "successProbability": 0.80, "duration": 3 },
+        "investmentRequired": 30000000
+    }
+]

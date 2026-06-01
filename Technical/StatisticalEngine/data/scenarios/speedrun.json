@@ -1,0 +1,13 @@
+{
+    "id": "speedrun",
+    "name": "Too Big to Fail",
+    "description": "Start in the deregulation era. Race to $2 trillion in assets before the music stops.",
+    "config": {
+        "startYear": 1987,
+        "quartersPerGame": 120
+    },
+    "preset": "normal",
+    "difficulty": "Normal",
+    "estimatedPlaytime": "30 minutes",
+    "highlights": ["Glass-Steagall just repealed", "Derivatives unlocked", "Race to $2T"]
+}

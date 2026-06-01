@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Leveraged Buyout Financing",
+        "description": "A PE firm needs $500M in high-yield debt to acquire a consumer goods company.",
+        "requiredDivision": "InvestmentBanking",
+        "eraRange": [1985, 2007],
+        "risk": { "riskLevel": 8, "returnRange": [15, 50], "successProbability": 0.50, "duration": 4 },
+        "investmentRequired": 500000000
+    },
+    {
+        "title": "Junk Bond Underwriting",
+        "description": "A high-yield bond offering for a leveraged company. Fees are enormous.",
+        "requiredDivision": "InvestmentBanking",
+        "eraRange": [1985, 1995],
+        "risk": { "riskLevel": 7, "returnRange": [20, 60], "successProbability": 0.55, "duration": 2 },
+        "investmentRequired": 200000000
+    },
+    {
+        "title": "S&L Asset Acquisition",
+        "description": "The RTC is selling a failed S&L's loan portfolio. Good assets mixed with toxic waste.",
+        "requiredDivision": "CommercialLending",
+        "eraRange": [1989, 1995],
+        "risk": { "riskLevel": 6, "returnRange": [10, 40], "successProbability": 0.60, "duration": 6 },
+        "investmentRequired": 150000000
+    },
+    {
+        "title": "CDO Structuring Mandate",
+        "description": "Package $1B in mortgage-backed securities into tranched CDOs. Rating agencies are ready.",
+        "requiredDivision": "Securitization",
+        "eraRange": [2000, 2007],
+        "risk": { "riskLevel": 9, "returnRange": [25, 80], "successProbability": 0.45, "duration": 3 },
+        "investmentRequired": 100000000
+    },
+    {
+        "title": "Interest Rate Swap Portfolio",
+        "description": "A corporate client wants $2B notional in interest rate swaps for hedging.",
+        "requiredDivision": "DerivativesDesk",
+        "eraRange": [1990, 2010],
+        "risk": { "riskLevel": 5, "returnRange": [8, 25], "successProbability": 0.70, "duration": 4 },
+        "investmentRequired": 50000000
+    },
+    {
+        "title": "Dot-Com IPO Underwriting",
+        "description": "A hot internet company wants to go public. Expected valuation: $5B.",
+        "requiredDivision": "InvestmentBanking",
+        "eraRange": [1997, 2000],
+        "risk": { "riskLevel": 7, "returnRange": [20, 100], "successProbability": 0.50, "duration": 1 },
+        "investmentRequired": 75000000
+    }
+]

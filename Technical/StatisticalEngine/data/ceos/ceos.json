@@ -1,0 +1,242 @@
+[
+  {
+    "id": "sterling", "name": "Victoria Sterling", "nickname": "The Gambler",
+    "backstory": "Former derivatives trader who made a fortune betting against the housing market. She runs her bank like a hedge fund — aggressive, leveraged, and always looking for the next big trade.",
+    "specialAbilityName": "Double Down",
+    "specialAbilityDesc": "Doubles all division revenue for one quarter. High risk, high reward.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 50e9, "startingReputation": 45.0,
+    "riskMultiplier": 1.3, "revenueMultiplier": 1.2, "visibilityBonus": 0.0, "regulatoryBonus": 0.0,
+    "personality": [0.95, 0.9, 0.0, 0.1, 0.3, 0.4, 0.3, 0.1, 0.2, 1.0, 0.0]
+  },
+  {
+    "id": "webb", "name": "Marcus Webb", "nickname": "The Politician",
+    "backstory": "Career Washington insider who spent 20 years at the Treasury before taking over a major bank. His Rolodex is more valuable than any balance sheet. Regulators trust him — for now.",
+    "specialAbilityName": "Political Cover",
+    "specialAbilityDesc": "Zeroes regulatory crisis probability for one quarter. Your friends in DC make problems disappear.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 100e9, "startingReputation": 60.0,
+    "riskMultiplier": 0.8, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 20.0,
+    "personality": [0.4, 0.5, 0.6, 0.9, 0.4, 0.7, 0.5, 0.5, 0.5, 0.4, 0.5]
+  },
+  {
+    "id": "okonkwo", "name": "Dr. Amara Okonkwo", "nickname": "The Quant",
+    "backstory": "MIT PhD who built the risk models at three different banks before being handed the CEO chair. She sees the numbers others miss — but sometimes the numbers lie.",
+    "specialAbilityName": "Full Spectrum Analysis",
+    "specialAbilityDesc": "Reveals ALL hidden risk across every division for one quarter. Knowledge is power.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 75e9, "startingReputation": 55.0,
+    "riskMultiplier": 1.0, "revenueMultiplier": 1.0, "visibilityBonus": 15.0, "regulatoryBonus": 0.0,
+    "personality": [0.5, 0.5, 0.5, 0.4, 0.8, 0.5, 0.6, 0.5, 0.7, 0.5, 0.6]
+  },
+  {
+    "id": "bancroft", "name": "Russell Bancroft", "nickname": "The Survivor",
+    "backstory": "Third-generation banker who weathered the S&L crisis, the dot-com bust, and 2008. His bank never blows up — but it never leads the league tables either.",
+    "specialAbilityName": "Fortress Balance Sheet",
+    "specialAbilityDesc": "Prevents any crisis from triggering for one quarter. Safety has a price.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 150e9, "startingReputation": 70.0,
+    "riskMultiplier": 0.6, "revenueMultiplier": 0.8, "visibilityBonus": 0.0, "regulatoryBonus": 0.0,
+    "personality": [0.15, 0.2, 0.7, 0.3, 0.5, 0.3, 0.5, 0.4, 0.8, 0.0, 0.9]
+  },
+  {
+    "id": "sullivan", "name": "Grace Sullivan", "nickname": "The Reformer",
+    "backstory": "Former federal prosecutor who took over after a compliance scandal. She's cleaning house from the inside — firing the liars, promoting the honest. The board loves her. The traders don't.",
+    "specialAbilityName": "Truth Serum",
+    "specialAbilityDesc": "Resets all division heads to Honest for one quarter. The truth shall set you free.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 80e9, "startingReputation": 65.0,
+    "riskMultiplier": 1.0, "revenueMultiplier": 1.0, "visibilityBonus": 10.0, "regulatoryBonus": 10.0,
+    "personality": [0.1, 0.0, 1.0, 0.5, 0.4, 0.3, 0.4, 0.1, 1.0, 0.0, 0.7]
+  },
+  {
+    "id": "rockefeller", "name": "David Rockefeller", "nickname": "The Diplomat",
+    "backstory": "Chase Manhattan patriarch who maintained personal relationships with heads of state worldwide. His Rolodex of 100,000 contacts made him more influential as a connector than as a pure banker. Founded the Trilateral Commission and served as an unofficial diplomatic channel throughout the Cold War.",
+    "specialAbilityName": "The Rolodex",
+    "specialAbilityDesc": "Open foreign markets without entry costs for 4 quarters. Gain 20 political capital from diplomatic connections.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 80e9, "startingReputation": 70.0,
+    "riskMultiplier": 0.9, "revenueMultiplier": 0.9, "visibilityBonus": 0.0, "regulatoryBonus": 15.0,
+    "personality": [0.3, 0.4, 0.6, 0.95, 0.5, 0.8, 0.8, 0.4, 0.7, 0.3, 0.9]
+  },
+  {
+    "id": "wriston", "name": "Walter Wriston", "nickname": "The Innovator",
+    "backstory": "Citibank CEO who declared 'countries don't go bankrupt' and drove aggressive sovereign lending to Latin America. Invented the negotiable CD, championed ATMs and interstate banking. His innovations transformed banking, but the 1982 debt crisis nearly destroyed Citibank.",
+    "specialAbilityName": "Sovereign Lending",
+    "specialAbilityDesc": "Unlock developing-country debt markets at 2x yield for 4 quarters. Risk: sovereign default cascade possible.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 60e9, "startingReputation": 50.0,
+    "riskMultiplier": 1.2, "revenueMultiplier": 1.3, "visibilityBonus": 0.0, "regulatoryBonus": 0.0,
+    "personality": [0.7, 0.85, 0.2, 0.4, 0.7, 0.6, 0.6, 0.5, 0.5, 0.7, 0.6]
+  },
+  {
+    "id": "dimon", "name": "Jamie Dimon", "nickname": "The Operator",
+    "backstory": "JPMorgan Chase CEO renowned for risk discipline and operational mastery. Pulled JPMorgan out of subprime CDOs early, then used the 2008 crisis to acquire Bear Stearns and Washington Mutual at distressed prices. His annual shareholder letters became required reading across finance.",
+    "specialAbilityName": "Crisis Acquisitions",
+    "specialAbilityDesc": "During financial panics, acquire failing competitors at 50% discount with government backstops.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 120e9, "startingReputation": 65.0,
+    "riskMultiplier": 0.7, "revenueMultiplier": 1.1, "visibilityBonus": 10.0, "regulatoryBonus": 10.0,
+    "personality": [0.4, 0.6, 0.7, 0.6, 0.9, 0.6, 0.8, 0.6, 0.7, 0.4, 0.8]
+  },
+  {
+    "id": "volcker", "name": "Paul Volcker", "nickname": "The Inflation Fighter",
+    "backstory": "Six-foot-seven Fed Chairman who raised rates to 20% to break 1970s stagflation, deliberately inducing the worst recession since the Depression. Farmers drove tractors onto the Mall in protest. He held firm. Inflation fell from 13.5% to 3.2%, establishing Fed credibility for a generation.",
+    "specialAbilityName": "Shock Therapy",
+    "specialAbilityDesc": "Raise rates to crush inflation — causes 2-quarter recession but 8 quarters of stable low-inflation growth.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 90e9, "startingReputation": 75.0,
+    "riskMultiplier": 0.8, "revenueMultiplier": 0.8, "visibilityBonus": 0.0, "regulatoryBonus": 25.0,
+    "personality": [0.2, 0.1, 0.95, 0.3, 0.8, 0.4, 0.9, 0.2, 0.95, 0.2, 0.95]
+  },
+  {
+    "id": "weill", "name": "Sandy Weill", "nickname": "The Empire Builder",
+    "backstory": "Built Citigroup through relentless acquisition — Travelers, Shearson, Smith Barney, Salomon. The 1998 Travelers-Citicorp merger was technically illegal under Glass-Steagall; he bet the law would change. It did. He later publicly stated Glass-Steagall should be restored, repudiating his life's work.",
+    "specialAbilityName": "Financial Supermarket",
+    "specialAbilityDesc": "Merge with another institution, adding a new division and revenue stream. Complexity penalty rises with each.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 70e9, "startingReputation": 55.0,
+    "riskMultiplier": 1.1, "revenueMultiplier": 1.2, "visibilityBonus": 0.0, "regulatoryBonus": -10.0,
+    "personality": [0.7, 0.85, 0.2, 0.5, 0.5, 0.8, 0.7, 0.4, 0.4, 0.7, 0.5]
+  },
+  {
+    "id": "blankfein", "name": "Lloyd Blankfein", "nickname": "God's Banker",
+    "backstory": "Steered Goldman through 2008 more successfully than any other Wall Street CEO. Converted to bank holding company to access Fed lending. His claim that Goldman was doing 'God's work' became a symbol of Wall Street hubris. The ABACUS scandal epitomized conflicts of interest in the prop-trading model.",
+    "specialAbilityName": "Both Sides of the Trade",
+    "specialAbilityDesc": "Profit from market downturns via proprietary positions against client products. +50% crisis-period revenue. Reputation risk.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 85e9, "startingReputation": 40.0,
+    "riskMultiplier": 1.3, "revenueMultiplier": 1.4, "visibilityBonus": 0.0, "regulatoryBonus": -5.0,
+    "personality": [0.7, 0.8, 0.2, 0.5, 0.7, 0.7, 0.5, 0.5, 0.3, 0.7, 0.4]
+  },
+  {
+    "id": "milken", "name": "Michael Milken", "nickname": "The Junk Bond King",
+    "backstory": "Single-handedly created the high-yield bond market from his X-shaped trading desk in Beverly Hills. Proved below-investment-grade companies could reliably access capital, unlocking leveraged buyouts and hostile takeovers. Indicted on 98 counts, served 22 months. Pardoned in 2020.",
+    "specialAbilityName": "High Yield Revolution",
+    "specialAbilityDesc": "Unlock junk bond market with 2x M&A capability. Growing investigation probability with each use.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 40e9, "startingReputation": 35.0,
+    "riskMultiplier": 1.5, "revenueMultiplier": 1.5, "visibilityBonus": 0.0, "regulatoryBonus": -20.0,
+    "personality": [0.9, 0.9, 0.0, 0.3, 0.8, 0.7, 0.5, 0.4, 0.2, 0.8, 0.3]
+  },
+  {
+    "id": "griffin", "name": "Ken Griffin", "nickname": "The Market Maker",
+    "backstory": "Built Citadel from a Harvard dorm room into the most powerful hedge fund and market-making complex in the world. Citadel Securities handles 25-40% of all US equity volume. During 2008, refused to let investors withdraw — ruthless but ultimately correct as the fund recovered spectacularly.",
+    "specialAbilityName": "Algorithmic Edge",
+    "specialAbilityDesc": "Technology investment compounds returns over time. +5% revenue per tech investment level.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 50e9, "startingReputation": 45.0,
+    "riskMultiplier": 1.2, "revenueMultiplier": 1.3, "visibilityBonus": 5.0, "regulatoryBonus": 0.0,
+    "personality": [0.7, 0.8, 0.3, 0.3, 0.9, 0.5, 0.6, 0.4, 0.5, 0.7, 0.5]
+  },
+  {
+    "id": "warburg", "name": "Siegmund Warburg", "nickname": "The Eurobond Architect",
+    "backstory": "Refugee who fled Nazi Germany and reinvented international finance. In 1963 created the Eurobond market — bonds denominated in dollars but issued outside US jurisdiction. This regulatory arbitrage became the foundation of modern international capital markets, now measured in trillions.",
+    "specialAbilityName": "Offshore Markets",
+    "specialAbilityDesc": "Create instruments that bypass domestic regulation. First-mover advantage in international debt issuance.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 45e9, "startingReputation": 60.0,
+    "riskMultiplier": 0.9, "revenueMultiplier": 1.0, "visibilityBonus": 5.0, "regulatoryBonus": 5.0,
+    "personality": [0.5, 0.5, 0.5, 0.6, 0.7, 0.6, 0.6, 0.6, 0.8, 0.4, 0.8]
+  },
+  {
+    "id": "lamont", "name": "Thomas Lamont", "nickname": "The War Financier",
+    "backstory": "Morgan's chief diplomat-partner who operated at the intersection of finance and geopolitics. Negotiated Allied war loans during WWI, restructured German reparations, arranged loans to Mussolini's Italy. The Nye Committee branded bankers like him 'merchants of death.'",
+    "specialAbilityName": "Sovereign Diplomacy",
+    "specialAbilityDesc": "Issue sovereign war loans with high yield and diplomatic influence. Political backlash risk from war profiteering.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 70e9, "startingReputation": 55.0,
+    "riskMultiplier": 1.1, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 10.0,
+    "personality": [0.5, 0.5, 0.4, 0.8, 0.5, 0.7, 0.7, 0.4, 0.6, 0.5, 0.7]
+  },
+  {
+    "id": "mcnamara", "name": "Robert McNamara", "nickname": "The Technocrat",
+    "backstory": "Systems-analysis devotee who brought quantitative management to World Bank after applying it to Vietnam with catastrophic results. Expanded World Bank lending fivefold with genuine poverty-reduction focus. His emphasis on volume over quality led to poorly designed projects and forced relocations.",
+    "specialAbilityName": "Systems Analysis",
+    "specialAbilityDesc": "Quantitative framework maximizes lending volume and efficiency. Development lending unlocks emerging markets.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 60e9, "startingReputation": 50.0,
+    "riskMultiplier": 0.8, "revenueMultiplier": 0.9, "visibilityBonus": 15.0, "regulatoryBonus": 5.0,
+    "personality": [0.4, 0.5, 0.6, 0.4, 0.9, 0.4, 0.6, 0.3, 0.6, 0.4, 0.7]
+  },
+  {
+    "id": "fuld", "name": "Dick Fuld", "nickname": "The Gorilla",
+    "backstory": "The 'Gorilla of Wall Street' who built Lehman from a post-spin-off afterthought into the fourth-largest US investment bank, then destroyed it. Refused multiple rescue opportunities, believing the government would backstop Lehman as it had Bear Stearns. He was wrong. Lehman's 2008 bankruptcy was the largest in US history.",
+    "specialAbilityName": "Maximum Leverage",
+    "specialAbilityDesc": "Increase leverage beyond normal limits for outsized bull-market returns. No government bailout if it fails. Game over risk.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 30e9, "startingReputation": 40.0,
+    "riskMultiplier": 1.8, "revenueMultiplier": 1.6, "visibilityBonus": -10.0, "regulatoryBonus": -15.0,
+    "personality": [0.95, 0.95, 0.0, 0.2, 0.4, 0.5, 0.6, 0.0, 0.3, 1.0, 0.1]
+  },
+  {
+    "id": "greenspan", "name": "Alan Greenspan", "nickname": "The Maestro",
+    "backstory": "Most powerful central banker in history who became the most repudiated. The 'Greenspan Put' encouraged moral hazard and excessive risk-taking. Blocked derivatives regulation and championed self-regulating markets. In 2008 testimony, admitted finding a 'flaw' in his free-market ideology.",
+    "specialAbilityName": "The Greenspan Put",
+    "specialAbilityDesc": "Suppress market volatility by signaling rate cuts during downturns. Each use inflates the next bubble larger.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 100e9, "startingReputation": 60.0,
+    "riskMultiplier": 0.7, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 20.0,
+    "personality": [0.6, 0.5, 0.1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.4, 0.6, 0.3]
+  },
+  {
+    "id": "rubin", "name": "Robert Rubin", "nickname": "The Probability Man",
+    "backstory": "Goldman arbitrage trader turned Treasury Secretary turned Citigroup board member. Pushed for Glass-Steagall repeal and blocked derivatives regulation, then collected $126M at Citigroup while it loaded up on exactly the risks his deregulatory agenda had unleashed. The perfect synthesis of sophistication and structural conflict of interest.",
+    "specialAbilityName": "Revolving Door",
+    "specialAbilityDesc": "Transition between banking and government roles. Insider regulatory knowledge. Conflict-of-interest risk grows.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 90e9, "startingReputation": 55.0,
+    "riskMultiplier": 1.0, "revenueMultiplier": 1.1, "visibilityBonus": 0.0, "regulatoryBonus": 10.0,
+    "personality": [0.5, 0.5, 0.3, 0.7, 0.8, 0.6, 0.5, 0.5, 0.3, 0.5, 0.4]
+  },
+  {
+    "id": "paulson", "name": "Hank Paulson", "nickname": "The Crisis Manager",
+    "backstory": "Ran Goldman during its most profitable era, then became Treasury Secretary for the worst crisis since the Depression. Orchestrated the $700B TARP bailout, forced nine banks to accept capital injections, and let Lehman fail. Reportedly vomited from stress during crisis weekend negotiations.",
+    "specialAbilityName": "TARP Authority",
+    "specialAbilityDesc": "During systemic crisis, force-inject capital across the banking system. Saves everyone but creates moral hazard.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 110e9, "startingReputation": 60.0,
+    "riskMultiplier": 0.8, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 15.0,
+    "personality": [0.4, 0.5, 0.6, 0.7, 0.6, 0.5, 0.7, 0.5, 0.7, 0.4, 0.6]
+  },
+  {
+    "id": "meriwether", "name": "John Meriwether", "nickname": "The Arbitrageur",
+    "backstory": "Bond arbitrageur who twice proved genius-level strategies can blow up spectacularly. Built Salomon's legendary arb group with future Nobel laureates, then founded LTCM which nearly brought down the global financial system in 1998. Founded JWM Associates, which also blew up in 2008.",
+    "specialAbilityName": "Convergence Trade",
+    "specialAbilityDesc": "Extract near-riskless profits from spread mispricings. Returns scale with leverage. Liquidity evaporation risk.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 35e9, "startingReputation": 45.0,
+    "riskMultiplier": 1.6, "revenueMultiplier": 1.4, "visibilityBonus": 20.0, "regulatoryBonus": -10.0,
+    "personality": [0.8, 0.7, 0.1, 0.2, 0.95, 0.4, 0.4, 0.3, 0.5, 0.8, 0.4]
+  },
+  {
+    "id": "dalio", "name": "Ray Dalio", "nickname": "The Machine",
+    "backstory": "Built the world's largest hedge fund on 'radical transparency' and systematic macro investing. His 'economic machine' framework treats cycles as predictable patterns. Bridgewater's internal culture of mandatory meeting recording and constant peer ratings was either meritocratic genius or cult-like dysfunction.",
+    "specialAbilityName": "Radical Transparency",
+    "specialAbilityDesc": "Early warning of economic regime changes. Risk parity portfolio reduces drawdowns. Breaks down in novel events.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 80e9, "startingReputation": 55.0,
+    "riskMultiplier": 0.9, "revenueMultiplier": 1.0, "visibilityBonus": 15.0, "regulatoryBonus": 0.0,
+    "personality": [0.5, 0.5, 0.5, 0.3, 0.9, 0.4, 0.7, 0.5, 0.7, 0.5, 0.8]
+  },
+  {
+    "id": "born", "name": "Brooksley Born", "nickname": "The Cassandra",
+    "backstory": "CFTC Chair who attempted to regulate OTC derivatives in the late 1990s. Systematically crushed by Greenspan, Rubin, and Summers. The Commodity Futures Modernization Act codified their victory. Nine years later, unregulated CDS and CDOs nearly destroyed the global financial system — exactly as she warned.",
+    "specialAbilityName": "Derivatives Warning",
+    "specialAbilityDesc": "Issue early warning on systemic risks in unregulated markets. If heeded, prevents crisis. If overridden, crisis is 2x worse.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 50e9, "startingReputation": 70.0,
+    "riskMultiplier": 0.6, "revenueMultiplier": 0.7, "visibilityBonus": 20.0, "regulatoryBonus": 30.0,
+    "personality": [0.1, 0.1, 1.0, 0.3, 0.9, 0.3, 0.6, 0.1, 1.0, 0.1, 1.0]
+  },
+  {
+    "id": "warren", "name": "Elizabeth Warren", "nickname": "The People's Champion",
+    "backstory": "Harvard bankruptcy professor who established the Consumer Financial Protection Bureau after 2008. Her research showed middle-class families crushed by predatory lending and hidden fees. Too politically controversial for Obama to appoint as CFPB director, she ran for Senate instead.",
+    "specialAbilityName": "Consumer Protection",
+    "specialAbilityDesc": "Impose compliance costs on predatory products. Clean banks unaffected. Extractive banks face revenue compression.",
+    "specialAbilityCooldown": 4,
+    "startingCapital": 40e9, "startingReputation": 80.0,
+    "riskMultiplier": 0.5, "revenueMultiplier": 0.6, "visibilityBonus": 25.0, "regulatoryBonus": 35.0,
+    "personality": [0.1, 0.1, 0.9, 0.7, 0.7, 0.6, 0.7, 0.3, 1.0, 0.1, 0.9]
+  }
+]
