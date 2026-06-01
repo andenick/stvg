@@ -1,0 +1,58 @@
+{
+    "timing": {
+        "seed": 42,
+        "startYear": 2024,
+        "startQuarter": 1,
+        "quarterDurationDays": 63,
+        "ticksPerSecond": 2.0,
+        "daysPerTick": 1.0,
+        "quartersPerGame": 12
+    },
+    "initialEconomy": {
+        "fedFundsRate": 0.05,
+        "cpiInflation": 0.02,
+        "gdpGrowth": 0.025,
+        "unemployment": 0.04,
+        "vix": 18.0,
+        "treasuryYield10Y": 0.045,
+        "creditSpread": 0.015
+    },
+    "bank": {
+        "startingCapital": 10000000000,
+        "startingEmployees": 50,
+        "startingBranches": 1,
+        "leverageMultiplier": 10.0
+    },
+    "complexity": {
+        "visibilityDecayConstant": 200000000000,
+        "controlDecayConstant": 5000.0,
+        "hiddenRiskGrowthBase": 0.02
+    },
+    "traders": {
+        "pctConservative": 0.40,
+        "pctAnalytical": 0.30,
+        "pctAggressive": 0.20,
+        "pctRogue": 0.10,
+        "dailyTradeProb": 0.10,
+        "kellyFraction": 0.10,
+        "initialTraderCount": 5
+    },
+    "scoring": {
+        "financialWeight": 0.50,
+        "riskWeight": 0.25,
+        "stakeholderWeight": 0.25,
+        "levelUpBase": 100.0,
+        "levelUpExponent": 1.5
+    },
+    "crisis": {
+        "probNormal": 0.05,
+        "probStressed": 0.15,
+        "probCrisis": 0.30,
+        "maxProbability": 0.50
+    },
+    "divisions": {
+        "tradingSalary": 100000,
+        "ibSalary": 80000,
+        "cbSalary": 60000
+    }
+}

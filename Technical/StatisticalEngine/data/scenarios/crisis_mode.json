@@ -1,0 +1,17 @@
+{
+    "id": "crisis_mode",
+    "name": "Survive the Storm",
+    "description": "It's 2007. Your bank is loaded with subprime exposure. The GFC is coming. Can you survive?",
+    "config": {
+        "startYear": 2007,
+        "quartersPerGame": 40
+    },
+    "bank": {
+        "startingCapital": 50000000000,
+        "startingReputation": 70.0
+    },
+    "preset": "hard",
+    "difficulty": "Hard",
+    "estimatedPlaytime": "20 minutes",
+    "highlights": ["Start with subprime exposure", "GFC hits in year 1-2", "Survive or get seized"]
+}

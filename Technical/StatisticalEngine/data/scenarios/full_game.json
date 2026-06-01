@@ -1,0 +1,13 @@
+{
+    "id": "full_game",
+    "name": "The Full Century",
+    "description": "1945-2040. Build a banking dynasty across 95 years of American financial history. The canonical STVG experience.",
+    "config": {
+        "startYear": 1945,
+        "quartersPerGame": 380
+    },
+    "preset": "normal",
+    "difficulty": "Normal",
+    "estimatedPlaytime": "60-90 minutes",
+    "highlights": ["All 7 eras", "Progressive complexity", "AI and climate endgame"]
+}

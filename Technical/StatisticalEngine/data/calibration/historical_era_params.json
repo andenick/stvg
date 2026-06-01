@@ -1,0 +1,103 @@
+{
+    "_source": "Calibrated from Robin/FRED data, Volcker stress scenarios, FailingBanks/JST macrohistory",
+    "_date": "2026-04-03",
+    "_method": "Period mean for mu, autocorrelation for theta, annualized std dev for sigma, historical min/max with 5% buffer for floor/ceiling",
+
+    "post_war": {
+        "initialEconomy": {
+            "fedFundsRate": 0.018, "cpiInflation": 0.022, "gdpGrowth": 0.043,
+            "unemployment": 0.041, "vix": 11.0, "treasuryYield10Y": 0.025, "creditSpread": 0.004
+        },
+        "fedFunds":    { "mu": 0.018, "theta": 0.04,  "sigma": 0.0025, "floor": 0.005, "ceiling": 0.05 },
+        "inflation":   { "mu": 0.022, "theta": 0.08,  "sigma": 0.0020, "floor": -0.02, "ceiling": 0.10 },
+        "gdpGrowth":   { "mu": 0.043, "theta": 0.10,  "sigma": 0.0035, "floor": -0.05, "ceiling": 0.08 },
+        "unemployment":{ "mu": 0.041, "theta": 0.03,  "sigma": 0.0015, "floor": 0.025, "ceiling": 0.07 },
+        "vix":         { "mu": 11.0,  "theta": 0.15,  "sigma": 1.8,    "floor": 8.0,   "ceiling": 30.0 },
+        "treasury10Y": { "mu": 0.025, "theta": 0.04,  "sigma": 0.0018, "floor": 0.01,  "ceiling": 0.04 },
+        "creditSpread":{ "mu": 0.015, "theta": 0.10,  "sigma": 0.002,  "floor": 0.008, "ceiling": 0.05 }
+    },
+
+    "expansion": {
+        "initialEconomy": {
+            "fedFundsRate": 0.035, "cpiInflation": 0.025, "gdpGrowth": 0.038,
+            "unemployment": 0.045, "vix": 13.0, "treasuryYield10Y": 0.042, "creditSpread": 0.006
+        },
+        "fedFunds":    { "mu": 0.045, "theta": 0.05,  "sigma": 0.004,  "floor": 0.01,  "ceiling": 0.10 },
+        "inflation":   { "mu": 0.028, "theta": 0.08,  "sigma": 0.003,  "floor": 0.005, "ceiling": 0.06 },
+        "gdpGrowth":   { "mu": 0.038, "theta": 0.08,  "sigma": 0.004,  "floor": -0.03, "ceiling": 0.07 },
+        "unemployment":{ "mu": 0.045, "theta": 0.03,  "sigma": 0.002,  "floor": 0.03,  "ceiling": 0.07 },
+        "vix":         { "mu": 14.0,  "theta": 0.12,  "sigma": 2.5,    "floor": 8.0,   "ceiling": 35.0 },
+        "treasury10Y": { "mu": 0.045, "theta": 0.05,  "sigma": 0.003,  "floor": 0.03,  "ceiling": 0.07 },
+        "creditSpread":{ "mu": 0.020, "theta": 0.10,  "sigma": 0.003,  "floor": 0.010, "ceiling": 0.06 }
+    },
+
+    "volatility": {
+        "initialEconomy": {
+            "fedFundsRate": 0.065, "cpiInflation": 0.07, "gdpGrowth": 0.022,
+            "unemployment": 0.065, "vix": 20.0, "treasuryYield10Y": 0.075, "creditSpread": 0.015
+        },
+        "fedFunds":    { "mu": 0.085, "theta": 0.04,  "sigma": 0.008,  "floor": 0.03,  "ceiling": 0.20 },
+        "inflation":   { "mu": 0.065, "theta": 0.06,  "sigma": 0.005,  "floor": 0.02,  "ceiling": 0.15 },
+        "gdpGrowth":   { "mu": 0.022, "theta": 0.08,  "sigma": 0.005,  "floor": -0.05, "ceiling": 0.06 },
+        "unemployment":{ "mu": 0.065, "theta": 0.03,  "sigma": 0.003,  "floor": 0.04,  "ceiling": 0.11 },
+        "vix":         { "mu": 20.0,  "theta": 0.10,  "sigma": 4.5,    "floor": 10.0,  "ceiling": 50.0 },
+        "treasury10Y": { "mu": 0.085, "theta": 0.04,  "sigma": 0.005,  "floor": 0.05,  "ceiling": 0.15 },
+        "creditSpread":{ "mu": 0.035, "theta": 0.08,  "sigma": 0.005,  "floor": 0.015, "ceiling": 0.10 }
+    },
+
+    "big_bang": {
+        "initialEconomy": {
+            "fedFundsRate": 0.055, "cpiInflation": 0.035, "gdpGrowth": 0.032,
+            "unemployment": 0.055, "vix": 19.0, "treasuryYield10Y": 0.065, "creditSpread": 0.010
+        },
+        "fedFunds":    { "mu": 0.050, "theta": 0.05,  "sigma": 0.005,  "floor": 0.02,  "ceiling": 0.10 },
+        "inflation":   { "mu": 0.030, "theta": 0.10,  "sigma": 0.003,  "floor": 0.01,  "ceiling": 0.06 },
+        "gdpGrowth":   { "mu": 0.032, "theta": 0.08,  "sigma": 0.004,  "floor": -0.04, "ceiling": 0.06 },
+        "unemployment":{ "mu": 0.055, "theta": 0.03,  "sigma": 0.002,  "floor": 0.035, "ceiling": 0.08 },
+        "vix":         { "mu": 19.0,  "theta": 0.15,  "sigma": 3.5,    "floor": 10.0,  "ceiling": 45.0 },
+        "treasury10Y": { "mu": 0.060, "theta": 0.05,  "sigma": 0.004,  "floor": 0.03,  "ceiling": 0.10 },
+        "creditSpread":{ "mu": 0.025, "theta": 0.10,  "sigma": 0.004,  "floor": 0.010, "ceiling": 0.08 }
+    },
+
+    "shadow": {
+        "initialEconomy": {
+            "fedFundsRate": 0.035, "cpiInflation": 0.025, "gdpGrowth": 0.027,
+            "unemployment": 0.048, "vix": 17.0, "treasuryYield10Y": 0.045, "creditSpread": 0.008
+        },
+        "fedFunds":    { "mu": 0.030, "theta": 0.05,  "sigma": 0.005,  "floor": 0.01,  "ceiling": 0.06 },
+        "inflation":   { "mu": 0.025, "theta": 0.10,  "sigma": 0.003,  "floor": 0.005, "ceiling": 0.05 },
+        "gdpGrowth":   { "mu": 0.027, "theta": 0.08,  "sigma": 0.004,  "floor": -0.04, "ceiling": 0.05 },
+        "unemployment":{ "mu": 0.048, "theta": 0.03,  "sigma": 0.002,  "floor": 0.035, "ceiling": 0.065 },
+        "vix":         { "mu": 17.0,  "theta": 0.15,  "sigma": 3.0,    "floor": 10.0,  "ceiling": 40.0 },
+        "treasury10Y": { "mu": 0.045, "theta": 0.05,  "sigma": 0.003,  "floor": 0.03,  "ceiling": 0.06 },
+        "creditSpread":{ "mu": 0.020, "theta": 0.10,  "sigma": 0.003,  "floor": 0.008, "ceiling": 0.06 }
+    },
+
+    "reform": {
+        "initialEconomy": {
+            "fedFundsRate": 0.002, "cpiInflation": 0.015, "gdpGrowth": 0.020,
+            "unemployment": 0.080, "vix": 28.0, "treasuryYield10Y": 0.025, "creditSpread": 0.020
+        },
+        "fedFunds":    { "mu": 0.005, "theta": 0.05,  "sigma": 0.003,  "floor": 0.0,   "ceiling": 0.03 },
+        "inflation":   { "mu": 0.018, "theta": 0.10,  "sigma": 0.002,  "floor": -0.01, "ceiling": 0.04 },
+        "gdpGrowth":   { "mu": 0.022, "theta": 0.08,  "sigma": 0.004,  "floor": -0.10, "ceiling": 0.05 },
+        "unemployment":{ "mu": 0.060, "theta": 0.02,  "sigma": 0.003,  "floor": 0.035, "ceiling": 0.10 },
+        "vix":         { "mu": 20.0,  "theta": 0.12,  "sigma": 4.0,    "floor": 10.0,  "ceiling": 80.0 },
+        "treasury10Y": { "mu": 0.022, "theta": 0.05,  "sigma": 0.003,  "floor": 0.005, "ceiling": 0.035 },
+        "creditSpread":{ "mu": 0.040, "theta": 0.08,  "sigma": 0.005,  "floor": 0.015, "ceiling": 0.15 }
+    },
+
+    "modern": {
+        "initialEconomy": {
+            "fedFundsRate": 0.002, "cpiInflation": 0.035, "gdpGrowth": 0.020,
+            "unemployment": 0.040, "vix": 22.0, "treasuryYield10Y": 0.035, "creditSpread": 0.012
+        },
+        "fedFunds":    { "mu": 0.040, "theta": 0.05,  "sigma": 0.005,  "floor": 0.0,   "ceiling": 0.06 },
+        "inflation":   { "mu": 0.035, "theta": 0.08,  "sigma": 0.004,  "floor": 0.01,  "ceiling": 0.09 },
+        "gdpGrowth":   { "mu": 0.020, "theta": 0.08,  "sigma": 0.004,  "floor": -0.10, "ceiling": 0.06 },
+        "unemployment":{ "mu": 0.042, "theta": 0.03,  "sigma": 0.002,  "floor": 0.03,  "ceiling": 0.15 },
+        "vix":         { "mu": 22.0,  "theta": 0.12,  "sigma": 4.0,    "floor": 10.0,  "ceiling": 80.0 },
+        "treasury10Y": { "mu": 0.040, "theta": 0.05,  "sigma": 0.004,  "floor": 0.005, "ceiling": 0.06 },
+        "creditSpread":{ "mu": 0.030, "theta": 0.10,  "sigma": 0.004,  "floor": 0.010, "ceiling": 0.08 }
+    }
+}

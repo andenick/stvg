@@ -1,0 +1,18 @@
+{
+    "id": "tutorial",
+    "name": "Banking 101",
+    "description": "Learn the basics with a simple bank in the calm 1950s. Low risk, steady growth.",
+    "config": {
+        "startYear": 1950,
+        "quartersPerGame": 40,
+        "seed": 42
+    },
+    "bank": {
+        "startingCapital": 15000000000,
+        "startingReputation": 60.0
+    },
+    "preset": "easy",
+    "difficulty": "Easy",
+    "estimatedPlaytime": "15 minutes",
+    "highlights": ["Simple commercial banking", "Post-war stability", "No crises"]
+}

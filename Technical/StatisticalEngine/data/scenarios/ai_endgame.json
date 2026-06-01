@@ -1,0 +1,17 @@
+{
+    "id": "ai_endgame",
+    "name": "The Singularity Question",
+    "description": "2025. AI is coming for banking. Invest, regulate, partner, or resist. The future of finance is at stake.",
+    "config": {
+        "startYear": 2025,
+        "quartersPerGame": 60
+    },
+    "bank": {
+        "startingCapital": 100000000000,
+        "startingReputation": 75.0
+    },
+    "preset": "hard",
+    "difficulty": "Hard",
+    "estimatedPlaytime": "25 minutes",
+    "highlights": ["AI CEO emerges mid-game", "Climate tipping points", "Political lobbying critical"]
+}

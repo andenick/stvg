@@ -1,0 +1,303 @@
+/*
+ * STVG Svelte frontend - global CSS.
+ *
+ * Architecture: a single :root with default tokens (post-war / 1945-59), then
+ * [data-era="..."] selectors on the <main> root override the same tokens for
+ * later eras. Per the rebuild plan, the era taxonomy uses the canonical names
+ * emitted by EraEngine.h. Layout density, palette, fonts, and texture all
+ * shift on era transitions with a 1-second easing.
+ */
+
+:root {
+  /* Type system */
+  --font-display: 'Playfair Display', 'IBM Plex Mono', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-data: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  --font-chrome: 'IBM Plex Mono', monospace;
+
+  --fs-xs: 0.7rem;
+  --fs-sm: 0.85rem;
+  --fs-base: 0.95rem;
+  --fs-md: 1.1rem;
+  --fs-lg: 1.4rem;
+  --fs-xl: 2rem;
+  --fs-xxl: 3.5rem;
+
+  /* Era-default palette (Post-War Stability: 1945-1959) */
+  --bg-base: #0d0b08;
+  --bg-card: #16120c;
+  --bg-elevated: #1f1810;
+  --bg-texture: none;
+  --border: #2a2218;
+  --border-soft: #1c1610;
+
+  --fg-primary: #d4c5a0;
+  --fg-secondary: #9a8d70;
+  --fg-muted: #5a5040;
+  --fg-data: #c4a35a;
+
+  --accent-primary: #c4a35a;     /* warm gold */
+  --accent-secondary: #8a6e3a;
+  --accent-success: #6b8e4e;
+  --accent-warning: #c4892b;
+  --accent-danger: #a8453a;
+
+  /* Layout */
+  --layout-mode: minimal;        /* minimal | light | medium | full | dense */
+  --layout-columns: 1;
+  --card-radius: 2px;
+  --gap-sm: 0.5rem;
+  --gap-md: 1rem;
+  --gap-lg: 2rem;
+
+  /* Motion */
+  --t-fast: 150ms;
+  --t-med: 300ms;
+  --t-slow: 1000ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  color-scheme: dark;
+}
+
+/* ── Era overrides ──────────────────────────────────────────────────────── */
+
+[data-era='post-war'],
+[data-era='Post-War Stability'] {
+  /* defaults above already cover this era */
+  --layout-mode: minimal;
+  --layout-columns: 1;
+  --card-radius: 2px;
+}
+
+[data-era='expansion'],
+[data-era='Expansion & Innovation'] {
+  --bg-base: #0a1410;
+  --bg-card: #102019;
+  --bg-elevated: #16291f;
+  --border: #1d3a2e;
+  --fg-primary: #d4ede0;
+  --fg-secondary: #8aaa9c;
+  --fg-muted: #4a665c;
+  --accent-primary: #2dd4bf;
+  --accent-secondary: #d97441;
+  --font-display: 'Inter', sans-serif;
+  --layout-mode: light;
+  --card-radius: 4px;
+}
+
+[data-era='volatility'],
+[data-era='Volatility & Deregulation'] {
+  --bg-base: #14100a;
+  --bg-card: #1f1810;
+  --bg-elevated: #2a2018;
+  --border: #3a2818;
+  --fg-primary: #e8d4b8;
+  --fg-secondary: #b08a60;
+  --accent-primary: #f97316;
+  --accent-secondary: #b05a25;
+  --accent-danger: #c14040;
+  --layout-mode: medium;
+  --layout-columns: 2;
+  --card-radius: 3px;
+}
+
+[data-era='big-bang'],
+[data-era='Big Bang & Excess'] {
+  --bg-base: #07101f;
+  --bg-card: #0e1a2e;
+  --bg-elevated: #14233c;
+  --border: #1f3458;
+  --fg-primary: #d4e0f0;
+  --fg-secondary: #8aa0c0;
+  --fg-data: #ffd166;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #ffd166;
+  --layout-mode: full;
+  --layout-columns: 2;
+  --card-radius: 4px;
+}
+
+[data-era='shadow'],
+[data-era='Shadow Banking & Hubris'] {
+  --bg-base: #050a05;
+  --bg-card: #0a140a;
+  --bg-elevated: #102010;
+  --border: #1a2a1a;
+  --fg-primary: #c0e8c0;
+  --fg-secondary: #6aa66a;
+  --fg-data: #50ff80;
+  --accent-primary: #22c55e;
+  --accent-secondary: #8090a0;
+  --accent-danger: #ff4040;
+  --font-body: 'Inter', sans-serif;
+  --layout-mode: dense;
+  --layout-columns: 2;
+  --card-radius: 2px;
+}
+
+[data-era='crisis'],
+[data-era='Crisis & Reform'] {
+  --bg-base: #0a0505;
+  --bg-card: #1a0e0e;
+  --bg-elevated: #261414;
+  --border: #3a1c1c;
+  --fg-primary: #e8c8c8;
+  --fg-secondary: #b08080;
+  --accent-primary: #ef4444;
+  --accent-secondary: #8090a0;
+  --accent-warning: #f59e0b;
+  --layout-mode: dense;
+  --layout-columns: 2;
+  --card-radius: 2px;
+}
+
+[data-era='modern'],
+[data-era='Modern & Endgame'] {
+  --bg-base: #08050f;
+  --bg-card: #120a1e;
+  --bg-elevated: #1c1030;
+  --border: #2a1850;
+  --fg-primary: #e0d4ff;
+  --fg-secondary: #a090d0;
+  --fg-data: #50f0ff;
+  --accent-primary: #a855f7;
+  --accent-secondary: #50f0ff;
+  --accent-warning: #fbbf24;
+  --layout-mode: dense;
+  --layout-columns: 2;
+  --card-radius: 6px;
+}
+
+/* ── Global resets / base ───────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--fg-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Era transitions: the slow ~1s easing IS the "shifting world" feel. */
+  transition:
+    background var(--t-slow) var(--ease),
+    color var(--t-slow) var(--ease);
+}
+
+/*
+ * Era-keyed background body texture. Set on <html> when data-era changes
+ * via App.svelte. The texture is subtle by design — paper/ledger feel in
+ * the 1950s, holographic in the 2030s.
+ */
+html[data-era='post-war'],
+html[data-era='Post-War Stability'] {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(196, 163, 90, 0.015) 0,
+      rgba(196, 163, 90, 0.015) 1px,
+      transparent 1px,
+      transparent 26px
+    );
+}
+html[data-era='shadow'],
+html[data-era='Shadow Banking & Hubris'] {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(80, 255, 128, 0.02) 0,
+      rgba(80, 255, 128, 0.02) 1px,
+      transparent 1px,
+      transparent 60px
+    );
+}
+html[data-era='modern'],
+html[data-era='Modern & Endgame'] {
+  background-image:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(168, 85, 247, 0.05) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 70% 80%,
+      rgba(80, 240, 255, 0.04) 0%,
+      transparent 50%
+    );
+}
+
+button {
+  font-family: var(--font-chrome);
+  background: transparent;
+  color: var(--fg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition:
+    background var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease);
+}
+button:hover:not(:disabled) {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+}
+button:active:not(:disabled) { transform: scale(0.97); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+a { color: var(--accent-primary); text-decoration: none; }
+
+/* Number / data formatting helper */
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+
+/* ── Keyframes shared across overlays / panels ──────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes titleFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  20%      { transform: translate(-4px, 2px); }
+  40%      { transform: translate(4px, -2px); }
+  60%      { transform: translate(-3px, -1px); }
+  80%      { transform: translate(3px, 1px); }
+}
+@keyframes crisisFlash {
+  0%   { background-color: rgba(220, 38, 38, 0.45); }
+  100% { background-color: transparent; }
+}
+@keyframes simPulse {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 var(--accent-success); }
+  50%      { opacity: 1;   box-shadow: 0 0 0 4px rgba(107, 142, 78, 0); }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

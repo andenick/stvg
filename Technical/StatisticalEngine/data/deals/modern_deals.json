@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Fintech Partnership",
+        "description": "A mobile payments startup wants your bank's charter and deposit base. Revenue share deal.",
+        "requiredDivision": "Fintech",
+        "eraRange": [2015, 2035],
+        "risk": { "riskLevel": 5, "returnRange": [10, 30], "successProbability": 0.60, "duration": 4 },
+        "investmentRequired": 100000000
+    },
+    {
+        "title": "Crypto Custody Onboarding",
+        "description": "A sovereign wealth fund wants $5B in Bitcoin custody. Regulatory approval needed.",
+        "requiredDivision": "CryptoCustody",
+        "eraRange": [2020, 2035],
+        "risk": { "riskLevel": 6, "returnRange": [5, 40], "successProbability": 0.55, "duration": 2 },
+        "investmentRequired": 50000000
+    },
+    {
+        "title": "ESG Green Bond Issuance",
+        "description": "Structure and sell $2B in green bonds for renewable energy infrastructure.",
+        "requiredDivision": "InvestmentBanking",
+        "eraRange": [2020, 2040],
+        "risk": { "riskLevel": 3, "returnRange": [5, 15], "successProbability": 0.80, "duration": 3 },
+        "investmentRequired": 40000000
+    },
+    {
+        "title": "SPAC Underwriting",
+        "description": "A blank-check company wants to raise $1B. Fees are 5.5%.",
+        "requiredDivision": "InvestmentBanking",
+        "eraRange": [2020, 2022],
+        "risk": { "riskLevel": 6, "returnRange": [15, 55], "successProbability": 0.55, "duration": 2 },
+        "investmentRequired": 30000000
+    },
+    {
+        "title": "AI Trading Infrastructure",
+        "description": "Build proprietary ML-driven trading systems. $200M investment, potential 3x edge.",
+        "requiredDivision": "TradingDesk",
+        "eraRange": [2023, 2040],
+        "risk": { "riskLevel": 7, "returnRange": [10, 50], "successProbability": 0.50, "duration": 6 },
+        "investmentRequired": 200000000
+    },
+    {
+        "title": "Private Credit Direct Lending",
+        "description": "Bypass public markets — lend directly to mid-market companies at 12% yields.",
+        "requiredDivision": "PrivateEquity",
+        "eraRange": [2018, 2035],
+        "risk": { "riskLevel": 5, "returnRange": [8, 20], "successProbability": 0.65, "duration": 4 },
+        "investmentRequired": 300000000
+    }
+]
