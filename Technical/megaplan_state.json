@@ -7,7 +7,26 @@
     "tests": "build\\Debug\\stvg_tests.exe --gtest_brief=1 (442+ green)",
     "frontend": "cd frontend && npm run build (includes svelte-check)",
     "autoplay": "build\\Debug\\stvg_autoplay.exe --quick-matrix --parallel",
-    "screenshots": "Technical/_playtest/shoot_live.js -> shots/<batch>/"
+    "screenshots": "Technical/_playtest/harness/shoot_live.js -> shots/<batch>/"
+  },
+  "ready_for_play": {
+    "plan": "Technical/Plans/READY_FOR_PLAY_PLAN.md",
+    "started": "2026-06-12",
+    "w0": {"status": "done", "note": "git checkpoint commit on STVG repo (131 files) post-STAR_02, pre-cleanup"},
+    "batches": [
+      {"id": "RB2", "items": [
+        {"id": "W1", "title": "Artifact hygiene", "status": "done", "gate": "_playtest: harness/+archive_probes/+package.json(puppeteer-core 25.1.0)+README; telemetry/ emptied (32 sessions archived); 5 plan status headers; npm install no-op; fresh cmake configure exit 0 (needs Python3 on PATH); 2 logs skimmed (nothing un-actioned) + deleted"},
+        {"id": "W2", "title": "Documentation truth pass", "status": "done", "gate": "README/.claude-instructions/ARCHITECTURE/FILE_CATALOG(partial,honest)/PROJECT_HISTORY(Phase 22)/Stars index — all derived: 505 tests, 59 headers, 40 routes, 42 telemetry types, 38 components, 8+33 archetypes, cast 12+17"},
+        {"id": "W3", "title": "Archetype single-source", "status": "done", "gate": "Option 1: GET /api/archetypes (cached, verbatim JSON incl. new color field); mirrors reduced to data-free accessors over fetched store; hydrate in TitleScreen begin+continue; 19/19 targeted tests; svelte-check 0/0 (178 files); live probe verified (shots/w3/)"}
+      ]},
+      {"id": "RB3", "items": [
+        {"id": "W4_W5", "title": "Full functional verification sweep + small fixes", "status": "done", "gate": "W5: decisionPause + Economy Rev/Profit chips + memo-overlap + name-flash + health pill, all screenshot-verified. W4: suite 505 (504/1/0) exit 0; verify_api 23/23; verify_ready 18/18, 0 pageerror; 32 telemetry types; 8x stability heap +9.9MB; quick-matrix 36/36; evidence shots/ready/. FILED: save/load dead wrappers [LOW]"}
+      ]},
+      {"id": "RB4", "items": [
+        {"id": "W6_W7", "title": "Play kit + close-out", "status": "done", "gate": "play.ps1 (pwsh-shim, -NoBrowser/-SanityExit, ASCII-only after 5.1 encoding bug) + analyze.ps1 + START_PLAYING.md, sanity-verified under pwsh AND 5.1; HANDOFF_20260612_151034.md; PROGRESS_LOG; final commit", "vehicle": "inline"}
+      ]}
+    ],
+    "status_line": "READY FOR PLAY (2026-06-12)"
   },
   "backlog": [
     {"id": "LEVERAGE_SPIRAL", "title": "Pre-existing leverage death-spiral: 9/12 autoplay bots die Q304 liquidity_crisis at 19.4x leverage (archetype-independent, confirmed via P5 A/B). Needs a dedicated leverage/deleveraging balance pass.", "found": "P5 rebalance gate"},

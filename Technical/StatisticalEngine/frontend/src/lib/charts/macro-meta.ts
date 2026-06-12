@@ -17,7 +17,8 @@ export type MacroId =
   | 'SPREAD'      // credit spread (decimal)
   | 'TREAS10Y'    // 10Y treasury yield (decimal) — chip only
   | 'GDPGROWTH'   // real GDP growth (decimal) — derived, chip only
-  | 'ECONREV';    // economy-wide revenue/profit — placeholder, no data yet
+  | 'ECONREV'     // economy-wide revenue index (engine econ.economyRevenue)
+  | 'ECONPROFIT'; // economy-wide profit index (engine econ.economyProfit)
 
 /** Axis/value formatting per series. */
 export type MacroFormat = 'percent' | 'index';
@@ -34,8 +35,8 @@ export interface MacroMeta {
    *   'chip'   — present but unpromoted; only in the expanded chip row (Inflation,
    *              10Y, GDP growth — owner: "maybe too complicated").
    *   'market' — a market-adjacent chip (credit spread).
-   *   'soon'   — disabled "coming soon" placeholder (economy revenue/profit; the
-   *              engine doesn't expose economy-wide P&L yet — P5 may add it).
+   *   'soon'   — disabled "coming soon" placeholder (none active; the engine now
+   *              streams economy-wide P&L, so Economy P&L is a real chip).
    */
   placement: 'strip' | 'chip' | 'market' | 'soon';
   /** Disabled placeholder — render greyed-out, never charts (no faked data). */
@@ -107,20 +108,30 @@ const META: Record<MacroId, MacroMeta> = {
     placement: 'chip',
   },
   ECONREV: {
-    label: 'Economy P&L',
+    label: 'Economy Revenue',
     blurb:
-      'Economy-wide revenue and profit — the aggregate earnings power of the whole banking sector. ' +
-      'Coming soon: the engine doesn’t expose sector P&L yet.',
+      "The whole economy's nominal activity — the top line everyone is competing for. It's an index " +
+      '(100 in 1945) that climbs with output and prices. When it stalls, the lending pie stops growing ' +
+      'and every bank fights harder for the same business.',
     format: 'index',
     unlockPhase: 2,
-    placement: 'soon',
-    comingSoon: true,
+    placement: 'chip',
+  },
+  ECONPROFIT: {
+    label: 'Economy Profit',
+    blurb:
+      "Profit across the economy after the squeeze of costs — revenue times the corporate margin. " +
+      'Margins fatten in booms and compress when credit gets dear, so this leads loan demand: fat ' +
+      'profits mean confident borrowers; a profit slump is the early tell that defaults are coming.',
+    format: 'index',
+    unlockPhase: 2,
+    placement: 'chip',
   },
 };
 
-/** All real (data-backed) macro ids in display order. ECONREV excluded (no data). */
+/** All real (data-backed) macro ids in display order. */
 export const MACRO_IDS: readonly MacroId[] = [
-  'GDP', 'UNEMP', 'FEDFUNDS', 'CPI', 'SPREAD', 'TREAS10Y', 'GDPGROWTH',
+  'GDP', 'UNEMP', 'FEDFUNDS', 'CPI', 'SPREAD', 'TREAS10Y', 'GDPGROWTH', 'ECONREV', 'ECONPROFIT',
 ];
 
 /** The default macro strip (always-visible, promotable to hero). */

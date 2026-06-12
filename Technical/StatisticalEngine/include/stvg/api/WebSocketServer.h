@@ -163,6 +163,23 @@ private:
         return ss.str();
     }
 
+    // Lazily read + cache the canonical archetype roster. The file is static
+    // (the same one ArchetypeRegistry loads), so read it once. Tries the same
+    // candidate paths ArchetypeRegistry::load() uses so the route works whether
+    // the server is launched from the project root or from build/.
+    const std::string& archetypesJson() const {
+        static const std::string cached = [this]() -> std::string {
+            for (const auto* path : {"data/archetypes/archetypes.json",
+                                     "../data/archetypes/archetypes.json",
+                                     "static/../data/archetypes/archetypes.json"}) {
+                std::string s = readFile(path);
+                if (!s.empty()) return s;
+            }
+            return std::string();
+        }();
+        return cached;
+    }
+
     void setupRoutes() {
         // ── Static files: serve index.html at root ────────────────
         CROW_ROUTE(app_, "/")
@@ -229,6 +246,25 @@ private:
         ([this]() {
             std::lock_guard lock(gameMtx_);
             return jsonOk({{"status", "ok"}, {"games", games_.size()}});
+        });
+
+        // ── Canonical archetype roster (W3 — single source of truth) ──
+        // Serves data/archetypes/archetypes.json verbatim (the SAME file
+        // ArchetypeRegistry loads engine-side) so the frontend has ONE source
+        // for family credibilityTendency/voiceFlavor/portraitDescriptor/color +
+        // specialization displayName/era/statHi. The file is static, so the
+        // string is read once and cached (mirrors the static staticDir_ assets).
+        // NOT wrapped in the {success,data} envelope — it returns the raw JSON
+        // document so the client can hand it straight to its registry hydrator.
+        CROW_ROUTE(app_, "/api/archetypes").methods(crow::HTTPMethod::GET)
+        ([this]() {
+            const std::string& body = archetypesJson();
+            if (body.empty()) return jsonError(404, "archetypes.json not found");
+            auto resp = crow::response(200, body);
+            resp.add_header("Content-Type", "application/json");
+            resp.add_header("Access-Control-Allow-Origin", "*");
+            resp.add_header("Cache-Control", "public, max-age=3600");
+            return resp;
         });
 
         // ── List available CEOs ────────────────────────────────────

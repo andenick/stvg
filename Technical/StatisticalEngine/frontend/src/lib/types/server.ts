@@ -459,6 +459,10 @@ export interface EconTick {
   fedFundsRate: number;   // decimal (0.05 = 5%)
   cpiInflation: number;   // decimal (0.02 = 2%)
   creditSpread: number;   // decimal (0.015 = 1.5%)
+  // STAR_02 P5 §5 economy-wide P&L (v1 proxy): revenue = gdpLevel,
+  // profit = gdpLevel · margin. Both index values (base ~100/~10 at 1945).
+  economyRevenue?: number;
+  economyProfit?: number;
 }
 
 /**
@@ -477,6 +481,9 @@ export interface EconomicIndicators {
   creditSpread: number;
   gdpLevel: number;
   creditImpulse: number;
+  // STAR_02 P5 §5 economy-wide P&L (v1 proxy), serialized into macro-history.
+  economyRevenue?: number;
+  economyProfit?: number;
 }
 
 /** One per-quarter macro snapshot from the macro-history endpoint. */

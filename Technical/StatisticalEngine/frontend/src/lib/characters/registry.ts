@@ -141,13 +141,25 @@ export function credibilityFor(gameId: string | null, npcId: string, tendency: n
   return value;
 }
 
-/** Build a full Npc record (banker cast) with credibility prior + portrait seed. */
+/**
+ * Build a full Npc record (banker cast) with credibility prior + portrait seed.
+ *
+ * `credibilityTendency` is a LAZY getter that reads the live family store at
+ * use-time, not at module-init. The canonical roster is fetched asynchronously
+ * (hydrateArchetypes) during bootstrap, so REGISTRY is constructed before the
+ * families are populated; baking the value here would freeze it at the 0.5
+ * fallback. A getter defers the read until the pitch/credibility code runs,
+ * by which point the roster is hydrated.
+ */
 function bankerNpc(base: Omit<Npc, 'credibilityTendency' | 'portraitSeed' | 'kind'>): Npc {
-  const fam = base.family ? FAMILIES[base.family] : null;
+  const family = base.family;
   return {
     ...base,
     kind: 'banker',
-    credibilityTendency: fam?.credibilityTendency ?? 0.5,
+    get credibilityTendency(): number {
+      const fam = family ? FAMILIES[family] : null;
+      return fam?.credibilityTendency ?? 0.5;
+    },
     portraitSeed: base.id,
   };
 }

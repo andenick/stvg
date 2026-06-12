@@ -1,0 +1,16 @@
+{"schema":2,"type":"meta"}
+{"data":{"capital":0,"day":0,"paused":true,"quarter":1,"sessionId":"smqb27ug633kt","speed":1,"startedAt":"2026-06-12T15:06:44.082Z","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0","year":1945},"t":13,"type":"session_start"}
+{"data":{"capital":1000000,"ceoId":null,"day":0,"paused":true,"quarter":1,"scenario":"default","speed":1,"startingPosition":"commercial_bank","year":1945},"t":1297,"type":"game_start"}
+{"data":{"capital":1000000,"cheapestSalary":108200,"day":0,"paused":true,"quarter":1,"speed":1,"year":1945},"t":1715,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":36336.02126103116,"capital":1000000,"day":0,"id":"deal_1","paused":true,"quarter":1,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":1715,"type":"deal_arrived"}
+{"data":{"capital":1000000,"day":0,"id":"evt_59","paused":true,"quarter":1,"speed":1,"title":"Product Innovation Pressure","year":1945},"t":1754,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_26","paused":true,"quarter":1,"speed":1,"title":"New Product Launch Decision","year":1945},"t":1754,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_48","paused":true,"quarter":1,"speed":1,"title":"Star Analyst Publishes Report","year":1945},"t":1754,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_1","paused":true,"quarter":1,"speed":1,"title":"Fed Rate Decision Pending","year":1945},"t":1754,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_ve_day_conversion","paused":true,"quarter":1,"speed":1,"title":"War-to-Peace Industrial Conversion","year":1945},"t":1754,"type":"news"}
+{"data":{"capital":1000000,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":1,"speed":1,"trigger":"advisor","year":1945},"t":1755,"type":"portrait_shown"}
+{"data":{"capital":1000000,"day":1,"id":"UNEMP","key":"macro:UNEMP","paused":false,"quarter":1,"speed":1,"year":1945},"t":4899,"type":"hover"}
+{"data":{"capital":1000000,"day":1,"from":"economy","paused":false,"quarter":1,"speed":1,"to":"hire","year":1945},"t":5199,"type":"tab_switch"}
+{"data":{"capital":1000000,"day":1,"key":"tab:economy","ms":3845,"paused":false,"quarter":1,"speed":1,"year":1945},"t":5209,"type":"dwell"}
+{"data":{"archetype":"operator","capital":1000000,"day":7,"id":"emp_10","key":"candidate:emp_10","paused":false,"quarter":1,"speed":1,"year":1945},"t":7934,"type":"hover"}
+{"data":{"capital":1000000,"day":7,"id":"emp_10","paused":false,"quarter":1,"specializationId":"wartime_operator","speed":1,"year":1945},"t":7935,"type":"hire_detail_open"}

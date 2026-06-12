@@ -1,9 +1,0 @@
-{"data":{"ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36"},"t":6,"type":"session_start"}
-{"data":{"paused":false,"quarter":1,"year":1945},"t":3493,"type":"sim_toggle"}
-{"data":{"amount":36336.02126103116,"id":"deal_1","title":"Struggling Regional Bank"},"t":3591,"type":"deal_arrived"}
-{"data":{"id":"evt_58","title":"International Expansion Opportunity"},"t":3623,"type":"news"}
-{"data":{"id":"evt_25","title":"Acquisition Target Identified"},"t":3623,"type":"news"}
-{"data":{"id":"evt_46","title":"Executive Poaching Attempt"},"t":3623,"type":"news"}
-{"data":{"id":"evt_1","title":"Fed Rate Decision Pending"},"t":3623,"type":"news"}
-{"data":{"id":"evt_ve_day_conversion","title":"War-to-Peace Industrial Conversion"},"t":3623,"type":"news"}
-{"data":{"amount":34664.573086778306,"id":"deal_2","title":"Mortgage Pool Origination"},"t":17476,"type":"deal_arrived"}

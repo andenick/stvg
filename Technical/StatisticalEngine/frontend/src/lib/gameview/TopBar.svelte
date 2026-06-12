@@ -152,7 +152,7 @@
 <header class="topbar" data-phase={ui.phase}>
   <!-- Identity -->
   <div class="seg identity">
-    <span class="bank-name">{sim.bank?.name ?? 'Bank'}</span>
+    <span class="bank-name">{sim.bank?.name ?? sim.bankName ?? 'Bank'}</span>
     <span class="era-badge" title={eraTooltip}>{sim.era?.name ?? 'Post-War Stability'}</span>
     {#if sim.reputationTag}
       <span class="rep-tag" title="How the Street sees you (shifts with your hires & risk culture)">{sim.reputationTag}</span>

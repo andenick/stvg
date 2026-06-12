@@ -15,6 +15,7 @@
   import { wsClient } from '../ws/websocket';
   import { toasts } from '../stores/toasts.svelte';
   import { telemetry } from '../telemetry';
+  import { hydrateArchetypes } from '../characters/archetype-store';
   import SettingsOverlay from '../overlays/SettingsOverlay.svelte';
 
   let starting = $state(false);
@@ -45,6 +46,31 @@
     try { hasSave = !!localStorage.getItem('stvg.lastGameId'); } catch { hasSave = false; }
   });
 
+  /*
+   * W5.5: server-reachability indicator. The WebSocket only connects after
+   * Begin, so `sim.connected` is ALWAYS false pre-game — the old footer always
+   * said OFFLINE on the title screen, which was misleading. Probe /api/health
+   * once on mount (and after a game is running, defer to the real WS state).
+   *   'checking' → 'reachable' → server up; 'unreachable' → server down.
+   */
+  let serverReachable = $state<'checking' | 'reachable' | 'unreachable'>('checking');
+  $effect(() => {
+    let cancelled = false;
+    serverReachable = 'checking';
+    api.health()
+      .then(() => { if (!cancelled) serverReachable = 'reachable'; })
+      .catch(() => { if (!cancelled) serverReachable = 'unreachable'; });
+    return () => { cancelled = true; };
+  });
+  // Pre-game we trust the health probe; once the WS is live, mirror it.
+  let online = $derived(sim.connected || serverReachable === 'reachable');
+  let connLabel = $derived(
+    sim.connected ? 'CONNECTED'
+    : serverReachable === 'checking' ? 'CHECKING…'
+    : serverReachable === 'reachable' ? 'SERVER UP'
+    : 'OFFLINE',
+  );
+
   async function begin() {
     if (starting) return;
     starting = true;
@@ -57,6 +83,12 @@
       if (advancedPreset) opts.preset = advancedPreset;
 
       const { gameId, startingPosition } = await api.newGame(opts);
+
+      // W3: fetch the canonical archetype roster ONCE before the game surface
+      // renders, so family voice/color/credibility + specialization display all
+      // read from the single source (GET /api/archetypes). Idempotent + cached;
+      // best-effort (a failure leaves safe fallbacks, never blocks routing).
+      await hydrateArchetypes();
 
       // Hydrate full PlayerView before we route — gives the game view real data
       // on first render rather than a flash of empty panels.
@@ -94,6 +126,9 @@
     starting = true;
     beginError = null;
     try {
+      // W3: hydrate the canonical archetype roster before the game renders
+      // (same single source as the Begin path). Idempotent + best-effort.
+      await hydrateArchetypes();
       const view = await api.getState(gameId);
       sim.reset();
       sim.gameId = gameId;
@@ -169,11 +204,11 @@
     <div class="conn">
       <span
         class="conn-dot"
-        class:on={sim.connected}
-        class:off={!sim.connected}
+        class:on={online}
+        class:off={!online}
         aria-hidden="true"
       ></span>
-      <span class="conn-label">{sim.connected ? 'CONNECTED' : 'OFFLINE'}</span>
+      <span class="conn-label">{connLabel}</span>
     </div>
     <button class="settings-link" onclick={openSettings}>Settings</button>
     <p class="version">STVG · SVELTE ALPHA · WP2</p>

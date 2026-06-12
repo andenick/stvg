@@ -1,0 +1,34 @@
+{"data":{"capital":0,"day":0,"paused":true,"quarter":1,"sessionId":"smqae1t6xe7ed","speed":1,"startedAt":"2026-06-12T03:50:11.730Z","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0","year":1945},"t":9,"type":"session_start"}
+{"data":{"capital":1000000,"ceoId":null,"day":0,"paused":true,"quarter":1,"scenario":"default","speed":1,"startingPosition":"commercial_bank","year":1945},"t":2748,"type":"game_start"}
+{"data":{"amount":36336.02126103116,"capital":1000000,"day":0,"id":"deal_1","paused":true,"quarter":1,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":3167,"type":"deal_arrived"}
+{"data":{"capital":1000000,"day":0,"id":"evt_58","paused":true,"quarter":1,"speed":1,"title":"International Expansion Opportunity","year":1945},"t":3205,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_25","paused":true,"quarter":1,"speed":1,"title":"Acquisition Target Identified","year":1945},"t":3205,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_46","paused":true,"quarter":1,"speed":1,"title":"Executive Poaching Attempt","year":1945},"t":3205,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_1","paused":true,"quarter":1,"speed":1,"title":"Fed Rate Decision Pending","year":1945},"t":3205,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_ve_day_conversion","paused":true,"quarter":1,"speed":1,"title":"War-to-Peace Industrial Conversion","year":1945},"t":3205,"type":"news"}
+{"data":{"capital":1000000,"day":17,"id":"SP500","key":"market:SP500","paused":false,"quarter":1,"speed":1,"year":1945},"t":14753,"type":"hover"}
+{"data":{"capital":1000000,"day":18,"id":"UST10Y","key":"market:UST10Y","paused":false,"quarter":1,"speed":1,"year":1945},"t":15061,"type":"hover"}
+{"data":{"capital":1000000,"day":19,"key":"division:div_commercial","paused":false,"quarter":1,"speed":1,"type":"commercial_lending","year":1945},"t":15935,"type":"hover"}
+{"data":{"capital":1000000,"day":20,"key":"division:div_mortgage","paused":false,"quarter":1,"speed":1,"type":"mortgage_lending","year":1945},"t":16219,"type":"hover"}
+{"data":{"capital":1000000,"day":20,"key":"bs:reserves","paused":false,"quarter":1,"speed":1,"year":1945},"t":16503,"type":"hover"}
+{"data":{"capital":1000000,"day":21,"key":"bs:loans","paused":false,"quarter":1,"speed":1,"year":1945},"t":16802,"type":"hover"}
+{"data":{"capital":1000000,"day":21,"key":"bs:securities","paused":false,"quarter":1,"speed":1,"year":1945},"t":17086,"type":"hover"}
+{"data":{"amount":34664.573086778306,"capital":1000000,"day":22,"id":"deal_2","paused":false,"quarter":1,"speed":1,"title":"Mortgage Pool Origination","year":1945},"t":17094,"type":"deal_arrived"}
+{"data":{"capital":1000000,"day":23,"key":"bs:exposure","paused":false,"quarter":1,"speed":1,"year":1945},"t":17986,"type":"hover"}
+{"data":{"archetype":"operator","capital":1000000,"day":24,"id":"emp_10","paused":false,"quarter":1,"speed":1,"year":1945},"t":18269,"type":"hire_detail_open"}
+{"data":{"archetype":"operator","capital":1000000,"day":24,"id":"emp_10","key":"candidate:emp_10","paused":false,"quarter":1,"speed":1,"year":1945},"t":18269,"type":"hover"}
+{"data":{"archetype":"patrician","capital":1000000,"day":24,"id":"emp_11","paused":false,"quarter":1,"speed":1,"year":1945},"t":18569,"type":"hire_detail_open"}
+{"data":{"archetype":"patrician","capital":1000000,"day":24,"id":"emp_11","key":"candidate:emp_11","paused":false,"quarter":1,"speed":1,"year":1945},"t":18569,"type":"hover"}
+{"data":{"archetype":"dealmaker","capital":1000000,"day":25,"id":"emp_12","paused":false,"quarter":1,"speed":1,"year":1945},"t":18852,"type":"hire_detail_open"}
+{"data":{"archetype":"dealmaker","capital":1000000,"day":25,"id":"emp_12","key":"candidate:emp_12","paused":false,"quarter":1,"speed":1,"year":1945},"t":18852,"type":"hover"}
+{"data":{"archetype":"dealmaker","capital":1000000,"day":25,"id":"emp_13","paused":false,"quarter":1,"speed":1,"year":1945},"t":19135,"type":"hire_detail_open"}
+{"data":{"archetype":"dealmaker","capital":1000000,"day":25,"id":"emp_13","key":"candidate:emp_13","paused":false,"quarter":1,"speed":1,"year":1945},"t":19135,"type":"hover"}
+{"data":{"capital":1000000,"day":26,"id":"SP500","key":"market:SP500","paused":false,"quarter":1,"speed":1,"year":1945},"t":19404,"type":"hover"}
+{"data":{"capital":1000000,"day":26,"id":"SP500","paused":false,"quarter":1,"speed":1,"year":1945},"t":19412,"type":"market_opened"}
+{"data":{"capital":1000000,"day":31,"from":"SP500","paused":false,"quarter":1,"speed":1,"to":"UST10Y","year":1945},"t":21931,"type":"market_chip_switch"}
+{"data":{"capital":1000000,"day":31,"id":"SP500","key":"market:SP500","ms":2501,"paused":false,"quarter":1,"speed":1,"year":1945},"t":21933,"type":"dwell"}
+{"data":{"capital":1000000,"day":31,"id":"UST10Y","key":"market:UST10Y","paused":false,"quarter":1,"speed":1,"year":1945},"t":21938,"type":"hover"}
+{"data":{"capital":1000000,"day":36,"items":11,"paused":false,"quarter":1,"speed":1,"year":1945},"t":24752,"type":"news_open"}
+{"data":{"capital":1000000,"day":42,"id":"deal_1","paused":false,"quarter":1,"risk":3,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":27376,"type":"deal_opened"}
+{"data":{"amount":36336.02126103116,"capital":1000000,"day":46,"id":"deal_1","paused":false,"quarter":1,"risk":3,"speed":1,"year":1945},"t":29883,"type":"deal_invest_click"}
+{"data":{"capital":1000000,"day":47,"key":"deal:deal_1","ms":2592,"paused":false,"quarter":1,"risk":3,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":29994,"type":"dwell"}

@@ -83,6 +83,8 @@ function econTickValue(id: MacroId, e: EconTick): number | undefined {
     case 'FEDFUNDS': return e.fedFundsRate;
     case 'CPI': return e.cpiInflation;
     case 'SPREAD': return e.creditSpread;
+    case 'ECONREV': return e.economyRevenue;
+    case 'ECONPROFIT': return e.economyProfit;
     default: return undefined;   // TREAS10Y / GDPGROWTH only on quarterly history
   }
 }
@@ -97,6 +99,8 @@ function econFullValue(id: MacroId, e: EconomicIndicators): number | undefined {
     case 'SPREAD': return e.creditSpread;
     case 'TREAS10Y': return e.treasuryYield10Y;
     case 'GDPGROWTH': return e.gdpGrowth;
+    case 'ECONREV': return e.economyRevenue;
+    case 'ECONPROFIT': return e.economyProfit;
     default: return undefined;
   }
 }
@@ -122,6 +126,11 @@ class SimulationStore {
 
   // Bank
   bank = $state<Bank | null>(null);
+  // Last-known bank name (nullish-keep). The full `bank` object is briefly null
+  // at paused boundaries / between snapshots, which made the TopBar flash a
+  // generic "Bank" label. We keep the most recent non-empty name here so the
+  // header reads steadily (W5.4). Set on every PlayerView that carries a name.
+  bankName = $state<string | null>(null);
   bankCapital = $state(0);
   bankAssets = $state(0);
   capitalDelta = $state(0);
@@ -206,6 +215,8 @@ class SimulationStore {
   applyPlayerView(view: PlayerView) {
     this.bank = view.bank ?? null;
     if (view.bank) {
+      // Keep the last-known name so the header never flashes a generic "Bank".
+      if (view.bank.name) this.bankName = view.bank.name;
       const b = view.bank as Record<string, number | undefined>;
       const cap = view.bank.capital ?? 0;
       this.capitalDelta = cap - this.bankCapital;
@@ -450,6 +461,7 @@ class SimulationStore {
   reset() {
     this.gameId = null;
     this.bank = null;
+    this.bankName = null;
     this.bankCapital = 0;
     this.bankAssets = 0;
     this.capitalDelta = 0;
