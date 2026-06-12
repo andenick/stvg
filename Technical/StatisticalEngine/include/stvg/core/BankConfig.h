@@ -9,7 +9,7 @@
 namespace stvg {
 
 struct BankConfig {
-    double startingCapital = 10e9;
+    double startingCapital = 1e6;   // rescaled from 10e9 ($1M start)
     int startingEmployees = 50;
     int startingBranches = 1;
     double startingMarketShare = 0.001;
@@ -27,26 +27,26 @@ inline BankConfig bankConfigForPosition(StartingPosition pos) {
         case StartingPosition::CommercialBank:
             break; // Use defaults
         case StartingPosition::TradingFirm:
-            cfg.startingCapital = 5e9;
+            cfg.startingCapital = 5e5;
             cfg.startingEmployees = 30;
             cfg.startingReputation = 40.0;
             cfg.startingMarketShare = 0.0005;
             break;
         case StartingPosition::InvestmentBank:
-            cfg.startingCapital = 20e9;
+            cfg.startingCapital = 2e6;
             cfg.startingEmployees = 80;
             cfg.startingReputation = 55.0;
             cfg.startingMarketShare = 0.002;
             break;
         case StartingPosition::CommunityBank:
-            cfg.startingCapital = 500e6;
+            cfg.startingCapital = 5e4;
             cfg.startingEmployees = 15;
             cfg.startingBranches = 3;
             cfg.startingReputation = 70.0;
             cfg.startingMarketShare = 0.00005;
             break;
         case StartingPosition::UniversalBank:
-            cfg.startingCapital = 200e9;
+            cfg.startingCapital = 2e7;
             cfg.startingEmployees = 200;
             cfg.startingBranches = 50;
             cfg.startingReputation = 60.0;

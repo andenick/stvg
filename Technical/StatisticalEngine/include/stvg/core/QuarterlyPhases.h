@@ -1,5 +1,9 @@
 #pragma once
 
+#include <cstdio>
+#include <cmath>
+#include <string>
+
 // ════════════════════════════════════════════════════════════════════
 // QuarterlyPhases — out-of-line definitions for QuarterlyTurnManager's
 // three large quarterly-loop phase methods. Extracted from
@@ -18,6 +22,36 @@
 // ════════════════════════════════════════════════════════════════════
 
 namespace stvg {
+
+// 0.2: adaptive money formatter for server-built headline strings. Mirrors the
+// frontend's fmtMoney() (lib/util/money.ts) so headlines read honestly at the
+// $1M-scale world — a $850K quarter is "$850K", not the old "$0M" (which came
+// from (netIncome / 1e6) truncating sub-$1M profits to zero). Negative-aware.
+inline std::string fmtMoneyHeadline(double v) {
+    double abs = std::abs(v);
+    const char* sign = v < 0 ? "-" : "";
+    char buf[48];
+    if (abs >= 1e12)      std::snprintf(buf, sizeof(buf), "%s$%.2fT", sign, abs / 1e12);
+    else if (abs >= 1e9)  std::snprintf(buf, sizeof(buf), "%s$%.2fB", sign, abs / 1e9);
+    else if (abs >= 1e6)  std::snprintf(buf, sizeof(buf), "%s$%.2fM", sign, abs / 1e6);
+    else if (abs >= 1e3)  std::snprintf(buf, sizeof(buf), "%s$%.1fK", sign, abs / 1e3);
+    else                  std::snprintf(buf, sizeof(buf), "%s$%.0f", sign, abs);
+    // Trim a trailing ".00"/".0" so "$12.00M" reads "$12M".
+    std::string s(buf);
+    auto dot = s.find('.');
+    if (dot != std::string::npos) {
+        std::size_t lastUnit = s.find_first_of("TBMK", dot);
+        std::size_t end = (lastUnit == std::string::npos) ? s.size() : lastUnit;
+        std::string frac = s.substr(dot, end - dot);   // e.g. ".00" or ".50"
+        // strip trailing zeros then a trailing dot
+        std::size_t cut = frac.find_last_not_of('0');
+        if (cut != std::string::npos && frac[cut] == '.') cut--;   // ".0" -> ""
+        std::string trimmed = frac.substr(0, cut + 1);
+        if (trimmed == ".") trimmed.clear();
+        s = s.substr(0, dot) + trimmed + s.substr(end);
+    }
+    return s;
+}
 
 inline void QuarterlyTurnManager::onQuarterStart() {
     spdlog::info("=== Quarter Start: {} Q{} [{}] ===",
@@ -47,16 +81,30 @@ inline void QuarterlyTurnManager::onQuarterStart() {
     // Reset action points for new quarter
     actionPoints_.reset(bank_.totalAssets);
 
+    // P3.4 Stage A: derive a sign-bias from the realized macro state so the
+    // drawn narrative matches the engine direction (crisis events when the
+    // economy turns down, opportunity events when it rises). Weight-only —
+    // does NOT change the rng_ draw count/order (lockstep-safe).
+    simulation::EventBias eventBias =
+        simulation::EventBias::fromEconomics(state_.economics);
+
     // Draw events from weighted pool
-    quarterEvents_ = eventPool_.drawEvents(bank_, state_, rng_, 4);
+    quarterEvents_ = eventPool_.drawEvents(bank_, state_, rng_, 4, eventBias);
 
     // Blend in historical events (1-2 per quarter, era-filtered)
     if (historicalEventsLoaded_) {
         int histCount = 1 + (rng_.bernoulli(0.3) ? 1 : 0);
         auto histEvents = historicalLoader_.drawHistoricalEvents(
-            state_.currentYear, histCount, rng_);
+            state_.currentYear, histCount, rng_, eventBias);
         for (auto& he : histEvents) {
             he.isHistorical = true;
+            // P5 §5.3 / P3.4 Stage B: register an event→market drift nudge for
+            // the divisions this event benefits/suffers, over its duration.
+            // Gated behind eventMarketCoupling (default OFF for deterministic
+            // tests; live server sets it ON). Weight-only registration here —
+            // no extra RNG draw, lockstep-safe.
+            if (config_.eventMarketCoupling)
+                registerEventDrift(he.id);
             quarterEvents_.push_back(std::move(he));
         }
     }
@@ -206,13 +254,75 @@ inline void QuarterlyTurnManager::onQuarterStart() {
     // Generate character briefings
     quarterMessages_ = characterEngine_.generateBriefings(bank_, state_);
 
+    // STAR_02 P6 ReputationLens: tilt the deal flow's risk by what you've become
+    // (gunslinger shop → riskier flow; fortress bank → safer). Weight-only.
+    dealPortfolio_.setDealRiskTilt(ReputationLens::compute(pathEngine_.state()).dealRiskTilt);
     // Generate deal opportunities for each active business line
     dealPortfolio_.generateOpportunities(bank_.divisions, state_.currentYear);
 
-    // Generate hiring candidate pool (3-6 candidates based on reputation)
-    int numCandidates = 3 + (int)(bank_.reputation / 30.0);
-    hiringPool_ = charGen_.generateCandidates(
-        std::clamp(numCandidates, 3, 6), state_.currentYear, bank_.reputation);
+    // ── STAR_02 P6: candidate pool with era-flavored turnover + reputation tilt ──
+    // Candidates persist across quarters and EXPIRE after 2-4 quarters (the
+    // expiry was stamped when each arrived). At quarter start we (1) drop the
+    // expired, then (2) top the pool back up toward its reputation-scaled target
+    // with the ReputationLens family tilt. Intra-quarter arrivals (addTrickle-
+    // Candidate) fill the gap between quarters. The first quarter seeds the pool.
+    int globalQ0 = state_.currentQuarter + (state_.currentYear - config_.startYear) * 4;
+    // Expire stale candidates.
+    {
+        auto newEnd = std::remove_if(hiringPool_.begin(), hiringPool_.end(),
+            [&](const simulation::EmployeeCandidate& c) {
+                auto it = candidateExpiry_.find(c.id);
+                return it != candidateExpiry_.end() && globalQ0 >= it->second;
+            });
+        for (auto it = newEnd; it != hiringPool_.end(); ++it) candidateExpiry_.erase(it->id);
+        hiringPool_.erase(newEnd, hiringPool_.end());
+    }
+    // Top up toward the reputation-scaled target with the reputation tilt.
+    {
+        int target = std::clamp(3 + (int)(bank_.reputation / 30.0), 3, 6);
+        auto tilt = ReputationLens::compute(pathEngine_.state()).familyMult;
+        while ((int)hiringPool_.size() < target) {
+            auto fresh = charGen_.generateCandidates(1, state_.currentYear, bank_.reputation, &tilt);
+            if (fresh.empty()) break;
+            // Era-flavored turnover: each candidate stays 2-4 quarters.
+            std::string id = fresh.front().id;
+            candidateExpiry_[id] = globalQ0 + 2 + (rng_.bernoulli(0.5) ? 1 : 0) + (rng_.bernoulli(0.5) ? 1 : 0);
+            hiringPool_.push_back(std::move(fresh.front()));
+        }
+    }
+
+    // ── STAR_02 P6: poach-offer generation (every 2-6 quarters, era-scaled) ──
+    // Era heat rises with deregulation/leverage decades so the ask multiple
+    // climbs (1.5×→3×). A fresh offer streams in like a deal; it expires on its
+    // own clock. RNG draws happen here at the quarter boundary (lockstep-safe).
+    {
+        // Drop expired offers.
+        poachOffers_.erase(std::remove_if(poachOffers_.begin(), poachOffers_.end(),
+            [&](const simulation::PoachOffer& o) { return globalQ0 >= o.expiresQuarter || !o.active; }),
+            poachOffers_.end());
+        if (quartersUntilNextPoach_ > 0) quartersUntilNextPoach_--;
+        // Era heat: 0 in the calm 40s-60s, ~1 in the 80s/2000s leverage decades.
+        double eraHeat = 0.2;
+        int yr = state_.currentYear;
+        if (yr >= 1980 && yr < 1991) eraHeat = 0.9;      // cowboy capitalism
+        else if (yr >= 1999 && yr < 2008) eraHeat = 1.0; // structured-credit boom
+        else if (yr >= 1991 && yr < 1999) eraHeat = 0.6;
+        else if (yr >= 2008 && yr < 2015) eraHeat = 0.3; // post-GFC retrenchment
+        else if (yr >= 2015) eraHeat = 0.7;
+        if (quartersUntilNextPoach_ <= 0 && (int)poachOffers_.size() < 3) {
+            auto offer = competitorEngine_.generatePoachOffer(
+                state_.currentYear, globalQ0, eraHeat, poachCounter_);
+            if (offer) {
+                // Reputation lens tilts the ask: a gunslinger shop overpays for
+                // wildcat teams; a fortress bank gets quoted gentler.
+                double priceTilt = ReputationLens::compute(pathEngine_.state()).poachPriceTilt;
+                offer->askPrice *= priceTilt;
+                poachOffers_.push_back(std::move(*offer));
+            }
+            // Reset the countdown: 2-6 quarters, shorter when the era is hot.
+            quartersUntilNextPoach_ = 2 + (int)(rng_.uniform() * (4.0 * (1.0 - 0.5 * eraHeat)));
+        }
+    }
 
     // Generate narrative opening
     simulation::NarrativeContext nctx{
@@ -257,6 +367,19 @@ inline void QuarterlyTurnManager::runSimulation() {
 
         // Trader AI
         traderAI_.tickDay(traders_, marketSim_.snapshot(), econ_.stressScore());
+
+        // Intra-quarter deal trickle (kept identical to tickSimulationDay so the
+        // batch and day-by-day paths consume RNG in lockstep — see DayByDayMatchesBatch).
+        if (rng_.bernoulli(0.035)) {
+            dealPortfolio_.addTrickleDeal(bank_.divisions, state_.currentYear);
+        }
+
+        // STAR_02 P6: intra-quarter HIRING trickle (1-3 candidates arrive mid-
+        // quarter). Drawn right after the deal trickle, at the SAME rate/site in
+        // both the batch and day-by-day paths — lockstep-safe by construction.
+        if (rng_.bernoulli(0.012)) {
+            addTrickleCandidate();
+        }
 
         // Advance clock
         clock_.advanceDay();
@@ -327,7 +450,7 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
     double infraCostTotal = bank_.capital * 0.02 / 4.0;
     // Regulatory compliance cost (era-driven, not hardcoded)
     double complianceCost = regulatoryEngine_.annualComplianceCost(bank_.totalRevenue) / 4.0
-        + std::sqrt(bank_.totalAssets / 1e9) * 0.5e6; // Base operational overhead
+        + std::sqrt(bank_.totalAssets / 1e5) * 0.5e2; // Base operational overhead (rescaled /10,000)
     double infraPerDiv = (bank_.divisions.empty()) ? 0 : infraCostTotal / bank_.divisions.size();
     double compPerDiv = (bank_.divisions.empty()) ? 0 : complianceCost / bank_.divisions.size();
 
@@ -343,7 +466,7 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
                 * (1.0 - 0.2 * econ_.stressScore() / 100.0); // pull back in crisis
             growthRate = std::clamp(growthRate, -0.02, 0.03); // cap at ±3%/quarter
             div.budget *= (1.0 + growthRate);
-            div.budget = std::max(div.budget, 1e6);
+            div.budget = std::max(div.budget, 1e2);   // floor rescaled /10,000 ($1M-scale)
         }
     }
 
@@ -359,47 +482,239 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
 
     bank_.quarterlyProvisions = 0;
 
+    // ── STAR_02 P5 §5.1: archetype × macro → P&L distribution ──────────
+    // Global tuning constants (a single β/σ scale knob, per the plan's
+    // re-balance protocol — adjust these, not the JSON, to retune difficulty).
+    constexpr double ARCHETYPE_BETA_SCALE  = 1.0;
+    // P5 rebalance: σ scale kept at the calibrated 1.0. Raising it (tested 1.5)
+    // did not move the autoplay aggressive-vs-conservative final-capital ratio
+    // because bot outcomes are dominated by economic-seed shocks + leverage-
+    // driven death (which truncates the aggressive distribution), not by the
+    // archetype σ term. The σ RATIO between families (gunslinger 0.35 / lifer
+    // 0.05 = 7×) is the real lever and is preserved at scale 1.0; the
+    // aggressive-vs-conservative dispersion is demonstrated directly at the
+    // division-revenue level (see test_archetype_rebalance) where it is ~7-49×,
+    // untruncated by death. Median survival is preserved at 1.0.
+    constexpr double ARCHETYPE_SIGMA_SCALE = 1.0;
+    constexpr double kBaselineSigma = 0.04;
+
+    // Macro state vector x_t = (gdpGrowth-ḡ, Δfed, -Δspread, sp500 qtr return,
+    // -Δvix/20). The Δ terms compare to the previous quarter's snapshot; the
+    // first quarter (no prior) uses zero changes. ḡ = 0.025 trend growth.
+    const auto& ec = state_.economics;
+    EconomicIndicators prevEc = prevQuarterEconValid_ ? prevQuarterEcon_ : ec;
+    std::array<double, 5> xt{
+        ec.gdpGrowth - 0.025,                       // gdp deviation
+        ec.fedFundsRate - prevEc.fedFundsRate,      // Δfed (q/q)
+        -(ec.creditSpread - prevEc.creditSpread),   // -Δspread (tightening = +)
+        ec.sp500Return,                             // equity quarterly return proxy
+        -(ec.vix - prevEc.vix) / 20.0               // -Δvix/20
+    };
+
+    // ── STAR_02 P6: crowding / saturation (full version, plan §P6) ──────────
+    // Three named, data-driven effects replace P5's step first-cut:
+    //
+    //   (A) σ crowding (bank-wide, CONTINUOUS):
+    //         crowdingMult = 1 + CROWD_SIGMA_SLOPE · max(0, maxClassShare − CROWD_SIGMA_KNEE) / (1 − CROWD_SIGMA_KNEE)
+    //       — correlated risk rises smoothly as one crowdingClass dominates the
+    //         whole bank, instead of a discontinuous ×1.5 step at 50%.
+    //   (B) expected-return saturation (PER-DIVISION): a division whose staff is
+    //         dominated by one crowdingClass earns less per head —
+    //         expected × (1 − SATUR_RETURN_SLOPE · max(0, classShareInDiv − SATUR_RETURN_KNEE)).
+    //   (C) industry saturation: if the player AND rivals pile into the same
+    //         division type, that type's baseRevenueRate erodes up to INDUSTRY_MAX_EROSION.
+    //
+    // All constants named here (the rebalance protocol tunes these, not the JSON).
+    constexpr double CROWD_SIGMA_KNEE   = 0.50;  // σ crowding starts above 50% share
+    constexpr double CROWD_SIGMA_SLOPE  = 0.50;  // up to +50% σ at 100% share
+    constexpr double SATUR_RETURN_KNEE  = 0.60;  // return saturation above 60% in-div share
+    constexpr double SATUR_RETURN_SLOPE = 0.30;  // up to −30% expected at 100% in-div share
+    constexpr double INDUSTRY_MAX_EROSION = 0.20; // up to −20% baseRevenueRate when crowded
+
+    // (A) Bank-wide max crowdingClass share → continuous σ multiplier.
+    double crowdingMult = 1.0;
+    {
+        std::map<std::string, int> classCount;
+        int totalStaff = 0;
+        const auto& reg = ArchetypeRegistry::instance();
+        if (reg.loaded()) {
+            for (const auto& d : bank_.divisions)
+                for (const auto& emp : d.staff) {
+                    if (const auto* fam = reg.family(emp.archetype)) {
+                        if (!fam->crowdingClass.empty()) classCount[fam->crowdingClass]++;
+                        totalStaff++;
+                    }
+                }
+            double maxShare = 0.0;
+            for (const auto& [cls, n] : classCount)
+                if (totalStaff > 0) maxShare = std::max(maxShare, (double)n / totalStaff);
+            crowdingMult = 1.0 + CROWD_SIGMA_SLOPE
+                * std::max(0.0, maxShare - CROWD_SIGMA_KNEE) / (1.0 - CROWD_SIGMA_KNEE);
+        }
+    }
+
+    // (C) Industry saturation per division TYPE: compare the player's budget
+    // share in a type against the rivals' aggregate tilt toward that line. The
+    // engine has no per-type rival book, so we proxy "rivals piling in" by the
+    // fraction of living rivals whose archetype maps to this division type
+    // (gunslinger→trading, innovator→fintech/securitization, …) — when both you
+    // and the rivals concentrate on the same line, its baseRevenueRate erodes.
+    std::map<DivisionType, double> industrySaturation;
+    {
+        // Player's budget share per type.
+        double totalBudget = 0.0;
+        std::map<DivisionType, double> playerBudget;
+        for (const auto& d : bank_.divisions) { playerBudget[d.type] += d.budget; totalBudget += d.budget; }
+        // Rival concentration per type (fraction of living rivals on this line).
+        std::map<DivisionType, int> rivalOnType;
+        int liveRivals = 0;
+        for (const auto& c : competitorEngine_.competitors()) {
+            if (!c.alive || c.foundedYear > state_.currentYear) continue;
+            liveRivals++;
+            rivalOnType[competitorEngine_.divisionForArchetype(c.archetype, state_.currentYear)]++;
+        }
+        for (const auto& [type, budget] : playerBudget) {
+            double playerShare = totalBudget > 0 ? budget / totalBudget : 0.0;
+            double rivalShare = liveRivals > 0 ? (double)rivalOnType[type] / liveRivals : 0.0;
+            // Both crowded into the same line → erosion. Geometric overlap so it
+            // only bites when BOTH are concentrated; capped at INDUSTRY_MAX_EROSION.
+            double overlap = std::min(playerShare, rivalShare);
+            industrySaturation[type] = std::min(INDUSTRY_MAX_EROSION, INDUSTRY_MAX_EROSION * 2.0 * overlap);
+        }
+    }
+
     for (auto& div : bank_.divisions) {
         double staffMult = div.staffQualityMultiplier();
         double ceoRevMult = hasCeo_ ? ceoProfile_.revenueMultiplier : 1.0;
         if (revenueBoostActive_) ceoRevMult *= 2.0;
 
+        // Aggregate this division's staff archetype mix once (cheap, no RNG).
+        ArchetypeProfile prof = div.archetypeProfile();
+
         if (div.assetClass() == Division::AssetClass::Loans && numLendingDivs > 0) {
-            // Sprint 1: NIM-based revenue for lending divisions
+            // Sprint 1: NIM-based revenue for lending divisions.
             double divLoanShare = div.budget * Bank::kDefaultLeverage;
             double nim = (bankLoanYield - bankFundingRate) / 4.0; // quarterly NIM
             div.revenue = divLoanShare * std::max(nim, 0.0) * staffMult * ceoRevMult;
 
+            // P5: archetype enters lending as a PD multiplier (conservative
+            // families lower PD ~0.8×, aggressive raise it ~1.3×, weighted).
+            // Relationship sideBenefits.depositStickiness lowers the effective
+            // funding-cost sensitivity — modeled here as a small PD relief
+            // (sticky deposits = a calmer book through shocks).
+            double divPd = pd * prof.pdMult;
+            auto stickIt = prof.sideBenefits.find("depositStickiness");
+            if (stickIt != prof.sideBenefits.end())
+                divPd *= (1.0 - 0.10 * std::clamp(stickIt->second, 0.0, 1.0));
+            divPd = std::clamp(divPd, 0.0, 1.0);
+
             // Loan loss provisions (lagged PD × LGD × loan book)
-            double provisions = divLoanShare * pd * div.lossGivenDefault() / 4.0;
+            double provisions = divLoanShare * divPd * div.lossGivenDefault() / 4.0;
             bank_.quarterlyProvisions += provisions;
             bank_.loanLossReserve += provisions;
+            div.archetypePdMult_ = prof.pdMult; // expose for telemetry/headlines
         } else if (div.type == DivisionType::TradingDesk) {
-            // Trading desk: trader P&L (unchanged)
+            // Trading desk: trader P&L (TraderAI unchanged). Archetype effect
+            // here scales the desk's hidden-risk accumulation by its aggressive
+            // weight (handled below after the loop body).
             div.revenue = simulation::TraderAIEngine::divisionVisiblePnL(traders_) * staffMult;
             div.actualRisk = simulation::TraderAIEngine::divisionHiddenExposure(traders_)
                            / std::max(bank_.capital, 1.0);
         } else {
-            // Fee-based and securities divisions: original formula (unchanged)
-            double base = div.budget * div.baseRevenueRate(state_.currentYear);
+            // Fee-based and securities divisions: macro-coupled archetype
+            // distribution (the owner's core equation).
+            //   expected  = base·macroBoost + autonomyBonus  (legacy mean)
+            //   macroMult = 1 + Σ_k Σ_a w_a·β_a,k·x_t,k     (archetype tilt)
+            //   realized  = expected · macroMult · (1 + σ_div·Z)
+            // STAR_02 P6 (C): industry saturation erodes baseRevenueRate up to
+            // −20% when you AND the rivals pile into this division type.
+            double industryMult = 1.0;
+            {
+                auto sit = industrySaturation.find(div.type);
+                if (sit != industrySaturation.end()) industryMult = 1.0 - sit->second;
+            }
+            double base = div.budget * div.baseRevenueRate(state_.currentYear) * industryMult;
             double macroBoost = 1.0 + state_.economics.gdpGrowth * 3.0
                               + state_.economics.fedFundsRate * 2.0;
             double autonomyBonus = div.autonomyLevel * base * 1.5;
-            div.revenue = (base * macroBoost + autonomyBonus) * staffMult * ceoRevMult;
+            double expected = (base * macroBoost + autonomyBonus) * staffMult * ceoRevMult;
+
+            // STAR_02 P6 (B): per-division expected-return saturation. When one
+            // crowdingClass dominates THIS division's staff, per-head return
+            // saturates: expected × (1 − SATUR_RETURN_SLOPE · max(0, share − knee)).
+            {
+                const auto& reg = ArchetypeRegistry::instance();
+                if (reg.loaded() && !div.staff.empty()) {
+                    std::map<std::string, int> divClass;
+                    for (const auto& emp : div.staff)
+                        if (const auto* fam = reg.family(emp.archetype))
+                            if (!fam->crowdingClass.empty()) divClass[fam->crowdingClass]++;
+                    double maxDivShare = 0.0;
+                    for (const auto& [cls, n] : divClass)
+                        maxDivShare = std::max(maxDivShare, (double)n / div.staff.size());
+                    expected *= (1.0 - SATUR_RETURN_SLOPE
+                        * std::max(0.0, maxDivShare - SATUR_RETURN_KNEE));
+                }
+            }
+
+            // macroMult from the staff archetype betas dotted with x_t.
+            double tilt = 0.0;
+            for (size_t k = 0; k < xt.size(); ++k)
+                tilt += ARCHETYPE_BETA_SCALE * prof.beta[k] * xt[k];
+            double macroMult = std::clamp(1.0 + tilt, 0.4, 1.8);
+
+            // σ_div = sqrt(Σ w_a² σ_a²) · crowdingMult · ARCHETYPE_SIGMA_SCALE,
+            // gated by config_.archetypePnlVariance (0 ⇒ deterministic legacy).
+            double sigmaDiv = (prof.empty ? kBaselineSigma : prof.sigma)
+                            * crowdingMult * ARCHETYPE_SIGMA_SCALE
+                            * config_.archetypePnlVariance;
+
+            // Draw Z ONCE per division, here at the quarter boundary, in the
+            // fixed division-iteration order — lockstep-safe by construction.
+            double z = (sigmaDiv > 0.0) ? rng_.normalSample() : 0.0;
+            double realized = expected * macroMult * (1.0 + sigmaDiv * z);
+            div.revenue = realized;
+
+            // Relationship sideBenefits.dealflowQuality biases this division's
+            // deal-generation quality (wired cheaply: a small positive revenue
+            // tilt; the full deal-generator bias is deferred to P6).
+            auto dfIt = prof.sideBenefits.find("dealflowQuality");
+            if (dfIt != prof.sideBenefits.end())
+                div.revenue *= (1.0 + 0.05 * std::clamp(dfIt->second, 0.0, 1.0));
+        }
+
+        // P5 §5.3: apply any active event-driven drift nudge for this division
+        // (eventMarketCoupling). Empty map when the flag is off → no-op, so
+        // deterministic tests are unaffected. SIGN-AWARE: a suffers event (drift
+        // < 0) must ALWAYS reduce P&L — making a gain smaller OR a loss bigger —
+        // and a benefits event must always improve it. Applying the drift to the
+        // signed magnitude (not as a plain `*(1+drift)`) keeps this correct even
+        // when a trading desk's revenue is negative for the quarter.
+        if (!eventDivisionDrift_.empty()) {
+            auto dit = eventDivisionDrift_.find(divisionTypePascalName(div.type));
+            if (dit != eventDivisionDrift_.end() && dit->second.quartersLeft > 0)
+                div.revenue += std::abs(div.revenue) * dit->second.perQuarter;
         }
 
         // Costs: actual staff salaries + infrastructure + compliance + bonuses
         double salary = div.staff.empty()
-            ? div.employees * 75000.0 / 4.0
+            ? div.employees * 7.5 / 4.0   // rescaled /10,000
             : div.totalSalaryCost();
         double bonus = std::max(div.revenue * 0.20, 0.0);
         div.costs = salary + infraPerDiv + compPerDiv + bonus;
 
-        // Add loan loss provisions to lending division costs
+        // Add loan loss provisions to lending division costs (archetype-adjusted
+        // PD so conservative books cost less, aggressive books cost more).
         if (div.assetClass() == Division::AssetClass::Loans && numLendingDivs > 0) {
             double divLoanShare = div.budget * Bank::kDefaultLeverage;
-            div.costs += divLoanShare * pd * div.lossGivenDefault() / 4.0 / numLendingDivs;
+            double divPd = std::clamp(pd * div.archetypePdMult_, 0.0, 1.0);
+            div.costs += divLoanShare * divPd * div.lossGivenDefault() / 4.0 / numLendingDivs;
         }
+
+        // P5: trading-desk hidden-risk accumulation scales with the desk's
+        // aggressive-archetype weight (gunslinger-heavy desks build risk faster).
+        if (div.type == DivisionType::TradingDesk && prof.aggressiveWeight > 0.0)
+            div.actualRisk *= (1.0 + 0.5 * prof.aggressiveWeight);
 
         div.employees = div.staffCount();
         div.actualRisk += div.baseRiskRate() * div.autonomyLevel * 0.1;
@@ -564,7 +879,7 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
 
         // Initialize retail/wholesale split if not yet done
         if (bank_.retailDeposits + bank_.wholesaleDeposits < bank_.totalDeposits * 0.5) {
-            double retailShare = std::clamp(1.0 - bank_.totalAssets / 500e9, 0.40, 0.80);
+            double retailShare = std::clamp(1.0 - bank_.totalAssets / 5e7, 0.40, 0.80);
             bank_.retailDeposits = bank_.totalDeposits * retailShare;
             bank_.wholesaleDeposits = bank_.totalDeposits * (1.0 - retailShare);
         }
@@ -657,7 +972,9 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
     }
     score.calculate(bank_, hadCrisis, correctDecisions, (int)pendingDecisions_.size(),
                     startingCapital_, eraEngine_.currentEraIndex());
+    int levelBeforeXp = progression_.level;   // 0.3: detect a real promotion this quarter
     progression_.addExperience(score.xpEarned);
+    bool promotedThisQuarter = progression_.level > levelBeforeXp;
 
     // Regulatory compliance check (CEO regulatoryBonus relaxes requirements)
     double ceoRegBonus = hasCeo_ ? ceoProfile_.regulatoryBonus : 0.0;
@@ -708,17 +1025,27 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
 
     // Generate headlines
     lastReport_.headlines.clear();
-    if (bank_.netIncome > 0) {
-        lastReport_.headlines.push_back(bank_.name + " posts $"
-            + std::to_string((long long)(bank_.netIncome / 1e6)) + "M quarterly profit");
-    } else {
-        lastReport_.headlines.push_back(bank_.name + " reports $"
-            + std::to_string((long long)(std::abs(bank_.netIncome) / 1e6)) + "M quarterly loss");
+    // 0.2: adaptive units ($850K / $12.5M / ...), no more "$0M". 0.3: stamp the
+    // quarter so when the annual report accumulates four quarters of headlines
+    // they're distinguishable ("Q1 profit" vs "Q2 profit") rather than reading
+    // as duplicates, and the annual dedup keeps only genuinely-identical lines.
+    {
+        std::string q = "Q" + std::to_string(state_.currentQuarter);
+        if (bank_.netIncome > 0) {
+            lastReport_.headlines.push_back(bank_.name + " posts "
+                + fmtMoneyHeadline(bank_.netIncome) + " " + q + " profit");
+        } else {
+            lastReport_.headlines.push_back(bank_.name + " reports "
+                + fmtMoneyHeadline(std::abs(bank_.netIncome)) + " " + q + " loss");
+        }
     }
     if (newCrisis) {
         lastReport_.headlines.push_back("BREAKING: " + newCrisis->title);
     }
-    if (progression_.level > 1) {
+    // 0.3: only headline a promotion on the quarter it actually happens — not
+    // every quarter the level stays > 1 (which produced the "CEO promoted to
+    // Bank Manager" x2/x3 duplicates in the annual report).
+    if (promotedThisQuarter) {
         lastReport_.headlines.push_back("CEO promoted to " + progression_.title);
     }
 
@@ -858,6 +1185,65 @@ inline void QuarterlyTurnManager::onQuarterEnd() {
 
         generateAnnualReport();
     }
+
+    // P3.2: record this quarter's macro + market-close snapshot for chart
+    // hydration. state_.economics is current (synced in runSimulation /
+    // completeSimulationPhase) and marketSim_.snapshot() holds the quarter's
+    // closes. No RNG draw — lockstep-safe.
+    macroHistory_.record(state_.currentYear, state_.currentQuarter,
+                         state_.economics, marketSim_.snapshot());
+
+    // STAR_02 P6 ReputationLens: detect a tag transition (the world re-reads
+    // what you've become) and log it server-side. The client mirrors this with a
+    // reputation_tag_changed {from,to} telemetry event off the player-view tag.
+    {
+        std::string tagNow = ReputationLens::tagFor(pathEngine_.state());
+        if (tagNow != lastReputationTag_) {
+            if (!lastReputationTag_.empty())
+                spdlog::info("REPUTATION: '{}' -> '{}'", lastReputationTag_, tagNow);
+            lastReputationTag_ = tagNow;
+        }
+    }
+
+    // P5 §5.1: snapshot this quarter's macro as "previous" for next quarter's
+    // change terms (Δfed, Δspread, Δvix). No RNG — lockstep-safe.
+    prevQuarterEcon_ = state_.economics;
+    prevQuarterEconValid_ = true;
+
+    // P5 §5.3: age out event-driven drift nudges (one quarter consumed); drop
+    // expired entries. No-op when eventMarketCoupling is off.
+    for (auto it = eventDivisionDrift_.begin(); it != eventDivisionDrift_.end(); ) {
+        if (--it->second.quartersLeft <= 0) it = eventDivisionDrift_.erase(it);
+        else ++it;
+    }
+}
+
+// ════════════════════════════════════════════════════════════════════
+// P5 §5.3 / P3.4 Stage B — event → market coupling
+//
+// When a historical event with affects.benefits/suffers fires, register a
+// small per-quarter drift contribution to each affected division over the
+// event's duration. Magnitude scales with the event's riskLevel (1-10);
+// sign is + for beneficiaries, - for sufferers. Capped at ±2%/quarter so a
+// single event never dominates the macro distribution. No RNG — lockstep-safe.
+// ════════════════════════════════════════════════════════════════════
+inline void QuarterlyTurnManager::registerEventDrift(const std::string& eventId) {
+    const simulation::HistoricalEvent* src = nullptr;
+    for (const auto& e : historicalLoader_.allEvents())
+        if (e.id == eventId) { src = &e; break; }
+    if (!src) return;
+
+    int duration = std::max(1, src->risk.durationQuarters);
+    // riskLevel 1-10 → magnitude 0.2%..2.0% per quarter (capped at ±2%).
+    double mag = std::clamp(src->risk.riskLevel / 10.0 * 0.02, 0.0, 0.02);
+
+    auto add = [&](const std::string& divName, double sign) {
+        auto& d = eventDivisionDrift_[divName];
+        d.perQuarter = std::clamp(d.perQuarter + sign * mag, -0.02, 0.02);
+        d.quartersLeft = std::max(d.quartersLeft, duration);
+    };
+    for (const auto& b : src->benefits) add(b, +1.0);
+    for (const auto& s : src->suffers)  add(s, -1.0);
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -882,6 +1268,20 @@ inline bool QuarterlyTurnManager::tickSimulationDay() {
     else             econ_.tick(dt);
     marketSim_.tick(dt);
     traderAI_.tickDay(traders_, marketSim_.snapshot(), econ_.stressScore());
+
+    // Intra-quarter deal trickle: opportunities flow into the loan book through
+    // the quarter (~every 15-30s of real time at default speed) instead of only
+    // appearing at quarter boundaries.
+    if (rng_.bernoulli(0.035)) {
+        dealPortfolio_.addTrickleDeal(bank_.divisions, state_.currentYear);
+    }
+
+    // STAR_02 P6: intra-quarter HIRING trickle — identical draw to runSimulation
+    // so the day-by-day and batch RNG sequences stay locked (DayByDayMatchesBatch).
+    if (rng_.bernoulli(0.012)) {
+        addTrickleCandidate();
+    }
+
     clock_.advanceDay();
 
     auto curMarkets = marketSim_.snapshot();

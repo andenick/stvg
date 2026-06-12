@@ -4,7 +4,7 @@
  * `apiFetch` unwraps that envelope and throws on success=false.
  */
 
-import type { ApiEnvelope, PlayerView } from '../types/server';
+import type { ApiEnvelope, PlayerView, MacroHistoryResponse, TradeBook } from '../types/server';
 
 export class ApiError extends Error {
   constructor(message: string, public status?: number) {
@@ -62,6 +62,10 @@ export const api = {
   getState: (gameId: string) =>
     apiFetch<PlayerView>(`/api/game/${encodeURIComponent(gameId)}/state`),
 
+  // P3: per-quarter macro snapshots for chart hydration after a load/reload.
+  macroHistory: (gameId: string) =>
+    apiFetch<MacroHistoryResponse>(`/api/game/${encodeURIComponent(gameId)}/macro-history`),
+
   submitDecision: (gameId: string, decisionId: string, optionId: string, extra?: object) =>
     apiFetch<PlayerView>(
       `/api/game/${encodeURIComponent(gameId)}/decision/${encodeURIComponent(decisionId)}`,
@@ -85,6 +89,48 @@ export const api = {
       `/api/game/${encodeURIComponent(gameId)}/load`,
       { method: 'POST', body: JSON.stringify({ slot }) },
     ),
+
+  acceptDeal: (gameId: string, dealId: string, investmentAmount: number) =>
+    apiFetch<{ accepted: boolean; dealId: string; amount: number }>(
+      `/api/game/${encodeURIComponent(gameId)}/deal/${encodeURIComponent(dealId)}/accept`,
+      { method: 'POST', body: JSON.stringify({ investmentAmount }) },
+    ),
+
+  hire: (gameId: string, candidateId: string, divisionId: string) =>
+    apiFetch<{ hired: boolean; candidateId: string; divisionId: string }>(
+      `/api/game/${encodeURIComponent(gameId)}/hire`,
+      { method: 'POST', body: JSON.stringify({ candidateId, divisionId }) },
+    ),
+
+  // STAR_02 P7: place a market order on the CEO's personal trading account.
+  // amount = dollar notional; side = buy | sell. Returns the updated trade book.
+  trade: (gameId: string, marketId: string, side: 'buy' | 'sell', amount: number) =>
+    apiFetch<{
+      traded: boolean; marketId: string; side: string; qtyDelta: number;
+      realizedPnl: number; positionQtyAfter: number; tradeBook: TradeBook;
+    }>(
+      `/api/game/${encodeURIComponent(gameId)}/trade`,
+      { method: 'POST', body: JSON.stringify({ marketId, side, amount }) },
+    ),
+
+  // STAR_02 P7: hydrate the personal trading account snapshot.
+  tradeBook: (gameId: string) =>
+    apiFetch<TradeBook>(`/api/game/${encodeURIComponent(gameId)}/trade-book`),
+
+  // STAR_02 P6: accept a poach offer (buy a rival's whole division team).
+  poach: (gameId: string, offerId: string) =>
+    apiFetch<{ poached: boolean; offerId: string; bankCapital: number }>(
+      `/api/game/${encodeURIComponent(gameId)}/poach`,
+      { method: 'POST', body: JSON.stringify({ offerId }) },
+    ),
+
+  logTelemetry: (sessionId: string, events: unknown[]) =>
+    fetch('/api/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, events }),
+      keepalive: true,
+    }).catch(() => { /* telemetry is best-effort */ }),
 
   listCeos: () => apiFetch<unknown[]>('/api/ceos'),
   listScenarios: () => apiFetch<unknown[]>('/api/scenarios'),

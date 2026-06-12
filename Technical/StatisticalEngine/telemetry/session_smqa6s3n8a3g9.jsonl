@@ -1,0 +1,70 @@
+{"data":{"ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0"},"t":6,"type":"session_start"}
+{"data":{"paused":false,"quarter":1,"year":1945},"t":5664,"type":"sim_toggle"}
+{"data":{"amount":36336.02126103116,"id":"deal_1","title":"Struggling Regional Bank"},"t":5851,"type":"deal_arrived"}
+{"data":{"id":"evt_58","title":"International Expansion Opportunity"},"t":5898,"type":"news"}
+{"data":{"id":"evt_25","title":"Acquisition Target Identified"},"t":5898,"type":"news"}
+{"data":{"id":"evt_46","title":"Executive Poaching Attempt"},"t":5898,"type":"news"}
+{"data":{"id":"evt_1","title":"Fed Rate Decision Pending"},"t":5898,"type":"news"}
+{"data":{"id":"evt_ve_day_conversion","title":"War-to-Peace Industrial Conversion"},"t":5898,"type":"news"}
+{"data":{"speed":4},"t":6674,"type":"sim_speed"}
+{"data":{"amount":34664.573086778306,"id":"deal_2","title":"Mortgage Pool Origination"},"t":11561,"type":"deal_arrived"}
+{"data":{"id":"evt_20","title":"Training Program Results"},"t":17528,"type":"news"}
+{"data":{"id":"evt_59","title":"Product Innovation Pressure"},"t":17528,"type":"news"}
+{"data":{"id":"evt_66","title":"Celebrity Client Signs On"},"t":17528,"type":"news"}
+{"data":{"id":"evt_24","title":"Branch Consolidation Debate"},"t":17528,"type":"news"}
+{"data":{"id":"evt_bretton_woods_order","title":"Bretton Woods New World Order"},"t":17528,"type":"news"}
+{"data":{"amount":40924.7442624627,"id":"deal_3","title":"Wildcat Oil Play"},"t":21379,"type":"deal_arrived"}
+{"data":{"amount":52440.35594094972,"id":"deal_4","title":"War Bond Rollover"},"t":24319,"type":"deal_arrived"}
+{"data":{"amount":40284.71764859941,"id":"deal_5","title":"Mortgage Pool Origination"},"t":27681,"type":"deal_arrived"}
+{"data":{"amount":21908.522166219376,"id":"deal_6","title":"Wildcat Oil Play"},"t":27880,"type":"deal_arrived"}
+{"data":{"id":"evt_14","title":"Lobbying Opportunity"},"t":27897,"type":"news"}
+{"data":{"id":"evt_34","title":"Loan Portfolio Deterioration"},"t":27897,"type":"news"}
+{"data":{"id":"evt_49","title":"Congressional Banking Hearing"},"t":27897,"type":"news"}
+{"data":{"id":"evt_65","title":"Government Contract Windfall"},"t":27897,"type":"news"}
+{"data":{"amount":29993.416196868646,"id":"deal_7","title":"Railroad Refinancing"},"t":34388,"type":"deal_arrived"}
+{"data":{"amount":27125.961570416803,"id":"deal_8","title":"Railroad Refinancing"},"t":38224,"type":"deal_arrived"}
+{"data":{"id":"evt_62","title":"Price War Escalation"},"t":38242,"type":"news"}
+{"data":{"id":"evt_60","title":"Board Succession Crisis"},"t":38242,"type":"news"}
+{"data":{"id":"evt_7","title":"Housing Market Cooling"},"t":38242,"type":"news"}
+{"data":{"amount":57057.629043364585,"id":"deal_9","title":"War Bond Rollover"},"t":41794,"type":"deal_arrived"}
+{"data":{"amount":30435.976679778527,"id":"deal_10","title":"Mortgage Pool Origination"},"t":43741,"type":"deal_arrived"}
+{"data":{"amount":23826.75310153307,"id":"deal_11","title":"War Bond Rollover"},"t":48613,"type":"deal_arrived"}
+{"data":{"id":"evt_48","title":"Star Analyst Publishes Report"},"t":48633,"type":"news"}
+{"data":{"id":"evt_gi_bill_mortgages","title":"GI Bill Mortgage Boom"},"t":48633,"type":"news"}
+{"data":{"amount":30650.146286317224,"id":"deal_12","title":"War Bond Rollover"},"t":51767,"type":"deal_arrived"}
+{"data":{"amount":48899.53227135478,"id":"deal_13","title":"Mortgage Pool Origination"},"t":58970,"type":"deal_arrived"}
+{"data":{"id":"evt_15","title":"Star Trader Poached"},"t":58991,"type":"news"}
+{"data":{"id":"evt_61","title":"Competitor Acquisition Announced"},"t":58991,"type":"news"}
+{"data":{"id":"evt_27","title":"Geographic Expansion Opportunity"},"t":58991,"type":"news"}
+{"data":{"id":"evt_10","title":"New Capital Requirements"},"t":58991,"type":"news"}
+{"data":{"amount":65265.648200746844,"id":"deal_14","title":"GI Bill Mortgage Pool"},"t":66861,"type":"deal_arrived"}
+{"data":{"id":"evt_42","title":"Real Estate Boom"},"t":69326,"type":"news"}
+{"data":{"id":"evt_45","title":"Trading Floor Morale Crisis"},"t":69326,"type":"news"}
+{"data":{"amount":41935.199029705094,"id":"deal_15","title":"Struggling Regional Bank"},"t":73427,"type":"deal_arrived"}
+{"data":{"amount":78551.64401922916,"id":"deal_16","title":"Mortgage Pool Origination"},"t":76926,"type":"deal_arrived"}
+{"data":{"id":"evt_39","title":"Treasury Auction Failure"},"t":79674,"type":"news"}
+{"data":{"id":"evt_32","title":"Industry Award Nomination"},"t":79674,"type":"news"}
+{"data":{"id":"evt_9","title":"Regulatory Audit Notice"},"t":79674,"type":"news"}
+{"data":{"amount":46923.30296051682,"id":"deal_17","title":"Wildcat Oil Play"},"t":82932,"type":"deal_arrived"}
+{"data":{"amount":67183.77651475454,"id":"deal_18","title":"War Bond Rollover"},"t":83213,"type":"deal_arrived"}
+{"data":{"amount":52997.428503025185,"id":"deal_19","title":"Real Estate Development Loan"},"t":90015,"type":"deal_arrived"}
+{"data":{"amount":34153.57524743901,"id":"deal_20","title":"GI Bill Mortgage Pool"},"t":90015,"type":"deal_arrived"}
+{"data":{"id":"evt_regulation_q","title":"Regulation Q Interest Rate Caps"},"t":90039,"type":"news"}
+{"data":{"amount":75589.84055021046,"id":"deal_21","title":"Mortgage Pool Origination"},"t":97269,"type":"deal_arrived"}
+{"data":{"amount":19187.1024251878,"id":"deal_22","title":"Railroad Refinancing"},"t":97688,"type":"deal_arrived"}
+{"data":{"amount":20362.226529339056,"id":"deal_23","title":"War Bond Rollover"},"t":100405,"type":"deal_arrived"}
+{"data":{"id":"evt_29","title":"Competitor Launches Rate War"},"t":100430,"type":"news"}
+{"data":{"amount":25735.317071121623,"id":"deal_24","title":"Railroad Refinancing"},"t":103561,"type":"deal_arrived"}
+{"data":{"amount":32022.34426643997,"id":"deal_25","title":"GI Bill Mortgage Pool"},"t":107618,"type":"deal_arrived"}
+{"data":{"amount":40563.935792672986,"id":"deal_26","title":"War Bond Rollover"},"t":107756,"type":"deal_arrived"}
+{"data":{"id":"evt_44","title":"Key Client Relationship at Risk"},"t":110832,"type":"news"}
+{"data":{"id":"evt_12","title":"Consumer Protection Complaint"},"t":110832,"type":"news"}
+{"data":{"id":"evt_64","title":"Client Poaching Campaign"},"t":110832,"type":"news"}
+{"data":{"amount":48647.57819576353,"id":"deal_27","title":"War Bond Rollover"},"t":115066,"type":"deal_arrived"}
+{"data":{"amount":50053.981758642156,"id":"deal_28","title":"Railroad Refinancing"},"t":118712,"type":"deal_arrived"}
+{"data":{"amount":39273.835330945,"id":"deal_29","title":"Mortgage Pool Origination"},"t":124093,"type":"deal_arrived"}
+{"data":{"amount":78865.61519136933,"id":"deal_30","title":"Mortgage Pool Origination"},"t":128852,"type":"deal_arrived"}
+{"data":{"amount":70731.78088339476,"id":"deal_31","title":"Mortgage Pool Origination"},"t":131606,"type":"deal_arrived"}
+{"data":{"id":"evt_16","title":"Division Head Resignation"},"t":131639,"type":"news"}
+{"data":{"id":"evt_17","title":"Whistleblower Report"},"t":131639,"type":"news"}
+{"data":{"id":"evt_57","title":"Failed Bank Available"},"t":131639,"type":"news"}

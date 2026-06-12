@@ -127,13 +127,17 @@ public:
             adjustedDrift += 0.5 * (eco.gdpGrowth - 0.025);
             adjustedDrift -= 0.3 * (eco.fedFundsRate - 0.04);
 
-            // Bond prices: duration + convexity adjustment
+            // Bond price tracks the 10Y YIELD and mean-reverts to a yield-implied
+            // fair value (inverse to yield, anchored near par) — not the short rate.
+            // The GARCH diffusion term adds the day-to-day wiggle around fair value.
             if (ms.market.type == MarketType::Bond) {
-                double duration = 7.0; // Modified duration ~7 years for 10Y bond
-                double convexity = duration * duration / (1.0 + eco.treasuryYield10Y); // ~80
-                double rateDelta = eco.fedFundsRate - 0.04;
-                // Price change = -D * Δy + 0.5 * C * Δy² (convexity benefit)
-                adjustedDrift = -duration * rateDelta + 0.5 * convexity * rateDelta * rateDelta;
+                const double duration = 7.0;     // modified duration ~7y for a 10Y note
+                const double couponRef = 0.04;   // reference coupon → price ~ par at 4%
+                double fairValue = 100.0 / (1.0 + duration * (eco.treasuryYield10Y - couponRef));
+                fairValue = std::clamp(fairValue, 40.0, 160.0);
+                double fairLog = std::log(fairValue);
+                const double reversion = 3.0;    // per year — price chases its yield
+                adjustedDrift = reversion * (fairLog - ms.logPrice);
             }
 
             // GARCH volatility update (use correlated shock instead of independent)
@@ -142,25 +146,27 @@ public:
                 ? correlatedShocks[ms.correlationIndex]
                 : rng_.normalSample();
 
-            // Base return: drift + vol * correlated shock
-            double ret = adjustedDrift * dt + vol * std::sqrt(dt) * correlatedZ;
+            // Diffusion shock. GARCH is driven by the UNSCALED process so its
+            // variance stays stationary, but the *displayed* price moves by
+            // volScale_ × diffusion for a livelier, shakier day-to-day market.
+            double diffusion = vol * std::sqrt(dt) * correlatedZ;
+            double baseRet = adjustedDrift * dt + diffusion;              // feeds GARCH
+            double dispRet = adjustedDrift * dt + volScale_ * diffusion;  // moves price
 
-            // Update GARCH internal state with this return
-            // (manually feed the return back for next period's variance)
-            // Jump-diffusion component
+            // Jump-diffusion component (crash events) — applies to both equally
             double jumpRet = ms.jump.step(rng_, stress);
             if (ms.jump.jumped()) {
-                ret += jumpRet;
-                // Post-jump volatility spike
-                // (next tick's GARCH will naturally react via alpha * eps^2)
+                baseRet += jumpRet;
+                dispRet += jumpRet;
+                // Post-jump volatility spike: next tick's GARCH reacts via alpha*eps^2
             }
 
-            // Update log price
-            ms.logPrice += ret;
+            // Update log price with the exaggerated (displayed) return
+            ms.logPrice += dispRet;
             double newPrice = std::exp(ms.logPrice);
 
-            // Feed realized return into GARCH for next-period variance
-            ms.garch.feedReturn(ret);
+            // Feed the UNSCALED realized return into GARCH for next-period variance
+            ms.garch.feedReturn(baseRet);
 
             updateMarketData(ms, newPrice, stress, dt);
         }
@@ -236,6 +242,7 @@ private:
     std::vector<MarketSim> markets_;
     math::CorrelationEngine corrEngine_;
     int startYear_ = 2024;
+    double volScale_ = 1.0;     // displayed-volatility exaggeration (see setVolatilityScale)
 
     void addMarket(const std::string& id, const std::string& name,
                    MarketType type, const std::string& symbol,
@@ -285,7 +292,7 @@ private:
         ms.market.change = newPrice - ms.market.previousClose;
         ms.market.changePercent = (ms.market.previousClose > 0)
             ? (ms.market.change / ms.market.previousClose) * 100.0 : 0.0;
-        ms.market.volatility = ms.garch.currentVolatility() * std::sqrt(252.0);
+        ms.market.volatility = ms.garch.currentVolatility() * std::sqrt(252.0) * volScale_;
         ms.market.status = MarketStatus::Open;
         ms.market.lastUpdate = now_iso8601();
 
@@ -337,6 +344,13 @@ public:
         garchConfig_ = config;
         hasEraGarch_ = true;
     }
+
+    // Exaggerate (or dampen) displayed intra-quarter volatility. 1.0 = raw
+    // historical calibration. The live player server sets this > 1 for feel.
+    void setVolatilityScale(double scale) {
+        volScale_ = (scale > 0.0) ? scale : 1.0;
+    }
+    double volatilityScale() const { return volScale_; }
 
 private:
     math::GARCHParams selectGARCHParams(double stress) const {

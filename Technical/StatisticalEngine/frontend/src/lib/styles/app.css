@@ -15,32 +15,37 @@
   --font-data: 'JetBrains Mono', 'IBM Plex Mono', monospace;
   --font-chrome: 'IBM Plex Mono', monospace;
 
-  --fs-xs: 0.7rem;
-  --fs-sm: 0.85rem;
-  --fs-base: 0.95rem;
-  --fs-md: 1.1rem;
-  --fs-lg: 1.4rem;
-  --fs-xl: 2rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.9rem;
+  --fs-base: 1.02rem;
+  --fs-md: 1.18rem;
+  --fs-lg: 1.5rem;
+  --fs-xl: 2.1rem;
   --fs-xxl: 3.5rem;
 
-  /* Era-default palette (Post-War Stability: 1945-1959) */
-  --bg-base: #0d0b08;
-  --bg-card: #16120c;
-  --bg-elevated: #1f1810;
+  /*
+   * Era-default palette (Post-War Stability: 1945-1959).
+   * A warm "historical ledger" beige — a touch darker than light-beige, with
+   * dark ink text. The desk felt is bg-base; panels lift on lighter card tones.
+   * Later eras override these to their darker, more dramatic palettes.
+   */
+  --bg-base: #d9cdb0;            /* desk felt — warm medium beige */
+  --bg-card: #e9e0c9;            /* panels */
+  --bg-elevated: #f3ecd9;        /* raised cards / inputs */
   --bg-texture: none;
-  --border: #2a2218;
-  --border-soft: #1c1610;
+  --border: #b3a47e;
+  --border-soft: #c7b994;
 
-  --fg-primary: #d4c5a0;
-  --fg-secondary: #9a8d70;
-  --fg-muted: #5a5040;
-  --fg-data: #c4a35a;
+  --fg-primary: #2a2316;         /* dark ink */
+  --fg-secondary: #5a4e36;
+  --fg-muted: #897a59;
+  --fg-data: #6a5621;            /* gold-brown numerals */
 
-  --accent-primary: #c4a35a;     /* warm gold */
-  --accent-secondary: #8a6e3a;
-  --accent-success: #6b8e4e;
-  --accent-warning: #c4892b;
-  --accent-danger: #a8453a;
+  --accent-primary: #876a2c;     /* deep gold */
+  --accent-secondary: #6a5223;
+  --accent-success: #4d7836;     /* ledger green */
+  --accent-warning: #b06f1a;
+  --accent-danger: #9d382c;      /* ledger red */
 
   /* Layout */
   --layout-mode: minimal;        /* minimal | light | medium | full | dense */
@@ -56,7 +61,7 @@
   --t-slow: 1000ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 /* ── Era overrides ──────────────────────────────────────────────────────── */
@@ -196,13 +201,14 @@ html, body, #app {
  */
 html[data-era='post-war'],
 html[data-era='Post-War Stability'] {
+  /* faint ledger ruling — dark ink lines on warm beige paper */
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(196, 163, 90, 0.015) 0,
-      rgba(196, 163, 90, 0.015) 1px,
+      rgba(74, 60, 30, 0.05) 0,
+      rgba(74, 60, 30, 0.05) 1px,
       transparent 1px,
-      transparent 26px
+      transparent 28px
     );
 }
 html[data-era='shadow'],

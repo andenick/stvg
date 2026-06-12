@@ -5,12 +5,10 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { fmtMoney } from '../util/money';
+  import { dwell, panelView } from '../actions/dwell';
 
-  function fmtAssets(v: number): string {
-    if (Math.abs(v) >= 1e12) return `$${(v / 1e12).toFixed(2)}T`;
-    if (Math.abs(v) >= 1e9)  return `$${(v / 1e9).toFixed(1)}B`;
-    return `$${v.toFixed(0)}`;
-  }
+  const fmtAssets = (v: number): string => fmtMoney(v);
 
   let sorted = $derived(
     [...sim.leaderboard].sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999))
@@ -18,7 +16,7 @@
 </script>
 
 {#if sim.leaderboard.length > 0 && sim.year >= 1965}
-  <section class="panel" aria-label="Leaderboard">
+  <section class="panel" aria-label="Leaderboard" use:dwell={'panel:LeaderboardPanel'} use:panelView={'LeaderboardPanel'}>
     <header><h3>Leaderboard</h3></header>
     <ol>
       {#each sorted as row (row.id)}

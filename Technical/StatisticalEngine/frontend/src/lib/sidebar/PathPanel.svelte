@@ -7,6 +7,7 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { dwell, panelView } from '../actions/dwell';
 
   const AXES = [
     { key: 'riskCulture',         label: 'Risk Culture',         leftLabel: 'Conservative', rightLabel: 'Gunslinger' },
@@ -23,7 +24,7 @@
 </script>
 
 {#if sim.path && sim.year >= 1955}
-  <section class="panel" aria-label="Path">
+  <section class="panel" aria-label="Path" use:dwell={'panel:PathPanel'} use:panelView={'PathPanel'}>
     <header>
       <h3>Path</h3>
       {#if sim.path.archetype}

@@ -14,6 +14,10 @@
 
   import { sim } from '../stores/simulation.svelte';
   import { ui } from '../stores/ui.svelte';
+  import { messageText, messageSpeaker } from '../util/feed';
+  import { telemetry } from '../telemetry';
+  import { dwell } from '../actions/dwell';
+  import type { MacroId } from '../charts/macro-meta';
 
   type Kind = 'event' | 'digest' | 'narrative';
   interface Item {
@@ -21,17 +25,71 @@
     text: string;
     kind: Kind;
     severity?: number;
+    /** Direction glyph derived from the REAL series the headline references. */
+    dir?: 'up' | 'down';
+  }
+
+  /*
+   * News ↔ tape tie-in (P3.4 Stage A, UI side). The engine now sign-weights event
+   * draws so a headline's wording matches the engine's realized direction. When a
+   * headline mentions a series we can map (recession/boom/unemployment/rates/
+   * inflation/stocks/bonds/credit), we show a small ▲/▼ glyph — but the direction
+   * is read from the live ring buffers (sim.macroDir / sim.marketDir), NEVER from
+   * the headline text. No mapping hit → no glyph (we never fabricate a direction).
+   *
+   * Each rule maps a keyword regex to a source series + a `sense`: 'level' means
+   * the glyph follows the series direction directly (rates up → ▲); 'inverse'
+   * means the headline frames the series falling as the "good news" (a recession
+   * headline points DOWN when GDP is actually falling).
+   */
+  type Source =
+    | { kind: 'macro'; id: MacroId }
+    | { kind: 'market'; id: string };
+  interface NewsRule { re: RegExp; src: Source; sense: 'level' | 'inverse'; }
+
+  const NEWS_RULES: NewsRule[] = [
+    // GDP / growth cycle
+    { re: /\brecession|downturn|contraction|slump|slowdown\b/i, src: { kind: 'macro', id: 'GDP' }, sense: 'level' },
+    { re: /\bboom|recovery|expansion|growth|rebound|surg(e|ing)\b/i, src: { kind: 'macro', id: 'GDP' }, sense: 'level' },
+    // Labour market
+    { re: /\bunemploy|jobless|layoff|jobs?\b|payroll/i, src: { kind: 'macro', id: 'UNEMP' }, sense: 'level' },
+    // Policy / rates
+    { re: /\brate hike|rate cut|interest rate|fed (funds|raises|cuts)|tighten|easing|monetary\b/i, src: { kind: 'macro', id: 'FEDFUNDS' }, sense: 'level' },
+    // Inflation
+    { re: /\binflation|cpi|prices? (ris|surg|climb)|cost of living\b/i, src: { kind: 'macro', id: 'CPI' }, sense: 'level' },
+    // Credit
+    { re: /\bcredit|spread|default|junk|distress|downgrade\b/i, src: { kind: 'macro', id: 'SPREAD' }, sense: 'level' },
+    // Equities
+    { re: /\bstock|equit|s&p|shares?|wall street|rally|sell-?off\b/i, src: { kind: 'market', id: 'SP500' }, sense: 'level' },
+    // Bonds (price; treasuries)
+    { re: /\bbond|treasur|yield|fixed income\b/i, src: { kind: 'market', id: 'UST10Y' }, sense: 'level' },
+  ];
+
+  /** Resolve a headline's direction glyph from the live buffers, or undefined. */
+  function dirFor(text: string): 'up' | 'down' | undefined {
+    for (const rule of NEWS_RULES) {
+      if (!rule.re.test(text)) continue;
+      const d = rule.src.kind === 'macro'
+        ? sim.macroDir(rule.src.id)
+        : sim.marketDir(rule.src.id);
+      if (d === 'flat') return undefined;        // no settled direction → no glyph
+      const flip = rule.sense === 'inverse';
+      const eff = flip ? (d === 'up' ? 'down' : 'up') : d;
+      return eff;
+    }
+    return undefined;
   }
 
   // Build a flat feed. Dedupe by text, cap to 24 so the marquee stays smooth.
   let feed = $derived.by<Item[]>(() => {
     const out: Item[] = [];
     const seen = new Set<string>();
-    function push(text: string, kind: Kind, key: string, severity?: number) {
-      const t = text?.trim();
+    // `text` may be a string OR a CharacterMessage object — coerce defensively.
+    function push(text: unknown, kind: Kind, key: string, severity?: number) {
+      const t = messageText(text);
       if (!t || seen.has(t)) return;
       seen.add(t);
-      out.push({ id: `${kind}:${key}`, text: t, kind, severity });
+      out.push({ id: `${kind}:${key}`, text: t, kind, severity, dir: dirFor(t) });
     }
     for (let i = sim.events.length - 1; i >= 0; i--) {
       const ev = sim.events[i];
@@ -58,6 +116,7 @@
 
   function openLog() {
     ui.fullEventLogOpen = true;
+    telemetry.log('news_open', { items: feed.length });
   }
 </script>
 
@@ -76,6 +135,7 @@
           <span class="item k-{item.kind}" class:sev-high={(item.severity ?? 0) > 6}>
             {#if ui.phase >= 2}<span class="icon" aria-hidden="true">{iconFor(item.kind)}</span>{/if}
             <span class="text">{item.text}</span>
+            {#if item.dir}<span class="dir dir-{item.dir}" aria-hidden="true">{item.dir === 'up' ? '▲' : '▼'}</span>{/if}
           </span>
         {/each}
       </span>
@@ -85,6 +145,7 @@
           <span class="item k-{item.kind}" class:sev-high={(item.severity ?? 0) > 6}>
             {#if ui.phase >= 2}<span class="icon" aria-hidden="true">{iconFor(item.kind)}</span>{/if}
             <span class="text">{item.text}</span>
+            {#if item.dir}<span class="dir dir-{item.dir}" aria-hidden="true">{item.dir === 'up' ? '▲' : '▼'}</span>{/if}
           </span>
         {/each}
       </span>
@@ -101,7 +162,7 @@
     onclick={() => ui.fullEventLogOpen = false}
     onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') ui.fullEventLogOpen = false; }}
   ></div>
-  <div class="log-panel" role="dialog" aria-labelledby="log-title">
+  <div class="log-panel" role="dialog" aria-labelledby="log-title" use:dwell={'news_log'}>
     <header class="log-head">
       <h2 id="log-title">Event Log</h2>
       <button class="log-x" aria-label="Close" onclick={() => ui.fullEventLogOpen = false}>&times;</button>
@@ -139,7 +200,10 @@
           <h3>Messages</h3>
           <ul class="log-list">
             {#each sim.messages as m, i (i)}
-              <li><span class="log-desc">{m}</span></li>
+              <li>
+                {#if messageSpeaker(m)}<span class="log-kind">{messageSpeaker(m)}</span>{/if}
+                <span class="log-desc">{messageText(m)}</span>
+              </li>
             {/each}
           </ul>
         </section>
@@ -227,6 +291,9 @@
     color: var(--fg-primary);
   }
   .item.k-digest .text { color: var(--fg-secondary); }
+  .dir { font-size: 0.62rem; font-variant-numeric: tabular-nums; }
+  .dir-up   { color: var(--accent-success); }
+  .dir-down { color: var(--accent-danger); }
 
   /* ── Full event log overlay ────────────────────────────────────────── */
   .overlay-back {

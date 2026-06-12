@@ -1,0 +1,61 @@
+{"schema":2,"type":"meta"}
+{"data":{"capital":0,"day":0,"paused":true,"quarter":1,"sessionId":"smqaggqoag5p3","speed":1,"startedAt":"2026-06-12T04:57:47.537Z","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0","year":1945},"t":8,"type":"session_start"}
+{"data":{"capital":1000000,"ceoId":null,"day":0,"paused":true,"quarter":1,"scenario":"default","speed":1,"startingPosition":"commercial_bank","year":1945},"t":2676,"type":"game_start"}
+{"data":{"capital":1000000,"cheapestSalary":150400,"day":0,"paused":true,"quarter":1,"speed":1,"year":1945},"t":3073,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":36336.02126103116,"capital":1000000,"day":0,"id":"deal_1","paused":true,"quarter":1,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":3074,"type":"deal_arrived"}
+{"data":{"capital":1000000,"day":0,"id":"evt_59","paused":true,"quarter":1,"speed":1,"title":"Product Innovation Pressure","year":1945},"t":3111,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_26","paused":true,"quarter":1,"speed":1,"title":"New Product Launch Decision","year":1945},"t":3111,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_48","paused":true,"quarter":1,"speed":1,"title":"Star Analyst Publishes Report","year":1945},"t":3111,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_1","paused":true,"quarter":1,"speed":1,"title":"Fed Rate Decision Pending","year":1945},"t":3111,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_ve_day_conversion","paused":true,"quarter":1,"speed":1,"title":"War-to-Peace Industrial Conversion","year":1945},"t":3111,"type":"news"}
+{"data":{"capital":1000000,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":1,"speed":1,"trigger":"advisor","year":1945},"t":3112,"type":"portrait_shown"}
+{"data":{"capital":1000000,"day":0,"paused":false,"quarter":1,"speed":1,"year":1945},"t":5616,"type":"sim_toggle"}
+{"data":{"capital":1000000,"day":1,"from":"economy","paused":false,"quarter":1,"speed":1,"to":"bank","year":1945},"t":6421,"type":"tab_switch"}
+{"data":{"capital":1000000,"day":1,"key":"tab:economy","ms":3687,"paused":false,"quarter":1,"speed":1,"year":1945},"t":6431,"type":"dwell"}
+{"data":{"capital":1000000,"day":18,"ms":12004,"npcId":"npc_marcus_kane","paused":false,"quarter":1,"read":false,"speed":1,"trigger":"advisor","year":1945},"t":15116,"type":"portrait_dismissed"}
+{"data":{"capital":1000000,"day":34,"npcId":"npc_marcus_kane","paused":false,"quarter":1,"speed":1,"trigger":"advisor","year":1945},"t":23130,"type":"portrait_shown"}
+{"data":{"capital":1000000,"day":57,"ms":12003,"npcId":"npc_marcus_kane","paused":false,"quarter":1,"read":false,"speed":1,"trigger":"advisor","year":1945},"t":35133,"type":"portrait_dismissed"}
+{"data":{"capital":1060075.617479335,"day":0,"key":"decision:dec_1_q1","ms":35266,"paused":true,"quarter":2,"speed":1,"title":"Product Innovation Pressure","year":1945},"t":38415,"type":"dwell"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_1_q1","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_2_q1","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_3_q1","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_4_q1","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_5_q1","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_loanspread_y1945","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_creditstd_y1945","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"decisionId":"dec_duration_y1945","paused":true,"quarter":2,"speed":1,"visibleMs":35309,"year":1945},"t":38415,"type":"decision_lapsed"}
+{"data":{"capital":1060075.617479335,"day":0,"id":"evt_66","paused":true,"quarter":2,"speed":1,"title":"Celebrity Client Signs On","year":1945},"t":38415,"type":"news"}
+{"data":{"capital":1060075.617479335,"day":0,"id":"evt_25","paused":true,"quarter":2,"speed":1,"title":"Acquisition Target Identified","year":1945},"t":38415,"type":"news"}
+{"data":{"capital":1060075.617479335,"day":0,"id":"evt_bretton_woods_order","paused":true,"quarter":2,"speed":1,"title":"Bretton Woods New World Order","year":1945},"t":38415,"type":"news"}
+{"data":{"capital":1060075.617479335,"day":4,"npcId":"npc_marcus_kane","paused":false,"quarter":2,"speed":1,"trigger":"advisor","year":1945},"t":43159,"type":"portrait_shown"}
+{"data":{"capital":1060075.617479335,"day":27,"ms":12005,"npcId":"npc_marcus_kane","paused":false,"quarter":2,"read":false,"speed":1,"trigger":"advisor","year":1945},"t":55164,"type":"portrait_dismissed"}
+{"data":{"capital":1060075.617479335,"day":43,"npcId":"npc_marcus_kane","paused":false,"quarter":2,"speed":1,"trigger":"advisor","year":1945},"t":63182,"type":"portrait_shown"}
+{"data":{"capital":1113978.2107573943,"day":0,"key":"decision:dec_1_q2","ms":35416,"paused":true,"quarter":3,"speed":1,"title":"New Product Launch Decision","year":1945},"t":73831,"type":"dwell"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_1_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_2_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_3_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_4_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_5_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_6_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"decisionId":"dec_inv_q2","paused":true,"quarter":3,"speed":1,"visibleMs":35416,"year":1945},"t":73831,"type":"decision_lapsed"}
+{"data":{"capital":1113978.2107573943,"day":0,"id":"evt_15","paused":true,"quarter":3,"speed":1,"title":"Star Trader Poached","year":1945},"t":73831,"type":"news"}
+{"data":{"capital":1113978.2107573943,"day":0,"id":"evt_42","paused":true,"quarter":3,"speed":1,"title":"Real Estate Boom","year":1945},"t":73832,"type":"news"}
+{"data":{"capital":1113978.2107573943,"day":0,"id":"evt_57","paused":true,"quarter":3,"speed":1,"title":"Failed Bank Available","year":1945},"t":73832,"type":"news"}
+{"data":{"capital":1113978.2107573943,"day":0,"ms":12002,"npcId":"npc_marcus_kane","paused":true,"quarter":3,"read":false,"speed":1,"trigger":"advisor","year":1945},"t":75184,"type":"portrait_dismissed"}
+{"data":{"capital":1113978.2107573943,"day":13,"npcId":"npc_marcus_kane","paused":false,"quarter":3,"speed":1,"trigger":"advisor","year":1945},"t":83214,"type":"portrait_shown"}
+{"data":{"capital":1113978.2107573943,"day":36,"ms":12013,"npcId":"npc_marcus_kane","paused":false,"quarter":3,"read":false,"speed":1,"trigger":"advisor","year":1945},"t":95227,"type":"portrait_dismissed"}
+{"data":{"capital":1113978.2107573943,"day":52,"npcId":"name:Janet Winters","paused":false,"quarter":3,"speed":1,"trigger":"advisor","year":1945},"t":103242,"type":"portrait_shown"}
+{"data":{"capital":1168083.447591959,"day":0,"mode":"modal","paused":true,"quarter":4,"speed":1,"year":1945},"t":108737,"type":"annual_report_open"}
+{"data":{"capital":1168083.447591959,"day":0,"key":"decision:dec_1_q3","ms":35427,"paused":true,"quarter":4,"speed":1,"title":"Star Trader Poached","year":1945},"t":109258,"type":"dwell"}
+{"data":{"capital":1168083.447591959,"day":0,"decisionId":"dec_1_q3","paused":true,"quarter":4,"speed":1,"visibleMs":35427,"year":1945},"t":109258,"type":"decision_lapsed"}
+{"data":{"capital":1168083.447591959,"day":0,"decisionId":"dec_2_q3","paused":true,"quarter":4,"speed":1,"visibleMs":35427,"year":1945},"t":109258,"type":"decision_lapsed"}
+{"data":{"capital":1168083.447591959,"day":0,"decisionId":"dec_3_q3","paused":true,"quarter":4,"speed":1,"visibleMs":35427,"year":1945},"t":109258,"type":"decision_lapsed"}
+{"data":{"capital":1168083.447591959,"day":0,"decisionId":"dec_4_q3","paused":true,"quarter":4,"speed":1,"visibleMs":35427,"year":1945},"t":109258,"type":"decision_lapsed"}
+{"data":{"capital":1168083.447591959,"day":0,"decisionId":"dec_5_q3","paused":true,"quarter":4,"speed":1,"visibleMs":35427,"year":1945},"t":109258,"type":"decision_lapsed"}
+{"data":{"capital":1168083.447591959,"day":0,"decisionId":"dec_inv_q3","paused":true,"quarter":4,"speed":1,"visibleMs":35427,"year":1945},"t":109258,"type":"decision_lapsed"}
+{"data":{"capital":1168083.447591959,"day":0,"id":"evt_65","paused":true,"quarter":4,"speed":1,"title":"Government Contract Windfall","year":1945},"t":109258,"type":"news"}
+{"data":{"capital":1168083.447591959,"day":0,"id":"evt_60","paused":true,"quarter":4,"speed":1,"title":"Board Succession Crisis","year":1945},"t":109258,"type":"news"}
+{"data":{"capital":1168083.447591959,"day":0,"id":"evt_2","paused":true,"quarter":4,"speed":1,"title":"Market Flash Crash","year":1945},"t":109258,"type":"news"}
+{"data":{"capital":1168083.447591959,"day":0,"id":"evt_8","paused":true,"quarter":4,"speed":1,"title":"IPO Window Opens","year":1945},"t":109258,"type":"news"}
+{"data":{"capital":1168083.447591959,"day":6,"ms":12004,"npcId":"name:Janet Winters","paused":false,"quarter":4,"read":false,"speed":1,"trigger":"advisor","year":1945},"t":115246,"type":"portrait_dismissed"}
+{"data":{"capital":1168083.447591959,"day":22,"npcId":"name:Janet Winters","paused":false,"quarter":4,"speed":1,"trigger":"advisor","year":1945},"t":123264,"type":"portrait_shown"}

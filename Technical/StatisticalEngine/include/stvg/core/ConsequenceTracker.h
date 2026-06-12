@@ -148,7 +148,7 @@ public:
                 c.title = pickRandom(negativeRiskTitles);
                 c.description = "The risk from '" + optionTitle + "' has come home to roost.";
                 c.type = ConsequenceType::Financial;
-                c.financialImpact = riskChange * -5e7 * magnitudeVariance;
+                c.financialImpact = riskChange * -5e3 * magnitudeVariance;  // magnitude rescaled /10,000 ($1M-scale)
                 c.reputationImpact = -(2.0 + rng_.uniform() * 3.0);
                 c.moraleImpact = -(2.0 + rng_.uniform() * 4.0);
             } else {

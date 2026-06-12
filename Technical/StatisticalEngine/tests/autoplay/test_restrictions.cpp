@@ -22,7 +22,7 @@ TEST(Restrictions, ForceCeoSelectsCEO) {
     simCfg.startQuarter = 1;
 
     BankConfig bankCfg;
-    bankCfg.startingCapital = 10e9;
+    bankCfg.startingCapital = 1e6;   // rescaled from 10e9
 
     QuarterlyTurnManager mgr(simCfg, bankCfg, "volcker");
     EXPECT_TRUE(mgr.hasCeo());

@@ -51,6 +51,24 @@ TEST(CEOGame, ConstructorAppliesCEOCapital) {
     EXPECT_DOUBLE_EQ(mgr.bank().capital, sterling->startingCapital);
 }
 
+// 0.7: CEO startingCapital overrides must land on the $1M-scale world, not the
+// old $10B units (50e9). Every CEO-overridden game should start at a sane,
+// $1M-scale capital — well under $100M — and never default-fall-through to the
+// engine's $1M default. Guards against a JSON-units regression at the source.
+TEST(CEOGame, CeoOverrideStartsAtMillionScaleCapital) {
+    for (const auto& profile : CEOProfile::allProfiles()) {
+        SimulationConfig cfg;
+        cfg.seed = 200;
+        QuarterlyTurnManager mgr(cfg, {}, profile.id);
+        ASSERT_TRUE(mgr.hasCeo()) << "CEO not applied: " << profile.id;
+        double cap = mgr.bank().capital;
+        // Sane $1M-scale bounds: a real bank-sized start, not $10B-scale.
+        EXPECT_GT(cap, 1.0e6) << profile.id << " starts below $1M";
+        EXPECT_LT(cap, 1.0e8) << profile.id << " starts at off-scale ($100M+) capital — JSON units regressed";
+        EXPECT_DOUBLE_EQ(cap, profile.startingCapital) << profile.id;
+    }
+}
+
 TEST(CEOGame, NoCeoByDefault) {
     SimulationConfig cfg;
     cfg.seed = 101;

@@ -10,6 +10,9 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
+    "@dicebear/avataaars-neutral": "^9.4.2",
+    "@dicebear/core": "^9.4.2",
+    "@dicebear/personas": "^9.4.2",
     "lightweight-charts": "^5.2.0"
   },
   "devDependencies": {

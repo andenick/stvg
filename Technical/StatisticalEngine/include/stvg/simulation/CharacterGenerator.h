@@ -3,6 +3,7 @@
 #include "../core/Types.h"
 #include "../core/BankState.h"
 #include "../core/EmployeeCandidate.h"
+#include "../core/ArchetypeRegistry.h"
 #include "../math/RandomEngine.h"
 #include <nlohmann/json.hpp>
 #include <string>
@@ -23,22 +24,27 @@ class CharacterGenerator {
 public:
     explicit CharacterGenerator(math::RandomEngine& rng) : rng_(rng) {}
 
-    // Generate N candidates for the current era
+    // Generate N candidates for the current era. familyTilt (STAR_02 P6
+    // ReputationLens) is an optional per-family spawn-weight multiplier (enum
+    // order, 8 entries; nullptr = no tilt) — it only reshapes WHICH archetype is
+    // drawn, never the NUMBER of rng_ draws, so it is lockstep-safe.
     std::vector<EmployeeCandidate> generateCandidates(int count, int gameYear,
-                                                        double bankReputation = 50.0) {
+                                                        double bankReputation = 50.0,
+                                                        const std::array<double, 8>* familyTilt = nullptr) {
         std::vector<EmployeeCandidate> candidates;
         for (int i = 0; i < count; ++i) {
-            candidates.push_back(generateOne(gameYear, bankReputation));
+            candidates.push_back(generateOne(gameYear, bankReputation, familyTilt));
         }
         return candidates;
     }
 
-    EmployeeCandidate generateOne(int gameYear, double bankReputation = 50.0) {
+    EmployeeCandidate generateOne(int gameYear, double bankReputation = 50.0,
+                                  const std::array<double, 8>* familyTilt = nullptr) {
         EmployeeCandidate emp;
         emp.id = "emp_" + std::to_string(++counter_);
 
-        // 1. Pick archetype (era-weighted)
-        emp.archetype = pickArchetype(gameYear);
+        // 1. Pick archetype (era-weighted, optionally reputation-tilted)
+        emp.archetype = pickArchetype(gameYear, familyTilt);
 
         // 2. Generate stats from archetype + budget
         generateStats(emp);
@@ -78,6 +84,12 @@ public:
             }
         }
 
+        // 10. P5: roll an optional registry specialization (era-filtered to the
+        // family). Flavor/display only — uses a DETERMINISTIC hash of the
+        // candidate id, NOT the shared rng_, so the day-by-day/batch RNG
+        // sequence and the pre-refactor generation are bit-for-bit unchanged.
+        emp.specializationId = rollSpecialization(emp, gameYear);
+
         return emp;
     }
 
@@ -87,19 +99,35 @@ private:
 
     // ── Archetype Selection ─────────────────────────────────────
 
-    Archetype pickArchetype(int gameYear) {
-        // Era-weighted distribution
-        std::array<double, 8> weights;
-        if (gameYear < 1960) {
-            weights = {0.35, 0.00, 0.00, 0.15, 0.20, 0.10, 0.10, 0.10};
-        } else if (gameYear < 1980) {
-            weights = {0.20, 0.05, 0.00, 0.25, 0.15, 0.15, 0.10, 0.10};
-        } else if (gameYear < 2000) {
-            weights = {0.10, 0.15, 0.15, 0.20, 0.10, 0.10, 0.15, 0.05};
-        } else {
-            weights = {0.05, 0.10, 0.25, 0.15, 0.10, 0.10, 0.20, 0.05};
+    // Era-weighted spawn distribution. Sourced from ArchetypeRegistry
+    // (data/archetypes/archetypes.json families[].eraSpawnWeights, migrated
+    // verbatim from the table below); falls back to the literals if the JSON
+    // is absent so behavior is identical either way.
+    std::array<double, 8> eraSpawnWeights(int gameYear) const {
+        const auto& reg = ArchetypeRegistry::instance();
+        if (reg.loaded() && reg.families().size() == 8) {
+            std::array<double, 8> w{};
+            // Families load in enum order (patrician..lifer), so index == enum.
+            for (int i = 0; i < 8; ++i)
+                w[i] = ArchetypeRegistry::spawnWeight(reg.families()[i], gameYear);
+            return w;
         }
+        if (gameYear < 1960) return {0.35, 0.00, 0.00, 0.15, 0.20, 0.10, 0.10, 0.10};
+        if (gameYear < 1980) return {0.20, 0.05, 0.00, 0.25, 0.15, 0.15, 0.10, 0.10};
+        if (gameYear < 2000) return {0.10, 0.15, 0.15, 0.20, 0.10, 0.10, 0.15, 0.05};
+        return {0.05, 0.10, 0.25, 0.15, 0.10, 0.10, 0.20, 0.05};
+    }
 
+    Archetype pickArchetype(int gameYear, const std::array<double, 8>* familyTilt = nullptr) {
+        std::array<double, 8> weights = eraSpawnWeights(gameYear);
+        // STAR_02 P6: apply the ReputationLens family tilt, then renormalize, so
+        // the draw stays a single rng_.uniform() against a unit distribution —
+        // identical draw count/order, only the bucket boundaries move.
+        if (familyTilt) {
+            double sum = 0.0;
+            for (int i = 0; i < 8; ++i) { weights[i] *= (*familyTilt)[i]; sum += weights[i]; }
+            if (sum > 0.0) for (int i = 0; i < 8; ++i) weights[i] /= sum;
+        }
         double roll = rng_.uniform();
         double cum = 0;
         for (int i = 0; i < 8; ++i) {
@@ -139,7 +167,11 @@ private:
 
     std::array<double, 10> archetypeStatWeights(Archetype arch) {
         // Order: analytical, intuition, judgment, persuasion, networking,
-        //        leadership, ambition, resilience, stamina, adaptability
+        //        leadership, ambition, resilience, stamina, adaptability.
+        // Sourced from ArchetypeRegistry (families[].statWeights, migrated
+        // verbatim from the literals below). Falls back to literals if absent.
+        if (const auto* fam = ArchetypeRegistry::instance().family(arch))
+            return fam->statWeights;
         switch (arch) {
             case Archetype::Patrician:  return {0.06, 0.08, 0.14, 0.10, 0.20, 0.12, 0.08, 0.10, 0.06, 0.06};
             case Archetype::Gunslinger: return {0.10, 0.18, 0.10, 0.08, 0.06, 0.04, 0.18, 0.12, 0.10, 0.04};
@@ -154,6 +186,9 @@ private:
     }
 
     int archetypeBaseIntegrity(Archetype arch) {
+        // Sourced from ArchetypeRegistry (families[].integrityBase, verbatim).
+        if (const auto* fam = ArchetypeRegistry::instance().family(arch))
+            return fam->integrityBase;
         switch (arch) {
             case Archetype::Patrician:  return 75;
             case Archetype::Gunslinger: return 40;
@@ -179,6 +214,31 @@ private:
             case Archetype::Lifer:      return "Any (reliable)";
         }
         return "General";
+    }
+
+    // ── Specialization (P5, flavor/display only) ────────────────
+    // Pick a registry specialization whose family matches the candidate and
+    // whose era window contains gameYear. Deterministic in the candidate id so
+    // it consumes ZERO draws from the shared rng_ (lockstep-safe; pure refactor
+    // preserved). Returns "" when the registry is unloaded or no spec fits.
+    std::string rollSpecialization(const EmployeeCandidate& emp, int gameYear) const {
+        const auto& reg = ArchetypeRegistry::instance();
+        if (!reg.loaded()) return "";
+        nlohmann::json fam = emp.archetype;
+        std::string familyId = fam.get<std::string>();
+
+        std::vector<const ArchetypeSpecialization*> eligible;
+        for (const auto& sp : reg.specializations()) {
+            if (sp.family != familyId) continue;
+            if (gameYear < sp.eraFrom || gameYear > sp.eraTo) continue;
+            eligible.push_back(&sp);
+        }
+        if (eligible.empty()) return "";
+
+        // Deterministic selection from the candidate id (FNV-1a hash).
+        uint64_t h = 1469598103934665603ULL;
+        for (char c : emp.id) { h ^= (uint8_t)c; h *= 1099511628211ULL; }
+        return eligible[h % eligible.size()]->id;
     }
 
     // ── Experience & Age ────────────────────────────────────────
@@ -461,16 +521,22 @@ private:
         double base = 40000 + emp.yearsExperience * 8000;
         double skillPremium = (emp.stats.analytical + emp.stats.persuasion + emp.stats.networking)
                             / 3.0 * 500;
+        // Family salary multiplier — sourced from ArchetypeRegistry
+        // (families[].salaryMult, verbatim); falls back to the literals below.
         double archetypeMult = 1.0;
-        switch (emp.archetype) {
-            case Archetype::Prodigy: archetypeMult = 0.6; break;
-            case Archetype::Lifer: archetypeMult = 0.8; break;
-            case Archetype::Operator: archetypeMult = 1.2; break;
-            case Archetype::Patrician: archetypeMult = 1.3; break;
-            case Archetype::Quant: archetypeMult = 1.4; break;
-            case Archetype::Gunslinger: archetypeMult = 1.5; break;
-            case Archetype::Dealmaker: archetypeMult = 1.6; break;
-            case Archetype::Rainmaker: archetypeMult = 1.7; break;
+        if (const auto* fam = ArchetypeRegistry::instance().family(emp.archetype)) {
+            archetypeMult = fam->salaryMult;
+        } else {
+            switch (emp.archetype) {
+                case Archetype::Prodigy: archetypeMult = 0.6; break;
+                case Archetype::Lifer: archetypeMult = 0.8; break;
+                case Archetype::Operator: archetypeMult = 1.2; break;
+                case Archetype::Patrician: archetypeMult = 1.3; break;
+                case Archetype::Quant: archetypeMult = 1.4; break;
+                case Archetype::Gunslinger: archetypeMult = 1.5; break;
+                case Archetype::Dealmaker: archetypeMult = 1.6; break;
+                case Archetype::Rainmaker: archetypeMult = 1.7; break;
+            }
         }
 
         // Check for "Expensive Tastes" trait
@@ -478,6 +544,12 @@ private:
             if (t.name == "Expensive Tastes") archetypeMult *= 1.3;
         }
 
+        // 0.9: return the HONEST annual wage — this value is what the UI shows
+        // (a believable $18-90K/yr range across archetypes/era). The display hack
+        // (engine ÷10,000 then UI ×1000) is gone. To keep bank economics balanced,
+        // the wage is converted to its in-economy cost via SALARY_COST_SCALE at
+        // every charge site (Division::totalSalaryCost, hire/fire), so the
+        // EFFECTIVE quarterly deduction is unchanged from the old fudged units.
         return (base + skillPremium) * archetypeMult;
     }
 };

@@ -14,10 +14,24 @@
   import { ui } from '../stores/ui.svelte';
   import { wsClient } from '../ws/websocket';
   import { toasts } from '../stores/toasts.svelte';
+  import { telemetry } from '../telemetry';
   import SettingsOverlay from '../overlays/SettingsOverlay.svelte';
 
   let starting = $state(false);
   let beginError = $state<string | null>(null);
+
+  /**
+   * P3: backfill macro ring buffers (+ market closes) from the per-quarter
+   * macro-history endpoint so the Economy tab's charts aren't empty after a
+   * reload/save-load. Best-effort — a fresh game's history is empty and the
+   * live stream fills forward, so never let this block routing into the game.
+   */
+  async function backfillMacro(gameId: string) {
+    try {
+      const hist = await api.macroHistory(gameId);
+      if (hist?.quarters?.length) sim.hydrateMacroHistory(hist.quarters);
+    } catch { /* best-effort; forward-only is acceptable */ }
+  }
 
   // Advanced opts come back from SettingsOverlay on Apply
   let advancedSeed = $state<number | null>(null);
@@ -42,7 +56,7 @@
       if (advancedStartingPosition != null) opts.startingPosition = advancedStartingPosition;
       if (advancedPreset) opts.preset = advancedPreset;
 
-      const { gameId } = await api.newGame(opts);
+      const { gameId, startingPosition } = await api.newGame(opts);
 
       // Hydrate full PlayerView before we route — gives the game view real data
       // on first render rather than a flash of empty panels.
@@ -50,8 +64,17 @@
       sim.reset();
       sim.gameId = gameId;
       sim.applyPlayerView(view);
+      await backfillMacro(gameId);
 
       try { localStorage.setItem('stvg.lastGameId', gameId); } catch { /* ignore */ }
+
+      // Lifecycle: game_start (P1). Logged after the view hydrates so the
+      // context stamp carries the real opening year/capital.
+      telemetry.log('game_start', {
+        ceoId: sim.ceoId ?? advancedCeoId ?? null,
+        scenario: advancedPreset ?? 'default',
+        startingPosition: startingPosition ?? advancedStartingPosition ?? null,
+      });
 
       wsClient.connect(gameId);
       ui.screen = 'game';
@@ -75,6 +98,7 @@
       sim.reset();
       sim.gameId = gameId;
       sim.applyPlayerView(view);
+      await backfillMacro(gameId);
       wsClient.connect(gameId);
       ui.screen = 'game';
     } catch (e) {
@@ -165,13 +189,33 @@
 />
 
 <style>
+  /*
+   * Self-contained title-screen palette (0.1). The pre-game title must NOT
+   * depend on the game-era CSS vars set on <html>/<main>, because those are
+   * only applied once a game is running (and a prior dark-era game can leave
+   * <html data-era> on a dark palette, rendering dark-on-dark / invisible
+   * "The Banker"). We pin explicit, high-contrast tokens here so the title,
+   * subtitle, and Begin button are always legible at a glance. WCAG AA: the
+   * gold title (#5a4410) and ink subtitle on the warm beige bg clear 4.5:1.
+   */
   .title-screen {
+    /* local tokens — override anything inherited from a stale data-era */
+    --ts-bg: #e7dcc1;          /* warm parchment */
+    --ts-bg-edge: #d2c39c;     /* slightly darker vignette edge */
+    --ts-ink: #241d10;         /* near-black ink */
+    --ts-ink-soft: #4a3d24;    /* secondary ink */
+    --ts-ink-muted: #6f6044;   /* muted */
+    --ts-gold: #5a4410;        /* deep, legible gold (not the light accent) */
+    --ts-gold-bright: #8a6a1f;
+    --ts-danger: #8c2f22;
+
     position: relative;
     min-height: 100vh;
     display: grid;
     place-items: center;
-    background: var(--bg-base);
-    color: var(--fg-primary);
+    background:
+      radial-gradient(ellipse at center, var(--ts-bg) 0%, var(--ts-bg-edge) 100%);
+    color: var(--ts-ink);
     font-family: var(--font-body);
     overflow: hidden;
   }
@@ -181,8 +225,8 @@
     inset: 0;
     background: radial-gradient(
       ellipse at center,
-      rgba(196, 163, 90, 0.10) 0%,
-      rgba(196, 163, 90, 0.04) 40%,
+      rgba(138, 106, 31, 0.12) 0%,
+      rgba(138, 106, 31, 0.05) 40%,
       transparent 70%
     );
     pointer-events: none;
@@ -199,7 +243,7 @@
     font-family: var(--font-chrome);
     font-size: 0.72rem;
     letter-spacing: 0.5em;
-    color: var(--accent-primary);
+    color: var(--ts-gold-bright);
     margin: 0 0 2rem 0;
     text-indent: 0.5em;   /* offset for the wide letter-spacing on the last char */
   }
@@ -207,26 +251,26 @@
   .title {
     font-family: var(--font-display);
     margin: 0;
-    color: var(--fg-primary);
+    color: var(--ts-ink);
     line-height: 1.05;
   }
   .title .italic {
     font-style: italic;
     font-weight: 400;
     font-size: 2.6rem;
-    color: var(--accent-primary);
+    color: var(--ts-gold);
     letter-spacing: 0.05em;
   }
   .title .bold {
     font-weight: 700;
     font-size: 4.8rem;
     letter-spacing: 0.04em;
+    color: var(--ts-ink);
   }
 
   .subtitle {
-    /* WCAG AA: #9a8d70 on #0d0b08 ~= 5.6:1 */
     font-family: var(--font-body);
-    color: #9a8d70;
+    color: var(--ts-ink-soft);
     margin: 1.3rem 0 0.25rem 0;
     font-size: 0.95rem;
     letter-spacing: 0.32em;
@@ -235,14 +279,14 @@
   }
   .years {
     font-family: var(--font-data);
-    color: var(--fg-muted);
+    color: var(--ts-ink-muted);
     font-size: 0.72rem;
     letter-spacing: 0.4em;
     margin: 0 0 1.5rem 0;
   }
 
   .divider {
-    color: var(--accent-primary);
+    color: var(--ts-gold);
     opacity: 0.55;
     font-size: 0.85rem;
     margin: 0.5rem 0 2rem 0;
@@ -263,8 +307,8 @@
     letter-spacing: 0.32em;
     text-transform: uppercase;
     text-indent: 0.32em;
-    border: 1px solid var(--accent-primary);
-    color: var(--accent-primary);
+    border: 1px solid var(--ts-gold);
+    color: var(--ts-gold);
     background: transparent;
     border-radius: 0;
     display: inline-flex;
@@ -272,26 +316,33 @@
     justify-content: center;
     gap: 0.5rem;
   }
+  /* The Begin button is the primary call to action — make it solid + legible. */
   .actions .primary {
     border-width: 2px;
+    background: var(--ts-gold);
+    color: #f4ecd6;
   }
-  .actions button:hover:not(:disabled) {
-    background: rgba(196, 163, 90, 0.10);
+  .actions .primary:hover:not(:disabled) {
+    background: var(--ts-gold-bright);
+    border-color: var(--ts-gold-bright);
+  }
+  .actions .secondary:hover:not(:disabled) {
+    background: rgba(138, 106, 31, 0.10);
   }
   .actions button:disabled { opacity: 0.5; }
 
   .spinner {
     width: 0.9rem;
     height: 0.9rem;
-    border: 2px solid rgba(196, 163, 90, 0.25);
-    border-top-color: var(--accent-primary);
+    border: 2px solid rgba(244, 236, 214, 0.35);
+    border-top-color: #f4ecd6;
     border-radius: 50%;
     animation: spin 700ms linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .error {
-    color: var(--accent-danger);
+    color: var(--ts-danger);
     font-family: var(--font-chrome);
     font-size: 0.78rem;
     margin-top: 1.5rem;
@@ -306,7 +357,7 @@
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
-    color: #5a5040; /* WCAG AA-compliant footer per top_20 #10 */
+    color: var(--ts-ink-muted);
     font-family: var(--font-chrome);
     font-size: 0.7rem;
     letter-spacing: 0.3em;
@@ -322,14 +373,14 @@
     height: 0.45rem;
     border-radius: 50%;
   }
-  .conn-dot.on  { background: var(--accent-success); box-shadow: 0 0 6px var(--accent-success); }
-  .conn-dot.off { background: var(--accent-danger); opacity: 0.65; }
-  .conn-label { color: #6b6047; }
+  .conn-dot.on  { background: #4d7836; box-shadow: 0 0 6px #4d7836; }
+  .conn-dot.off { background: var(--ts-danger); opacity: 0.65; }
+  .conn-label { color: var(--ts-ink-muted); }
 
   .settings-link {
     background: transparent;
     border: none;
-    color: #6b6047;
+    color: var(--ts-ink-muted);
     font-family: var(--font-chrome);
     font-size: 0.7rem;
     letter-spacing: 0.3em;
@@ -337,10 +388,10 @@
     text-transform: uppercase;
     padding: 0;
   }
-  .settings-link:hover { color: var(--accent-primary); }
+  .settings-link:hover { color: var(--ts-gold); }
 
   .version {
     margin: 0;
-    color: #5a5040;
+    color: var(--ts-ink-muted);
   }
 </style>

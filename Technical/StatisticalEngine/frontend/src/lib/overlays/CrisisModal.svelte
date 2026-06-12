@@ -21,6 +21,8 @@
   import { sim } from '../stores/simulation.svelte';
   import { api, ApiError } from '../api/rest';
   import { toasts } from '../stores/toasts.svelte';
+  import { telemetry } from '../telemetry';
+  import { dwell } from '../actions/dwell';
   import type { CrisisArc, CrisisResponseType } from '../types/server';
 
   // Show first unresolved crisis (engine queues them one at a time anyway)
@@ -41,6 +43,17 @@
   $effect(() => {
     const id = crisis?.id ?? null;
     if (id === lastCrisisId) return;
+
+    // Lifecycle (P1): the previous crisis closed, and/or a new one opened. Log
+    // crisis_end for the one leaving and crisis_start for the one arriving.
+    if (lastCrisisId !== null) {
+      telemetry.log('crisis_end', { crisisId: lastCrisisId });
+    }
+    if (id !== null && crisis) {
+      telemetry.log('crisis_start', {
+        crisisId: id, title: crisis.title, severity: crisis.severity,
+      });
+    }
     lastCrisisId = id;
 
     // clear pending
@@ -75,6 +88,7 @@
   async function respond(type: CrisisResponseType) {
     if (submitting || !crisis || !sim.gameId) return;
     submitting = true;
+    telemetry.log('crisis_respond', { crisisId: crisis.id, choice: type, severity: crisis.severity });
     try {
       await api.respondCrisis(sim.gameId, crisis.id, type);
       toasts.success(`Crisis response: ${type}`);
@@ -128,6 +142,7 @@
     class:shake={isShake}
     class:pulse={isPulse}
     class:glow={isGlow}
+    use:dwell={{ key: `crisis:${crisis.id}`, data: { title: crisis.title, severity: crisis.severity } }}
   >
     <header class="crisis-head">
       <span class="icon" aria-hidden="true">{severityIcon(crisis.severity)}</span>

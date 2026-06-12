@@ -5,6 +5,7 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { dwell, panelView } from '../actions/dwell';
 
   interface Rule { key: string; label: string; activeIf: boolean | undefined; tone: 'ok' | 'warn' | 'crit' }
 
@@ -22,7 +23,7 @@
 </script>
 
 {#if sim.regulatory && sim.year >= 1988}
-  <section class="panel" aria-label="Regulatory">
+  <section class="panel" aria-label="Regulatory" use:dwell={'panel:RegulatoryPanel'} use:panelView={'RegulatoryPanel'}>
     <header>
       <h3>Regulatory</h3>
       {#if sim.regulatory.capitalRequirement != null}

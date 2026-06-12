@@ -7,7 +7,7 @@ using namespace stvg;
 
 TEST(StartingPositions, CommercialBankHasDefaultDivisions) {
     auto cfg = bankConfigForPosition(StartingPosition::CommercialBank);
-    EXPECT_NEAR(cfg.startingCapital, 10e9, 1e6);
+    EXPECT_NEAR(cfg.startingCapital, 1e6, 1e3);
     auto divs = divisionsForPosition(StartingPosition::CommercialBank);
     EXPECT_EQ(divs.size(), 2u);
     EXPECT_EQ(divs[0], DivisionType::CommercialLending);
@@ -16,7 +16,7 @@ TEST(StartingPositions, CommercialBankHasDefaultDivisions) {
 
 TEST(StartingPositions, TradingFirmHasTradingDivisions) {
     auto cfg = bankConfigForPosition(StartingPosition::TradingFirm);
-    EXPECT_NEAR(cfg.startingCapital, 5e9, 1e6);
+    EXPECT_NEAR(cfg.startingCapital, 5e5, 1e2);
     EXPECT_EQ(cfg.startingReputation, 40.0);
     auto divs = divisionsForPosition(StartingPosition::TradingFirm);
     EXPECT_EQ(divs.size(), 2u);
@@ -26,7 +26,7 @@ TEST(StartingPositions, TradingFirmHasTradingDivisions) {
 
 TEST(StartingPositions, InvestmentBankHasIBDivisions) {
     auto cfg = bankConfigForPosition(StartingPosition::InvestmentBank);
-    EXPECT_NEAR(cfg.startingCapital, 20e9, 1e6);
+    EXPECT_NEAR(cfg.startingCapital, 2e6, 1e3);
     auto divs = divisionsForPosition(StartingPosition::InvestmentBank);
     EXPECT_EQ(divs.size(), 3u);
     EXPECT_EQ(divs[0], DivisionType::InvestmentBanking);
@@ -34,7 +34,7 @@ TEST(StartingPositions, InvestmentBankHasIBDivisions) {
 
 TEST(StartingPositions, CommunityBankIsSmall) {
     auto cfg = bankConfigForPosition(StartingPosition::CommunityBank);
-    EXPECT_NEAR(cfg.startingCapital, 500e6, 1e6);
+    EXPECT_NEAR(cfg.startingCapital, 5e4, 1e1);
     EXPECT_EQ(cfg.startingReputation, 70.0);
     auto divs = divisionsForPosition(StartingPosition::CommunityBank);
     EXPECT_EQ(divs.size(), 1u);
@@ -43,7 +43,7 @@ TEST(StartingPositions, CommunityBankIsSmall) {
 
 TEST(StartingPositions, UniversalBankIsLarge) {
     auto cfg = bankConfigForPosition(StartingPosition::UniversalBank);
-    EXPECT_NEAR(cfg.startingCapital, 200e9, 1e9);
+    EXPECT_NEAR(cfg.startingCapital, 2e7, 1e3);
     auto divs = divisionsForPosition(StartingPosition::UniversalBank);
     EXPECT_GE(divs.size(), 5u);
 }
@@ -93,7 +93,7 @@ TEST(StartingPositions, MetadataReturnsAllFivePositions) {
     EXPECT_EQ(metadata[0]["divisions"].size(), 2u);
 
     EXPECT_EQ(metadata[1]["id"], "trading_firm");
-    EXPECT_NEAR(metadata[1]["capital"].get<double>(), 5e9, 1e6);
+    EXPECT_NEAR(metadata[1]["capital"].get<double>(), 5e5, 1e2);
 
     EXPECT_EQ(metadata[4]["id"], "universal_bank");
     EXPECT_GE(metadata[4]["divisions"].size(), 5u);

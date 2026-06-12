@@ -15,7 +15,7 @@ static QuarterlyTurnManager makeGame(uint64_t seed = 42) {
     simCfg.startYear = 1945;
     simCfg.startQuarter = 1;
     BankConfig bankCfg;
-    bankCfg.startingCapital = 10e9;
+    bankCfg.startingCapital = 1e6;   // rescaled from 10e9
     return QuarterlyTurnManager(simCfg, bankCfg);
 }
 

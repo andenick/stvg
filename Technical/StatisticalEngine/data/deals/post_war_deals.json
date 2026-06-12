@@ -1,42 +1,90 @@
 [
-    {
-        "title": "Interstate Highway Construction Loan",
-        "description": "The federal government is building 41,000 miles of highways. Construction firms need $50M in credit lines.",
-        "requiredDivision": "CommercialLending",
-        "eraRange": [1956, 1970],
-        "risk": { "riskLevel": 2, "returnRange": [4, 10], "successProbability": 0.90, "duration": 6 },
-        "investmentRequired": 50000000
-    },
-    {
-        "title": "Suburban Housing Development",
-        "description": "Levittown-style developments need mortgage origination for 500 homes.",
-        "requiredDivision": "MortgageLending",
-        "eraRange": [1947, 1965],
-        "risk": { "riskLevel": 2, "returnRange": [5, 12], "successProbability": 0.85, "duration": 4 },
-        "investmentRequired": 25000000
-    },
-    {
-        "title": "War Bond Rollover Program",
-        "description": "Maturing war bonds need to be rolled into treasury securities. Handle $200M in transitions.",
-        "requiredDivision": "TrustAndCustody",
-        "eraRange": [1945, 1955],
-        "risk": { "riskLevel": 1, "returnRange": [2, 5], "successProbability": 0.95, "duration": 2 },
-        "investmentRequired": 10000000
-    },
-    {
-        "title": "Department Store Credit Account",
-        "description": "A major retailer wants a revolving credit program for 100,000 customers.",
-        "requiredDivision": "CreditCards",
-        "eraRange": [1960, 1975],
-        "risk": { "riskLevel": 3, "returnRange": [8, 20], "successProbability": 0.75, "duration": 4 },
-        "investmentRequired": 15000000
-    },
-    {
-        "title": "Marshall Plan Trade Finance",
-        "description": "European reconstruction creates demand for trade finance and letters of credit.",
-        "requiredDivision": "InternationalBanking",
-        "eraRange": [1948, 1955],
-        "risk": { "riskLevel": 3, "returnRange": [6, 15], "successProbability": 0.80, "duration": 3 },
-        "investmentRequired": 30000000
-    }
+  {
+    "title": "War Bond Rollover",
+    "description": "A pile of maturing war bonds needs a home. Dull as dishwater, safe as houses. Your board will yawn — and sleep soundly.",
+    "requiredDivision": "MortgageLending",
+    "eraRange": [1945, 1965],
+    "risk": { "riskLevel": 1, "successProbability": 0.95, "duration": 2 },
+    "investmentRequired": 80000
+  },
+  {
+    "title": "GI Bill Mortgage Pool",
+    "description": "Every returning soldier wants a little house with a white fence. Lend to the boom — America is buying lawns.",
+    "requiredDivision": "MortgageLending",
+    "eraRange": [1945, 1962],
+    "risk": { "riskLevel": 2, "successProbability": 0.90, "duration": 4 },
+    "investmentRequired": 120000
+  },
+  {
+    "title": "Struggling Regional Bank",
+    "description": "A tired little bank two towns over — weak management, but a deposit base fat as a Thanksgiving turkey. Buy it cheap, run it better.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1945, 1972],
+    "risk": { "riskLevel": 3, "successProbability": 0.80, "duration": 5 },
+    "investmentRequired": 200000
+  },
+  {
+    "title": "Auto Plant Expansion",
+    "description": "Detroit wants to pour more steel on wheels. Big iron, big payroll, big order book. Cyclical — but the cycle is up.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1948, 1972],
+    "risk": { "riskLevel": 4, "successProbability": 0.78, "duration": 4 },
+    "investmentRequired": 250000
+  },
+  {
+    "title": "Wildcat Oil Play",
+    "description": "A Texan in ostrich boots swears there's a gusher under his ranch. Could be a fortune. Could be a dry hole and a good story.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1945, 1972],
+    "risk": { "riskLevel": 7, "successProbability": 0.45, "duration": 6 },
+    "investmentRequired": 180000
+  },
+  {
+    "title": "Suburban Shopping Center",
+    "description": "Strip mall on the new highway. Everyone's moving past the city line. Park once, buy everything. The future has a parking lot.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1950, 1972],
+    "risk": { "riskLevel": 4, "successProbability": 0.75, "duration": 6 },
+    "investmentRequired": 220000
+  },
+  {
+    "title": "Railroad Refinancing",
+    "description": "An old railroad wants to roll its debt. Proud name, rusting track. The dividends are real; so is the decline. Pick your decade.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1945, 1968],
+    "risk": { "riskLevel": 5, "successProbability": 0.62, "duration": 5 },
+    "investmentRequired": 160000
+  },
+  {
+    "title": "Appliance Maker Credit Line",
+    "description": "Every kitchen wants a humming refrigerator and a television glow. Finance the factory that fills them — consumer America, on the installment plan.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1947, 1972],
+    "risk": { "riskLevel": 3, "successProbability": 0.82, "duration": 4 },
+    "investmentRequired": 150000
+  },
+  {
+    "title": "Eurodollar Placement",
+    "description": "Dollars stranded in London, hunting a yield Regulation Q won't allow at home. Clever. Offshore. Faintly thrilling.",
+    "requiredDivision": "InternationalBanking",
+    "eraRange": [1958, 1972],
+    "risk": { "riskLevel": 5, "successProbability": 0.70, "duration": 2 },
+    "investmentRequired": 130000
+  },
+  {
+    "title": "BankAmericard Rollout",
+    "description": "A plastic card that lets people spend money they don't quite have yet. Madness — or the most profitable madness of the century.",
+    "requiredDivision": "CreditCards",
+    "eraRange": [1958, 1972],
+    "risk": { "riskLevel": 6, "successProbability": 0.60, "duration": 5 },
+    "investmentRequired": 175000
+  },
+  {
+    "title": "Defense Contractor Bridge",
+    "description": "Cost-plus contracts, Cold War urgency, a government that always pays. Boring, lucrative, and just a little bit grim.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1950, 1972],
+    "risk": { "riskLevel": 3, "successProbability": 0.85, "duration": 4 },
+    "investmentRequired": 210000
+  }
 ]

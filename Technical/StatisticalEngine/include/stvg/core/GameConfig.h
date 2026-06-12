@@ -100,7 +100,7 @@ struct GameConfig {
 
     // ── Bank Setup ────────────────────────────────────────────
     struct BankSetup {
-        double startingCapital = 10e9;
+        double startingCapital = 1e6;   // $1M — start tiny, grow to an empire (rescaled from 10e9)
         int startingEmployees = 50;
         int startingBranches = 1;
         double startingMarketShare = 0.001;
@@ -115,7 +115,7 @@ struct GameConfig {
 
     // ── Organizational Complexity ─────────────────────────────
     struct Complexity {
-        double visibilityDecayConstant = 200e9;
+        double visibilityDecayConstant = 2e7;   // $20M fog onset (rescaled from 200e9)
         double controlDecayConstant = 5000.0;
         double hiddenRiskGrowthBase = 0.02;
         double hiddenRiskGrowthAutonomyMult = 0.08;
@@ -130,9 +130,9 @@ struct GameConfig {
         int mediumBankAP = 7;
         int largeBankAP = 8;
         int megaBankAP = 10;
-        double threshold1 = 50e9;
-        double threshold2 = 200e9;
-        double threshold3 = 500e9;
+        double threshold1 = 5e6;     // rescaled from 50e9
+        double threshold2 = 2e7;     // rescaled from 200e9
+        double threshold3 = 5e7;     // rescaled from 500e9
     } actionPoints;
 
     // ── GARCH Regime Parameters ───────────────────────────────
@@ -164,6 +164,12 @@ struct GameConfig {
         double bondDuration = 7.0;
         double stressSpreadCoeff = 0.02;
         double baseVolume = 1e6;
+        // Visual/feel exaggeration of intra-quarter price swings. 1.0 = raw
+        // historical calibration (used by all tests/autoplay for determinism);
+        // the live player server raises this so markets visibly move day-to-day.
+        // Scales the diffusion term only — GARCH variance stays stable, so it
+        // does not compound or run away.
+        double volScale = 1.0;
     } markets;
 
     // ── Trader AI ─────────────────────────────────────────────
@@ -279,7 +285,7 @@ struct GameConfig {
         c.crisis.probCrisis = 0.40;
         c.crisis.reputationDamagePerSeverity = 1.2;
         c.crisis.reputationRecoveryRate = 2.5;
-        c.complexity.visibilityDecayConstant = 120e9;
+        c.complexity.visibilityDecayConstant = 1.2e7;   // rescaled from 120e9
         c.complexity.hiddenRiskGrowthBase = 0.03;
         c.complexity.hiddenRiskGrowthAutonomyMult = 0.12;
         c.traders.pctRogue = 0.15; c.traders.pctAggressive = 0.25;
@@ -311,7 +317,7 @@ struct GameConfig {
     static GameConfig Tutorial() {
         GameConfig c = Easy();
         c.timing.quartersPerGame = 20;
-        c.bank.startingCapital = 20e9;     // 2x normal to prevent early death
+        c.bank.startingCapital = 2e6;     // 2x normal to prevent early death (rescaled)
         c.bank.startingReputation = 80.0;  // High starting rep
         c.crisis.probCalm = 0.005;         // Almost no crises
         c.crisis.probNormal = 0.01;

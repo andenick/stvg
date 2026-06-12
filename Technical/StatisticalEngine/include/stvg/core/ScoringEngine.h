@@ -21,7 +21,7 @@ struct QuarterScore {
     int xpEarned = 0;
 
     void calculate(const Bank& bank, bool hadCrisis, int decisionsCorrect, int decisionsTotal,
-                   double startingCapital = 10e9, int currentEraIndex = 0) {
+                   double startingCapital = 1e6, int currentEraIndex = 0) {
         // Financial: log growth scaling (prevents ceiling at moderate growth) + ROE
         double capitalGrowthPct = (bank.capital - startingCapital) / startingCapital * 100.0;
         double roe = (bank.capital > 0) ? bank.netIncome / bank.capital * 100.0 : 0.0;

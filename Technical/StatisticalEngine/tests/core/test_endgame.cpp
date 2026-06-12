@@ -64,11 +64,11 @@ TEST(Endgame, GrowthTargetAt2T) {
     SimulationConfig cfg;
     cfg.seed = 203;
     BankConfig bc;
-    bc.startingCapital = 2.1e12; // Way over threshold, assets will be > $2T
+    bc.startingCapital = 2.1e8; // Way over the rescaled $200M win threshold
     QuarterlyTurnManager mgr(cfg, bc);
 
     auto end = mgr.checkGameEnd();
-    if (mgr.bank().totalAssets >= 2e12) {
+    if (mgr.bank().totalAssets >= 2e8) {
         EXPECT_EQ(end.reason, GameEndReason::GrowthTarget);
         EXPECT_TRUE(end.isVictory);
         EXPECT_EQ(end.title, "TOO BIG TO FAIL");

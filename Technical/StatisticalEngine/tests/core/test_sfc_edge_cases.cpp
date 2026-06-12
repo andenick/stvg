@@ -150,7 +150,7 @@ TEST(SFCEdge, UniversalBankLargeScale) {
     BankConfig bc = bankConfigForPosition(StartingPosition::UniversalBank);
     QuarterlyTurnManager mgr(cfg, bc, "", StartingPosition::UniversalBank);
     assertIdentity(mgr.bank(), "UniversalBank at creation");
-    EXPECT_GT(mgr.bank().totalAssets, 100e9) << "Universal bank should have > $100B assets";
+    EXPECT_GT(mgr.bank().totalAssets, 1e8) << "Universal bank should have > $100M assets (rescaled)";
 }
 
 TEST(SFCEdge, CreditImpulseExtremeValues) {

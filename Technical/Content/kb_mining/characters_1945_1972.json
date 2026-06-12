@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "purpose": "STAGING period-character candidates for P8, feeding the P4 character registry's future expansion (recurring named NPCs / era figures). NOT live data. Owner reviews before merge.",
+    "field_notes": "Each candidate: name, role, era{from,to}, archetypeFamily (maps to data/archetypes/archetypes.json family id — patrician|gunslinger|quant|dealmaker|operator|rainmaker|prodigy|lifer — for voice/portrait/stat reuse), traits[], signature_style (one-liner bark voice), portraitDescriptor (Two Point <-> Persona caricature prompt seed per STAR_02 §9 / archetypes.json portraitDescriptor convention), source provenance. Real historical figures — portraits to be generated later (P9). 'cautionary_ghost' flags figures intended as off-screen reputational hazards, not hireable NPCs.",
+    "count": 12
+  },
+  "candidates": [
+    {
+      "name": "William McChesney Martin",
+      "role": "Chairman, Federal Reserve (1951-1970)",
+      "era": { "from": 1951, "to": 1970 },
+      "archetypeFamily": "patrician",
+      "npcKind": "regulator_authority",
+      "traits": ["aphoristic", "institutionally devout", "intuitive (wanted no economic model)", "guardian of Fed independence", "courageous under political pressure"],
+      "signature_style": "Removes the punch bowl just as the party gets going — and dares the President to stop him.",
+      "portraitDescriptor": "lean patrician central banker in his fifties, silver-templed, sober dark suit and watch-chain, the calm half-smile of a man who has already decided; Persona-caricature bust, muted Federal-Reserve marble palette",
+      "source": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "chunk 007 pp.64-65 (Martin, punch-bowl / leaning-against-the-wind); Meltzer 1951 doc p.48, pp.454-458 (Dec 1965 hike over LBJ; 'independence within the government')", "paraphrase_required": true }
+    },
+    {
+      "name": "Marriner Eccles",
+      "role": "Former Chairman, Federal Reserve; New Deal architect",
+      "era": { "from": 1945, "to": 1951 },
+      "archetypeFamily": "operator",
+      "npcKind": "elder_statesman_ghost",
+      "traits": ["reform-minded", "creative", "New Deal insider", "willful"],
+      "signature_style": "The banker who rewrote his own institution's rules from inside the Roosevelt White House.",
+      "portraitDescriptor": "weathered Utah banker, square jaw, rimless spectacles, plain 1940s double-breasted suit, the stubborn look of a self-made reformer; Persona-caricature bust, sepia New-Deal palette",
+      "source": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "chunk 007 p.65; Meltzer 1951 doc p.50 (resigned July 1951 after ~17 years)", "paraphrase_required": true }
+    },
+    {
+      "name": "Allan Sproul",
+      "role": "President, Federal Reserve Bank of New York (to 1956)",
+      "era": { "from": 1945, "to": 1956 },
+      "archetypeFamily": "patrician",
+      "npcKind": "regulator_authority",
+      "traits": ["erudite", "market-savvy", "rival to Martin on doctrine", "institutionalist"],
+      "signature_style": "The New York man who thought the Desk should steer the whole curve, not just the bills.",
+      "portraitDescriptor": "distinguished mid-century New York banker, horn-rimmed glasses, conservative gray suit, an air of quiet authority over the trading desk; Persona-caricature bust, Wall-Street-grey palette",
+      "source": { "source_doc": "1951_Allan_Meltzer_History_Federal_Reserve", "source_chunk_or_page": "chunk 007 pp.50-62 (NY Fed president, bills-only rivalry, resigned 1956)", "paraphrase_required": true }
+    },
+    {
+      "name": "Arthur Burns",
+      "role": "Chairman, Federal Reserve (from 1970)",
+      "era": { "from": 1970, "to": 1972 },
+      "archetypeFamily": "operator",
+      "npcKind": "regulator_authority",
+      "traits": ["politically entangled", "paternalistic", "ambitious for reappointment", "pipe-and-professor gravitas"],
+      "signature_style": "Lectures you on central-bank duty, then prints the money his old friend in the White House wants.",
+      "portraitDescriptor": "stout academic central banker, center-parted gray hair, pipe, rumpled professorial suit, half-moon glasses; the cautionary elder; Persona-caricature bust, dim wood-panel palette",
+      "source": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "chunk 008 pp.67-68 (1972 pump-priming, 'embarrassing odor'); Meltzer 1951 doc pp.605-607 (Penn Central 'prime mover')", "paraphrase_required": true }
+    },
+    {
+      "name": "John Connally",
+      "role": "U.S. Treasury Secretary (1971)",
+      "era": { "from": 1971, "to": 1972 },
+      "archetypeFamily": "rainmaker",
+      "npcKind": "political_figure",
+      "traits": ["urbane", "image-conscious", "politically forceful", "Texas swagger"],
+      "signature_style": "Broke the gold standard with a smile and dared the world to complain.",
+      "portraitDescriptor": "tall imposing Texan in an immaculate dark suit, slicked silver hair, broad confident grin; the dealmaker-politician; Persona-caricature bust, executive-blue palette",
+      "source": { "source_doc": "1970_Meltzer_Allan_history_Federal_Reserve", "source_chunk_or_page": "Ch.6 pp.753-775 (drove the NEP one-shot announcement); Greider chunk 008 p.68", "paraphrase_required": true }
+    },
+    {
+      "name": "Paul Volcker",
+      "role": "U.S. Treasury Undersecretary for Monetary Affairs (from 1969)",
+      "era": { "from": 1969, "to": 1972 },
+      "archetypeFamily": "quant",
+      "npcKind": "regulator_authority",
+      "traits": ["ascetic / frugal", "brilliant", "dryly opaque", "low opinion of bankers", "saw the breakdown coming"],
+      "signature_style": "The rumpled technocrat who could bury a hostile senator in monetary esoterica.",
+      "portraitDescriptor": "very tall, stooped, cheap cigar, ill-fitting suit, balding with a fringe, unreadable expression; the frugal genius; Persona-caricature bust, austere grey-brown palette",
+      "source": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "chunk 008 pp.68-69 (Treasury career, frugality, foresaw end of Bretton Woods); Meltzer 1970 doc Ch.5-6", "paraphrase_required": true }
+    },
+    {
+      "name": "Robert Roosa",
+      "role": "U.S. Treasury Undersecretary (early 1960s)",
+      "era": { "from": 1961, "to": 1965 },
+      "archetypeFamily": "quant",
+      "npcKind": "regulator_authority",
+      "traits": ["technically masterful", "defender of fixed rates", "inventor of 'Roosa bonds' / swap network"],
+      "signature_style": "Rigged a web of currency swaps to hold the dollar's peg one more year — and one more after that.",
+      "portraitDescriptor": "precise, bookish Treasury official, neat dark suit, reading glasses, ledger in hand; the system-defender; Persona-caricature bust, ledger-green palette",
+      "source": { "source_doc": "1970_Meltzer_Allan_history_Federal_Reserve", "source_chunk_or_page": "Ch.5 p.684 (chose capital controls over floating; thought flexible rates unworkable)", "paraphrase_required": true }
+    },
+    {
+      "name": "A. P. Giannini",
+      "role": "Founder, Bank of America (dies 1949)",
+      "era": { "from": 1945, "to": 1949 },
+      "archetypeFamily": "rainmaker",
+      "npcKind": "founder_ghost",
+      "traits": ["populist", "branch-banking visionary", "tireless", "lent to the 'little fellow'"],
+      "signature_style": "Built the world's biggest bank by lending to immigrants and farmers nobody else would touch.",
+      "portraitDescriptor": "broad-shouldered Italian-American banker, heavy brows, warm commanding presence, plain dark suit; the people's banker, late in life; Persona-caricature bust, golden-California palette",
+      "source": { "source_doc": "model_knowledge", "source_chunk_or_page": "well-known banking history; NOT found in KB extractions (Levy postwar chapters missing). Flag needs_web_research for color detail.", "paraphrase_required": false }
+    },
+    {
+      "name": "George S. Moore",
+      "role": "President / Chairman, First National City Bank (Citibank)",
+      "era": { "from": 1959, "to": 1970 },
+      "archetypeFamily": "dealmaker",
+      "npcKind": "rival_ceo",
+      "traits": ["expansionist", "internationalist", "talent-spotter (groomed Wriston)", "restless with old constraints"],
+      "signature_style": "Wanted his bank everywhere money moved — and pushed it overseas before the rules caught up.",
+      "portraitDescriptor": "energetic mid-century money-center banker, confident jaw, tailored suit, mid-handshake; the empire-builder; Persona-caricature bust, Citibank-blue palette",
+      "source": { "source_doc": "model_knowledge", "source_chunk_or_page": "well-known Citibank history; NOT named in KB extractions. Flag needs_web_research.", "paraphrase_required": false }
+    },
+    {
+      "name": "Walter Wriston",
+      "role": "Rising executive then President, First National City Bank (Citibank)",
+      "era": { "from": 1960, "to": 1972 },
+      "archetypeFamily": "gunslinger",
+      "npcKind": "rival_ceo",
+      "traits": ["aggressive", "innovator (negotiable CD, Eurodollar)", "contemptuous of regulation", "believed banks should grow without limit"],
+      "signature_style": "Invented his way around every ceiling Washington built — and dared it to keep up.",
+      "portraitDescriptor": "sharp, intense banker in his fifties, lean face, dark-rimmed glasses, immaculate suit, the look of a man certain he is right; the regulation-slayer; Persona-caricature bust, cold-steel-blue palette",
+      "source": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "Eurodollar '51st state' context chunk 007 p.58 (Wriston/Citibank not named directly — attribution from general knowledge). Flag needs_web_research for specifics.", "paraphrase_required": false }
+    },
+    {
+      "name": "David Rockefeller",
+      "role": "Senior executive then President, Chase Manhattan Bank",
+      "era": { "from": 1955, "to": 1972 },
+      "archetypeFamily": "patrician",
+      "npcKind": "rival_ceo",
+      "traits": ["globe-trotting statesman-banker", "blue-blood network", "internationalist", "establishment to the core"],
+      "signature_style": "Banks heads of state on a first-name basis and treats foreign policy as part of the loan book.",
+      "portraitDescriptor": "polished establishment banker, neat side-part, half-rimmed glasses, bespoke suit, diplomat's poise; the white-shoe statesman; Persona-caricature bust, Chase-navy palette",
+      "source": { "source_doc": "model_knowledge", "source_chunk_or_page": "well-known; Greider names 19th-c. John D. Rockefeller only. Flag needs_web_research.", "paraphrase_required": false }
+    },
+    {
+      "name": "Charles E. Mitchell (archetype ghost)",
+      "role": "Cautionary memory — the 1920s 'Sunshine Charley' of National City Bank",
+      "era": { "from": 1945, "to": 1972 },
+      "archetypeFamily": "gunslinger",
+      "npcKind": "cautionary_ghost",
+      "traits": ["salesman's optimism", "pushed securities on small investors", "emblem of pre-Crash excess", "fallen idol"],
+      "signature_style": "The smiling salesman whose name old bankers still invoke to mean 'don't become him.'",
+      "portraitDescriptor": "ghostly sepia portrait of a 1920s banker, slick hair, too-bright salesman's smile, faded gilt frame; invoked as a warning, never present; Persona-caricature bust, faded-photograph palette",
+      "source": { "source_doc": "model_knowledge", "source_chunk_or_page": "well-known pre-1945 cautionary figure used as a period 'ghost' per prompt; NOT in KB extractions.", "paraphrase_required": false }
+    }
+  ]
+}

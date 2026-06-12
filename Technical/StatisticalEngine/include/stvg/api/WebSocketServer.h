@@ -13,6 +13,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
+#include <cctype>
 
 namespace stvg::api {
 
@@ -47,6 +49,11 @@ public:
         simConfig.quarterDurationDays = config_.timing.quarterDurationDays;
         simConfig.ticksPerSecond = config_.timing.ticksPerSecond;
         simConfig.daysPerTick = config_.timing.daysPerTick;
+        simConfig.marketVolScale = config_.markets.volScale;
+        // STAR_02 P5 §5.3: the live player server enables event→market coupling
+        // (default-off in the engine so deterministic tests are unaffected;
+        // marketVolScale precedent). Headlines now genuinely lead price action.
+        simConfig.eventMarketCoupling = true;
 
         // Pass difficulty-tunable reputation params from GameConfig
         simConfig.reputationRecoveryRate = config_.crisis.reputationRecoveryRate;
@@ -185,6 +192,30 @@ private:
             return resp;
         });
 
+        // ── Static files: character portraits (P4 §4.4) ──
+        // Serves generated portrait PNGs (+ the manifest.json) from
+        // static/portraits/. Until the P9 art pipeline backfills real assets the
+        // manifest is `{}` and the client falls back to local DiceBear SVGs, so
+        // this route mostly serves the empty manifest. One extra path segment, so
+        // it needs its own route (the single-segment /assets/<string> won't match).
+        CROW_ROUTE(app_, "/assets/portraits/<string>")
+        ([this](const std::string& filename) {
+            if (filename.find("..") != std::string::npos) return crow::response(403);
+            std::string content = readFile(staticDir_ + "/portraits/" + filename);
+            if (content.empty()) return crow::response(404);
+
+            std::string ct = "application/octet-stream";
+            if (filename.rfind(".json") == filename.length() - 5) ct = "application/json";
+            else if (filename.rfind(".png") == filename.length() - 4) ct = "image/png";
+            else if (filename.rfind(".svg") == filename.length() - 4) ct = "image/svg+xml";
+            else if (filename.rfind(".webp") == filename.length() - 5) ct = "image/webp";
+
+            auto resp = crow::response(200, ct, content);
+            resp.add_header("Cache-Control", "public, max-age=3600");
+            resp.add_header("Access-Control-Allow-Origin", "*");
+            return resp;
+        });
+
         // ── Static files: favicon and icons ──
         CROW_ROUTE(app_, "/favicon.svg")
         ([this]() {
@@ -266,8 +297,16 @@ private:
                         else if (p == "hard") config_ = GameConfig::Hard();
                         else if (p == "crisis") config_ = GameConfig::Crisis();
                     }
+                    if (body.contains("marketVolScale"))
+                        config_.markets.volScale = body["marketVolScale"].get<double>();
                 }
             } catch (...) {}
+
+            // Live player games get a livelier, more exaggerated intra-quarter
+            // market than the raw historical calibration (tests/autoplay stay 1.0).
+            // A preset reset above clears volScale, so (re)assert it here unless
+            // the request explicitly overrode it.
+            if (config_.markets.volScale <= 1.0) config_.markets.volScale = 2.0;
 
             std::string id = createGame(ceoId, startPos);
             return jsonOk({{"gameId", id}, {"config", config_.toJson()}, {"startingPosition", nlohmann::json(startPos)}});
@@ -392,6 +431,17 @@ private:
             return jsonOk(game->quarterEvents());
         });
 
+        // ── Macro history (P3.2) ──────────────────────────────────
+        // Per-quarter macro snapshots + market closes for chart hydration.
+        // Shape: { quarters: [ { year, quarter, econ:{...}, closes:{id:px} } ] }
+        CROW_ROUTE(app_, "/api/game/<string>/macro-history").methods(crow::HTTPMethod::GET)
+        ([this](const std::string& gameId) {
+            auto* game = getGame(gameId);
+            if (!game) return jsonError(404, "Game not found");
+            auto gameLock = lockGame(gameId);
+            return jsonOk(game->macroHistoryJson());
+        });
+
         // ── Hiring pool ───────────────────────────────────────────
         CROW_ROUTE(app_, "/api/game/<string>/hiring").methods(crow::HTTPMethod::GET)
         ([this](const std::string& gameId) {
@@ -417,6 +467,34 @@ private:
             } catch (...) {
                 return jsonError(400, "Bad request");
             }
+        });
+
+        // ── Poach a rival division (STAR_02 P6) ───────────────────
+        CROW_ROUTE(app_, "/api/game/<string>/poach").methods(crow::HTTPMethod::POST)
+        ([this](const crow::request& req, const std::string& gameId) {
+            auto* game = getGame(gameId);
+            if (!game) return jsonError(404, "Game not found");
+            try {
+                auto body = nlohmann::json::parse(req.body);
+                std::string offerId = body.value("offerId", "");
+                if (offerId.empty()) return jsonError(400, "Missing offerId");
+                auto gameLock = lockGame(gameId);
+                bool ok = game->acceptPoach(offerId);
+                if (!ok) return jsonError(400, "Poach failed (unknown/expired offer or unaffordable)");
+                return jsonOk({{"poached", true}, {"offerId", offerId},
+                               {"bankCapital", game->bank().capital}});
+            } catch (...) {
+                return jsonError(400, "Bad request");
+            }
+        });
+
+        // ── Poach offers list (STAR_02 P6) ────────────────────────
+        CROW_ROUTE(app_, "/api/game/<string>/poach-offers").methods(crow::HTTPMethod::GET)
+        ([this](const std::string& gameId) {
+            auto* game = getGame(gameId);
+            if (!game) return jsonError(404, "Game not found");
+            auto gameLock = lockGame(gameId);
+            return jsonOk(game->poachOffers());
         });
 
         // ── Fire employee ─────────────────────────────────────────
@@ -529,6 +607,78 @@ private:
                 return jsonOk({{"accepted", true}, {"dealId", dealId}, {"amount", amount}});
             } catch (...) {
                 return jsonError(400, "Bad request");
+            }
+        });
+
+        // ── Personal trade (STAR_02 P7) ───────────────────────────
+        // Market order on the CEO's off-balance-sheet personal account.
+        // Body: { marketId, side: "buy"|"sell", amount } (amount = $ notional).
+        CROW_ROUTE(app_, "/api/game/<string>/trade").methods(crow::HTTPMethod::POST)
+        ([this](const crow::request& req, const std::string& gameId) {
+            auto* game = getGame(gameId);
+            if (!game) return jsonError(404, "Game not found");
+            try {
+                auto body = nlohmann::json::parse(req.body);
+                std::string marketId = body.value("marketId", "");
+                std::string side = body.value("side", "");
+                double amount = body.value("amount", 0.0);
+                if (marketId.empty()) return jsonError(400, "Missing marketId");
+                if (side != "buy" && side != "sell") return jsonError(400, "side must be buy or sell");
+                if (!(amount > 0.0)) return jsonError(400, "amount must be positive");
+                auto gameLock = lockGame(gameId);
+                auto r = game->trade(marketId, side, amount);
+                if (!r.ok) return jsonError(400, r.err);
+                return jsonOk({
+                    {"traded", true}, {"marketId", marketId}, {"side", side},
+                    {"qtyDelta", r.qtyDelta}, {"realizedPnl", r.realizedPnl},
+                    {"positionQtyAfter", r.positionQtyAfter},
+                    {"tradeBook", game->tradeBookJson()},
+                });
+            } catch (...) {
+                return jsonError(400, "Bad request");
+            }
+        });
+
+        // ── Personal trade book (STAR_02 P7) ──────────────────────
+        CROW_ROUTE(app_, "/api/game/<string>/trade-book").methods(crow::HTTPMethod::GET)
+        ([this](const std::string& gameId) {
+            auto* game = getGame(gameId);
+            if (!game) return jsonError(404, "Game not found");
+            auto gameLock = lockGame(gameId);
+            return jsonOk(game->tradeBookJson());
+        });
+
+        // ── Player telemetry (local JSONL) ────────────────────────
+        // Appends play-event(s) to telemetry/session_<id>.jsonl. Body is either
+        // a single event object or { sessionId, events: [...] }. Local-only for
+        // now; a remote shipper can be added at the big release.
+        CROW_ROUTE(app_, "/api/telemetry").methods(crow::HTTPMethod::POST)
+        ([this](const crow::request& req) {
+            try {
+                auto body = nlohmann::json::parse(req.body);
+                std::string sessionId = body.value("sessionId", std::string("anon"));
+                std::string safe;
+                for (char c : sessionId) safe += (std::isalnum((unsigned char)c) ? c : '_');
+                if (safe.empty()) safe = "anon";
+                std::error_code ec;
+                std::filesystem::create_directories("telemetry", ec);
+                std::string path = "telemetry/session_" + safe + ".jsonl";
+                // P1/P4: if this is a brand-new session file, prepend a
+                // self-describing meta line so the JSONL is self-documenting.
+                bool isNewFile = !std::filesystem::exists(path, ec);
+                std::ofstream f(path, std::ios::app);
+                if (isNewFile) {
+                    nlohmann::json meta = {{"type", "meta"}, {"schema", 2}};
+                    f << meta.dump() << "\n";
+                }
+                if (body.contains("events") && body["events"].is_array()) {
+                    for (const auto& e : body["events"]) f << e.dump() << "\n";
+                } else {
+                    f << body.dump() << "\n";
+                }
+                return jsonOk({{"logged", true}});
+            } catch (...) {
+                return jsonError(400, "Bad telemetry");
             }
         });
 

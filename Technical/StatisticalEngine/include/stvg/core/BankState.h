@@ -96,7 +96,7 @@ struct Bank {
     double visibilityBonus = 0.0; // CEO or special ability bonus
 
     double visibilityPct() const {
-        return std::clamp(100.0 * std::exp(-totalAssets / 200e9) + visibilityBonus, 1.0, 100.0);
+        return std::clamp(100.0 * std::exp(-totalAssets / 2e7) + visibilityBonus, 1.0, 100.0);
     }
 
     double controlPct() const {

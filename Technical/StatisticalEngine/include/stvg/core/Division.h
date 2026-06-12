@@ -1,13 +1,34 @@
 #pragma once
 
 #include "EmployeeCandidate.h"
+#include "ArchetypeRegistry.h"
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
+#include <map>
 #include <cmath>
 #include <algorithm>
 
 namespace stvg {
+
+// ════════════════════════════════════════════════════════════════════
+// ArchetypeProfile (STAR_02 P5 §5.1) — a division's aggregated staff
+// archetype mix, used by the realized-P&L distribution.
+//   beta[k]      = Σ_a w_a · β_a,k        (macro sensitivity vector)
+//   sigma        = sqrt(Σ_a w_a² σ_a²)    (combined idiosyncratic vol)
+//   pdMult       = staff-weighted PD multiplier for lending divisions
+//   sideBenefits = staff-weighted relationship edges (deposit stickiness, …)
+// Empty staff → neutral profile (beta=0, sigma=baselineSigma 0.04).
+// ════════════════════════════════════════════════════════════════════
+
+struct ArchetypeProfile {
+    std::array<double, 5> beta{{0, 0, 0, 0, 0}};   // gdp,rate,credit,equity,vix
+    double sigma = 0.04;                            // baselineSigma when empty
+    double pdMult = 1.0;                            // lending PD multiplier
+    double aggressiveWeight = 0.0;                  // share of directional/aggressive families
+    std::map<std::string, double> sideBenefits;     // weighted side-benefit edges
+    bool empty = true;
+};
 
 // ════════════════════════════════════════════════════════════════════
 // Division types — 16 business lines spanning 1945-2025
@@ -62,6 +83,31 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DivisionType, {
     {DivisionType::CryptoCustody, "crypto_custody"},
 })
 
+// PascalCase enum-identifier name for a DivisionType — matches the strings used
+// in historical_events.json affects.benefits/suffers (e.g. "CommercialLending",
+// "TradingDesk"). Used by STAR_02 P5 §5.3 event→market coupling.
+inline std::string divisionTypePascalName(DivisionType t) {
+    switch (t) {
+        case DivisionType::CommercialLending:    return "CommercialLending";
+        case DivisionType::MortgageLending:      return "MortgageLending";
+        case DivisionType::TrustAndCustody:      return "TrustAndCustody";
+        case DivisionType::CreditCards:          return "CreditCards";
+        case DivisionType::InternationalBanking: return "InternationalBanking";
+        case DivisionType::TradingDesk:          return "TradingDesk";
+        case DivisionType::AssetManagement:      return "AssetManagement";
+        case DivisionType::InvestmentBanking:    return "InvestmentBanking";
+        case DivisionType::PrivateEquity:        return "PrivateEquity";
+        case DivisionType::Restructuring:        return "Restructuring";
+        case DivisionType::Securitization:       return "Securitization";
+        case DivisionType::DerivativesDesk:      return "DerivativesDesk";
+        case DivisionType::WealthManagement:     return "WealthManagement";
+        case DivisionType::VentureCapital:       return "VentureCapital";
+        case DivisionType::Fintech:              return "Fintech";
+        case DivisionType::CryptoCustody:        return "CryptoCustody";
+    }
+    return "";
+}
+
 // ════════════════════════════════════════════════════════════════════
 // Division head honesty — drives information filtering
 // ════════════════════════════════════════════════════════════════════
@@ -95,6 +141,10 @@ struct Division {
     bool inspectedThisQuarter = false;
     int quartersSinceInspection = 0;
 
+    // STAR_02 P5: last-quarter realized archetype PD multiplier (lending) —
+    // telemetry/display only; 1.0 = neutral.
+    double archetypePdMult_ = 1.0;
+
     // Division head personality — determines report accuracy
     HeadHonesty headHonesty = HeadHonesty::Honest;
     double headAmbition = 0.5;    // 0-1, drives deception intensity
@@ -113,9 +163,63 @@ struct Division {
     }
 
     double totalSalaryCost() const {
+        // 0.9: annualSalary is now an honest wage; convert to in-economy cost via
+        // SALARY_COST_SCALE so the quarterly deduction magnitude is unchanged.
         double total = 0;
-        for (const auto& emp : staff) total += emp.annualSalary / 4.0;
+        for (const auto& emp : staff)
+            total += emp.annualSalary * simulation::SALARY_COST_SCALE / 4.0;
         return total;
+    }
+
+    // ── P5 §5.1: aggregate this division's staff archetype mix ─────────
+    // Uniform weights over staff (w_a = 1/N). Reads each employee's FAMILY
+    // betas/sigma from the ArchetypeRegistry; falls back to a neutral profile
+    // when the registry is unloaded or staff is empty. Pure read — no RNG, no
+    // mutation — so it is lockstep-safe and cheap to call per quarter.
+    ArchetypeProfile archetypeProfile() const {
+        ArchetypeProfile prof;
+        if (staff.empty()) return prof;               // neutral: beta=0, sigma=0.04
+        const auto& reg = ArchetypeRegistry::instance();
+        if (!reg.loaded()) return prof;               // safe neutral fallback
+
+        const double w = 1.0 / staff.size();          // uniform per-head weight
+        const auto& axes = ArchetypeRegistry::macroAxes();
+
+        double sigmaSqAccum = 0.0;                     // Σ w_a² σ_a²
+        double pdAccum = 0.0;                          // Σ w_a · pdMult_a
+        double aggAccum = 0.0;
+        for (const auto& emp : staff) {
+            const ArchetypeFamily* fam = reg.family(emp.archetype);
+            if (!fam) continue;
+            for (size_t k = 0; k < axes.size(); ++k) {
+                auto it = fam->macroBetas.find(axes[k]);
+                if (it != fam->macroBetas.end()) prof.beta[k] += w * it->second;
+            }
+            sigmaSqAccum += (w * w) * (fam->sigma * fam->sigma);
+
+            // PD multiplier: conservative classes lend more safely (~0.8),
+            // directional/frontier (aggressive) classes lend riskier (~1.3),
+            // everyone else neutral (1.0). Counter-cyclical hedges help (0.85).
+            double headPd = 1.0;
+            bool aggressive = false;
+            const std::string& cc = fam->crowdingClass;
+            if (cc == "relationship_credit" || cc == "operations_control") headPd = 0.8;
+            else if (cc == "directional_macro" || cc == "frontier_tech" || cc == "carry_leverage") {
+                headPd = 1.3; aggressive = true;
+            } else if (cc == "distress_countercyclical") headPd = 0.85;
+            pdAccum += w * headPd;
+            if (aggressive) aggAccum += w;
+
+            // Side-benefits: staff-weighted (deposit stickiness, dealflow, …).
+            for (const auto& [key, val] : fam->sideBenefits)
+                prof.sideBenefits[key] += w * val;
+        }
+        prof.sigma = std::sqrt(std::max(sigmaSqAccum, 0.0));
+        if (prof.sigma <= 0.0) prof.sigma = 0.04;      // guard
+        prof.pdMult = pdAccum > 0.0 ? pdAccum : 1.0;
+        prof.aggressiveWeight = aggAccum;
+        prof.empty = false;
+        return prof;
     }
 
     // ── Filtered reporting (what the CEO sees vs truth) ─────────
@@ -341,7 +445,18 @@ inline void to_json(nlohmann::json& j, const Division& d) {
         {"headCompetence", d.headCompetence},
         {"staffCount", d.staffCount()},
         {"staffQualityMultiplier", d.staffQualityMultiplier()},
-        {"totalSalaryCost", d.totalSalaryCost()}
+        {"totalSalaryCost", d.totalSalaryCost()},
+        // P5: archetype P&L signal for the Hire-tab roster / "told you so" barks.
+        {"archetypePdMult", d.archetypePdMult_}
+    };
+    // P5: aggregated staff archetype profile (betas/sigma) for display.
+    auto prof = d.archetypeProfile();
+    j["archetypeProfile"] = {
+        {"sigma", prof.sigma},
+        {"aggressiveWeight", prof.aggressiveWeight},
+        {"betaGdp", prof.beta[0]}, {"betaRate", prof.beta[1]},
+        {"betaCredit", prof.beta[2]}, {"betaEquity", prof.beta[3]},
+        {"betaVix", prof.beta[4]}
     };
 }
 
@@ -401,6 +516,7 @@ inline nlohmann::json divisionToPlayerJson(const Division& d, double visibilityP
         ej["id"] = emp.id;
         ej["name"] = emp.name;
         ej["archetype"] = emp.archetype;
+        ej["specializationId"] = emp.specializationId; // P5 display data
         ej["level"] = emp.level;
         ej["annualSalary"] = emp.annualSalary;
         ej["quartersEmployed"] = emp.quartersEmployed;

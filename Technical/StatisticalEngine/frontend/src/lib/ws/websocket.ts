@@ -37,6 +37,53 @@ class WSClient {
   private intentionalClose = false;
   private listeners = new Set<Listener>();
 
+  /*
+   * Auto-continue ("watch a simulation happen") flow.
+   *
+   * The engine pauses at every QuarterStart decision boundary and waits for a
+   * fresh `play`. Left alone the world freezes between quarters. We keep it
+   * flowing: after each boundary we dwell briefly (so the decision / deal cards
+   * pop up and are readable) then resume — UNLESS the player explicitly paused,
+   * or it's a crisis the player must answer. Dwell shrinks as speed rises.
+   */
+  autoContinue = true;
+  private userPaused = false;
+  private autoTimer: ReturnType<typeof setTimeout> | null = null;
+
+  private clearAuto() {
+    if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
+  }
+
+  // Dwell tuning (named consts — the playtest loop tunes these).
+  private static readonly DWELL_DECISIONS_MS = 2600;  // pending decision/deal to read
+  private static readonly DWELL_ROUTINE_MS = 850;     // routine quarter boundary
+  private static readonly DWELL_MIN_MS = 300;         // floor even at 8x
+  // P7 pacing: if a fresh loan card arrived within this window of the boundary,
+  // grant the player a beat to read it before auto-continuing — capped so the
+  // sim never stalls.
+  private static readonly FRESH_DEAL_WINDOW_MS = 2000;
+  private static readonly FRESH_DEAL_BONUS_MS = 1400;
+
+  private scheduleAutoContinue(hasDecisions: boolean) {
+    this.clearAuto();
+    if (!this.autoContinue || this.userPaused) return;
+    const speed = Math.max(1, sim.speed || 1);
+    const base = hasDecisions ? WSClient.DWELL_DECISIONS_MS : WSClient.DWELL_ROUTINE_MS;
+    let dwell = Math.max(WSClient.DWELL_MIN_MS, Math.round(base / Math.sqrt(speed)));
+    // P7: a deal that arrived in the last 2s gets a modest, speed-scaled bonus so
+    // an unread fresh loan card isn't blown past. Capped; never stalls the sim.
+    const sinceDeal = Date.now() - (sim.lastDealArrivalAt || 0);
+    if (sinceDeal >= 0 && sinceDeal < WSClient.FRESH_DEAL_WINDOW_MS) {
+      dwell += Math.round(WSClient.FRESH_DEAL_BONUS_MS / Math.sqrt(speed));
+    }
+    this.autoTimer = setTimeout(() => {
+      this.autoTimer = null;
+      if (this.userPaused) return;
+      sim.paused = false;
+      this.controlAction('play');
+    }, dwell);
+  }
+
   /** Compute the ws:// URL relative to current document. */
   private url(): string {
     const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -51,6 +98,7 @@ class WSClient {
 
   disconnect() {
     this.intentionalClose = true;
+    this.clearAuto();
     this.ws?.close();
     this.ws = null;
     sim.connected = false;
@@ -69,6 +117,17 @@ class WSClient {
       sim.reconnecting = false;
       this.backoffMs = 500;
       if (this.gameId) this.send({ type: 'subscribe', gameId: this.gameId });
+      // 0.8 cold-start fix: a fresh game sits paused at Day 0 with flat 0.0000
+      // charts because nothing ever issues the first `play`. The quarter-
+      // boundary auto-continue only kicks in AFTER the first quarter. So, unless
+      // the player explicitly paused, auto-start the sim at the current speed
+      // right after we subscribe — the world starts moving within a second of
+      // Begin. (A reconnect into an already-running game is harmless: the
+      // server is the source of truth for paused state and will correct us.)
+      if (this.autoContinue && !this.userPaused) {
+        sim.paused = false;
+        this.controlAction('play');
+      }
     });
 
     ws.addEventListener('close', () => {
@@ -102,9 +161,10 @@ class WSClient {
     }
   }
 
-  // High-level control wrappers
-  play()  { this.controlAction('play'); }
-  pause() { this.controlAction('pause'); }
+  // High-level control wrappers. play()/pause() reflect explicit player intent,
+  // which gates the auto-continue scheduler.
+  play()  { this.userPaused = false; this.controlAction('play'); }
+  pause() { this.userPaused = true; this.clearAuto(); this.controlAction('pause'); }
   setSpeed(speed: 1 | 2 | 4 | 8) {
     this.controlAction('set_speed', speed);
   }
@@ -131,7 +191,12 @@ class WSClient {
         if (p.state) sim.applyPlayerView(p.state);
         sim.paused = true;
         if (p.phase === 'decision_phase' && p.pendingDecisions?.length) {
-          toasts.info(`${p.pendingDecisions.length} decision${p.pendingDecisions.length > 1 ? 's' : ''} pending`);
+          toasts.info(`${p.pendingDecisions.length} decision${p.pendingDecisions.length > 1 ? 's' : ''} on the desk`);
+        }
+        // A real crisis needs a human answer — never auto-skip it. Everything
+        // else keeps the world flowing so the player can watch it unfold.
+        if (p.phase !== 'crisis_response') {
+          this.scheduleAutoContinue((p.pendingDecisions?.length ?? 0) > 0);
         }
         break;
       }
@@ -140,6 +205,8 @@ class WSClient {
         if (p.state) sim.applyPlayerView(p.state);
         sim.gameEnd = { reason: p.reason, isVictory: p.isVictory, title: p.title, narrative: p.narrative };
         sim.paused = true;
+        this.userPaused = true;
+        this.clearAuto();
         break;
       }
       case 'simulation_state': {

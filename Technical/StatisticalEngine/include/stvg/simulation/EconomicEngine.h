@@ -33,8 +33,12 @@ public:
             params_.fedFunds.mu * 100, params_.gdpGrowth.mu * 100, params_.vix.mu);
     }
 
-    // SFC Phase C: credit channel — system-wide lending growth feeds into GDP
-    void setCreditImpulse(double impulse) { creditImpulse_ = impulse; }
+    // SFC Phase C: credit channel — system-wide lending growth feeds into GDP.
+    // P3.2: also mirror into the public indicator so it serializes/streams.
+    void setCreditImpulse(double impulse) {
+        creditImpulse_ = impulse;
+        state_.creditImpulse = impulse;
+    }
     double creditImpulse() const { return creditImpulse_; }
 
     // Advance one trading day (dt = 1/252 year)
@@ -115,6 +119,21 @@ public:
         // ── S&P 500 daily return: GDP drift + VIX volatility ────
         double equityDrift = state_.gdpGrowth - 0.5 * (state_.vix / 100.0) * (state_.vix / 100.0);
         state_.sp500Return = equityDrift * dt + (state_.vix / 100.0) * std::sqrt(dt) * rng_.normalSample();
+
+        // ── Nominal GDP level index (P3.2): compound the real growth rate ──
+        // No RNG draw — deterministic, lockstep-safe. Base 100.0 at 1945.
+        state_.gdpLevel *= (1.0 + state_.gdpGrowth * dt);
+
+        // ── Economy-wide revenue/profit (P5 §5, v1 proxy) ──────────────────
+        // Revenue = nominal activity index (gdpLevel). Profit = revenue × a
+        // corporate-margin cycle that widens in booms and compresses when
+        // credit spreads widen. No RNG — deterministic, lockstep-safe.
+        double margin = 0.10
+            + 0.5 * (state_.gdpGrowth - 0.025)      // pro-cyclical
+            - 1.0 * (state_.creditSpread - 0.015);  // squeezed by dear credit
+        margin = std::clamp(margin, 0.04, 0.16);
+        state_.economyRevenue = state_.gdpLevel;
+        state_.economyProfit = state_.gdpLevel * margin;
     }
 
     const EconomicIndicators& state() const { return state_; }
