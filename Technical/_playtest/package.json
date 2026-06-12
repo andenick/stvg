@@ -1,0 +1,15 @@
+{
+  "name": "stvg-playtest-harness",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-driving screenshot/telemetry harness for the STVG banking-CEO sim. Drives a running stvg_server (:8080) via puppeteer-core + Edge. See README.md.",
+  "scripts": {
+    "shoot": "node harness/shoot.js",
+    "shoot:live": "node harness/shoot_live.js",
+    "shoot:final": "node harness/shoot_final.js",
+    "probe:telemetry": "node harness/probe_telemetry.js"
+  },
+  "dependencies": {
+    "puppeteer-core": "25.1.0"
+  }
+}

@@ -1,0 +1,25 @@
+START year=1945 heapUsed=6.5MB
+  …year=1945
+  …year=1945
+  …year=1946
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+  …year=1947
+END heapUsed=16.4MB delta=9.9MB
+PAGE_ERRORS=0
+ANNUAL_CORNER_CARD_ENGAGED=true
+VERDICT heapDelta<100MB=true pageErrors==0=true

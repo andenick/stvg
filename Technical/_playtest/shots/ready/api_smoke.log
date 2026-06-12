@@ -1,0 +1,27 @@
+=== STVG API smoke @ http://localhost:8080 ===
+2026-06-12T16:41:42.191Z
+[PASS] GET /api/health — status=ok
+[PASS] POST /api/game/new — gameId=game_4242
+[PASS] GET /state — bank=First National Trust cap=1000000
+[PASS] POST /decision — no pending decision at t0 (acceptable)
+[PASS] POST /hire — no candidates/divisions to hire at t0 (acceptable)
+[PASS] poach-offers (state.poachOffers) — count=0
+[PASS] POST /deal/accept — no available deals at t0 (acceptable)
+[PASS] POST /deal/accept (unknown id → clean 4xx) — status=400
+[PASS] server alive after unknown-deal — status=200
+[PASS] POST /trade buy (within cash) — SP500 status=200 traded=true
+[PASS] POST /trade sell — status=200 traded=true
+[PASS] POST /trade over-limit (no crash) — status=400 traded=undefined
+[PASS] POST /trade short (no crash) — status=400 traded=undefined
+[PASS] POST /trade unknown market (clean reject) — status=400
+[PASS] GET /macro-history — quarters=0
+[PASS] GET /api/archetypes — families=8 specs=33
+[PASS] POST /save (returns save blob) — version=4
+[PASS] POST /load (blob round-trip) — loaded=true
+[PASS] load spot-equality (year/quarter) — 1945Q1 == 1945Q1
+[PASS] load spot-equality (capital) — 1000000 == 1000000
+[PASS] POST /load synthetic v3 (no personalBook, version=3 → graceful) — status=200 loaded=true
+[PASS] POST /load (garbage blob → clean 4xx, no crash) — status=400
+[PASS] POST /api/telemetry — status=200
+---
+SUMMARY: 23 PASS, 0 FAIL

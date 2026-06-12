@@ -33,6 +33,7 @@
     {
       "id": "patrician",
       "displayName": "The Patrician",
+      "color": "#9a8c98",
       "blurb": "Old-money relationship banker. White-shoe trust and commercial lending; networks open doors, analytics are an afterthought.",
       "statWeights": [0.06, 0.08, 0.14, 0.10, 0.20, 0.12, 0.08, 0.10, 0.06, 0.06],
       "integrityBase": 75,
@@ -51,6 +52,7 @@
     {
       "id": "gunslinger",
       "displayName": "The Gunslinger",
+      "color": "#c0563f",
       "blurb": "Aggressive risk-taker. Trading and derivatives; monster booms, fat left tail in busts. Low integrity, high ambition.",
       "statWeights": [0.10, 0.18, 0.10, 0.08, 0.06, 0.04, 0.18, 0.12, 0.10, 0.04],
       "integrityBase": 40,
@@ -69,6 +71,7 @@
     {
       "id": "quant",
       "displayName": "The Quant",
+      "color": "#4a90b8",
       "blurb": "PhD model-builder. Securitization and systematic trading; appears post-1980. Precision over instinct, adaptable.",
       "statWeights": [0.25, 0.10, 0.12, 0.04, 0.03, 0.04, 0.10, 0.08, 0.08, 0.16],
       "integrityBase": 65,
@@ -87,6 +90,7 @@
     {
       "id": "dealmaker",
       "displayName": "The Dealmaker",
+      "color": "#c79a3c",
       "blurb": "M&A and underwriting closer. Persuasion and networks; lives on fee cyclicality. Mid integrity, glory-driven.",
       "statWeights": [0.08, 0.10, 0.12, 0.20, 0.16, 0.08, 0.12, 0.06, 0.04, 0.04],
       "integrityBase": 55,
@@ -105,6 +109,7 @@
     {
       "id": "operator",
       "displayName": "The Operator",
+      "color": "#6b8e6b",
       "blurb": "The machine-runner. Operations and management; leadership-heavy, steady, keeps the trains running. High integrity.",
       "statWeights": [0.10, 0.08, 0.16, 0.08, 0.08, 0.20, 0.08, 0.10, 0.08, 0.04],
       "integrityBase": 70,
@@ -123,6 +128,7 @@
     {
       "id": "rainmaker",
       "displayName": "The Rainmaker",
+      "color": "#c98a5a",
       "blurb": "Wealth and client-relations star. Brings the book with them; networks are the asset. Senior, expensive, steady.",
       "statWeights": [0.05, 0.10, 0.10, 0.18, 0.22, 0.10, 0.08, 0.06, 0.05, 0.06],
       "integrityBase": 60,
@@ -141,6 +147,7 @@
     {
       "id": "prodigy",
       "displayName": "The Prodigy",
+      "color": "#a87fc0",
       "blurb": "Young phenom, 0-2 years in. Cheap, raw, high ceiling/variance; analytical and adaptable. The lottery-ticket hire.",
       "statWeights": [0.18, 0.12, 0.10, 0.08, 0.04, 0.04, 0.14, 0.06, 0.08, 0.16],
       "integrityBase": 60,
@@ -159,6 +166,7 @@
     {
       "id": "lifer",
       "displayName": "The Lifer",
+      "color": "#8a8577",
       "blurb": "Decades at the desk. Reliable, resilient, low ambition; near-deterministic, the floor of the bank. Highest integrity.",
       "statWeights": [0.08, 0.08, 0.12, 0.06, 0.10, 0.10, 0.04, 0.18, 0.16, 0.08],
       "integrityBase": 80,

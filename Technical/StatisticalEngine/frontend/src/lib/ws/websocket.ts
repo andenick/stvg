@@ -18,7 +18,46 @@
 
 import { sim } from '../stores/simulation.svelte';
 import { toasts } from '../stores/toasts.svelte';
-import type { MarketTickMsg, QuarterBoundaryMsg, GameOverMsg, PlayerView } from '../types/server';
+import { ui } from '../stores/ui.svelte';
+import { telemetry } from '../telemetry';
+import type {
+  MarketTickMsg, QuarterBoundaryMsg, GameOverMsg, PlayerView, PendingDecision,
+} from '../types/server';
+
+/**
+ * "Major" non-crisis decision test (STAR_02 Addendum A.1 — W5.1). When the
+ * decisionPause setting is 'pause-major', a boundary carrying any MAJOR decision
+ * freezes the auto-continue scheduler until the player acts. Major = costs real
+ * agency or is irreversible:
+ *   • AP cost ≥ 3  (the engine's heaviest tier — acquisitions, crisis-grade,
+ *                   climate/AI counter-moves all cost 3),
+ *   • an M&A / acquisition (deal_approval type or an "acquire/merge" title/id),
+ *   • a poach-style team buyout surfaced as a decision.
+ * Routine memos (AP 0-2, ordinary operations) keep lapsing. Returns the
+ * triggering decision's id + reason for telemetry, or null when none qualifies.
+ *
+ * Note: standalone poach OFFERS travel outside the pendingDecisions stream (the
+ * player accepts them via /poach), so the ≥30%-capital poach rule has no
+ * boundary to gate here; it's covered when a poach is surfaced as a decision.
+ */
+const MAJOR_AP_THRESHOLD = 3;
+function majorDecision(decisions: PendingDecision[] | undefined): { id: string; reason: string } | null {
+  for (const d of decisions ?? []) {
+    if ((d.actionPointCost ?? 0) >= MAJOR_AP_THRESHOLD) {
+      return { id: d.id, reason: `ap_cost_${d.actionPointCost}` };
+    }
+    const type = String(d.type ?? '').toLowerCase();
+    const idl = String(d.id ?? '').toLowerCase();
+    const title = String(d.title ?? '').toLowerCase();
+    if (type === 'deal_approval' && (idl.includes('acquire') || title.includes('acqui') || title.includes('merg'))) {
+      return { id: d.id, reason: 'm_and_a' };
+    }
+    if (idl.includes('poach') || title.includes('poach')) {
+      return { id: d.id, reason: 'poach' };
+    }
+  }
+  return null;
+}
 
 interface ServerEnvelope {
   type: string;
@@ -64,9 +103,21 @@ class WSClient {
   private static readonly FRESH_DEAL_WINDOW_MS = 2000;
   private static readonly FRESH_DEAL_BONUS_MS = 1400;
 
-  private scheduleAutoContinue(hasDecisions: boolean) {
+  private scheduleAutoContinue(decisions?: PendingDecision[]) {
     this.clearAuto();
     if (!this.autoContinue || this.userPaused) return;
+    const hasDecisions = (decisions?.length ?? 0) > 0;
+    // W5.1: in 'pause-major' mode a MAJOR non-crisis decision freezes the world
+    // until acted on — we simply DON'T arm the resume timer. The player resumes
+    // via the decision UI (which calls wsClient.play()) once they've dealt with
+    // it. Routine decisions still lapse on the timer below.
+    if (hasDecisions && ui.decisionPause === 'pause-major') {
+      const major = majorDecision(decisions);
+      if (major) {
+        telemetry.log('decision_pause_engaged', { decisionId: major.id, reason: major.reason });
+        return;
+      }
+    }
     const speed = Math.max(1, sim.speed || 1);
     const base = hasDecisions ? WSClient.DWELL_DECISIONS_MS : WSClient.DWELL_ROUTINE_MS;
     let dwell = Math.max(WSClient.DWELL_MIN_MS, Math.round(base / Math.sqrt(speed)));
@@ -196,7 +247,7 @@ class WSClient {
         // A real crisis needs a human answer — never auto-skip it. Everything
         // else keeps the world flowing so the player can watch it unfold.
         if (p.phase !== 'crisis_response') {
-          this.scheduleAutoContinue((p.pendingDecisions?.length ?? 0) > 0);
+          this.scheduleAutoContinue(p.pendingDecisions);
         }
         break;
       }

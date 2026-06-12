@@ -1,0 +1,222 @@
+CONSOLE_ERR Failed to load resource: the server responded with a status of 404 (Not Found)
+SHOT 00_title.png
+CHECK [PASS] title online indicator reflects reachability (W5.5) — label=SERVER UP
+CHECK [PASS] charts present within ~3s of Begin — 3007ms, canvases
+SHOT 01_after_begin.png
+hovered markets: 4
+hovered macro: 3
+hovered thumbs: 4
+SHOT 02_tab_economy.png
+SHOT 03_tab_hire.png
+SHOT 04_tab_bank.png
+SHOT 05_tab_financials.png
+CHECK [PASS] hero promotion (macro/market) + timescale switch — macro=true market=true
+SHOT 06_hero_promote_timescale.png
+CHECK [PASS] opened expanded macro explainer — via=Economy Revenue 101 ▲
+CHECK [PASS] Economy P&L is a LIVE (enabled) chip in the explainer (W5.2)
+SHOT 07_explainer_economy_pnl.png
+  …probe at 1945 Q2 submit=true pause=false invest=true pass=false outcome=false portrait=false
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+SHOT 08_portrait_card.png
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+SHOT 09_loan_outcome.png
+  …probe at 1946 Q2 submit=true pause=false invest=true pass=true outcome=true portrait=true
+SHOT 10_major_decision_pause.png
+  …probe at 1946 Q4 submit=true pause=true invest=true pass=true outcome=true portrait=true
+  …probe at 1947 Q3 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+  …probe at 1948 Q1 submit=true pause=true invest=true pass=true outcome=true portrait=true
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CHECK [PASS] submitted one decision (decision_submit)
+CHECK [PASS] major decision pause engaged (W5.1) — observed paused
+CHECK [PASS] invested one deal
+CHECK [PASS] passed one deal
+CHECK [PASS] a loan outcome resolved (Book strip)
+CHECK [PASS] portrait/character card appeared
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+SHOT 11_hire_tab.png
+SHOT 12_hire_expanded.png
+SHOT 13_after_hire.png
+CHECK [PASS] hired one candidate (or attempted) — hired=true
+SHOT 14_trade_buy_sell.png
+CHECK [PASS] trade buy — buy=true
+CHECK [PASS] trade sell — sell=true
+SHOT 15_financials_memo_funding.png
+CHECK [PASS] funding-mix card stays clear of an open memo on Financials (W5.3) — clear=true
+CHECK [PASS] annual report full modal at 1x — not caught in window (soft)
+CHECK [PASS] reload → continue → charts backfill from macro-history — canvases=true
+SHOT 16_reload_continue_backfill.png
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+CHECK [PASS] era transition / president card — not caught in window (soft)
+CONSOLE_ERR Failed to load resource: the server responded with a status of 400 (Bad Request)
+---
+PAGE_ERRORS: 0
+CHECKS: 18 PASS, 0 FAIL
+VERIFY_READY_DONE

@@ -3,8 +3,8 @@
    * Expanded macro view (P3) — the MarketExpanded sibling for the living economy.
    * A large macro chart + a plain-language explainer of what the series is and
    * why it matters, with a chip row to flip between macro series (including the
-   * unpromoted ones — Inflation, 10Y, GDP growth — and a disabled "coming soon"
-   * Economy P&L chip so the IA shows the planned series without faking data).
+   * unpromoted ones — Inflation, 10Y, GDP growth, and the economy-wide P&L pair
+   * Economy Revenue / Economy Profit, all live from the engine econ block).
    */
   import MacroChart from './MacroChart.svelte';
   import {

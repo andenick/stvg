@@ -51,7 +51,7 @@
     MACRO_STRIP_IDS.filter((id) => (sim.macro[id]?.history.length ?? 0) > 0),
   );
   // The chip-row series for the expanded view: chips present-but-unpromoted
-  // (Inflation, 10Y, GDP growth) plus the coming-soon Economy P&L placeholder.
+  // (Inflation, 10Y, GDP growth, Economy Revenue, Economy Profit). All live.
   const macroChipIds = MACRO_CHIP_IDS as MacroId[];
 
   let expandedMarket = $state<string | null>(null);
@@ -74,6 +74,14 @@
 
   // Promote a macro series into the hero spot (namespaced id) + telemetry via ui.
   function promoteMacro(id: MacroId) { ui.setHeroMarket(macroHeroId(id)); }
+
+  // Market-adjacent economy chips with at least one streamed point: credit
+  // spread + the economy-wide P&L pair (W5.2).
+  let econChipIds = $derived(
+    (['SPREAD', 'ECONREV', 'ECONPROFIT'] as MacroId[]).filter(
+      (id) => (sim.macro[id]?.history.length ?? 0) > 0,
+    ),
+  );
 </script>
 
 <div class="economy">
@@ -178,20 +186,32 @@
       {/each}
     </section>
 
-    <!-- Credit spread: a market-adjacent chip (the market's fear of default). -->
-    {#if (sim.macro['SPREAD']?.history.length ?? 0) > 0}
-      {@const sd = sim.macroDir('SPREAD')}
-      <div class="market-chips" aria-label="Credit market">
-        <button
-          class="market-chip chip-{sd}"
-          class:active={heroMacro === 'SPREAD'}
-          onclick={() => expandedMacro = 'SPREAD'}
-          title="Credit spread — the market's fear of default"
-        >
-          <span class="chip-tk">CREDIT SPREAD</span>
-          <span class="chip-val num">{formatMacroValue('SPREAD', sim.macro['SPREAD']?.last ?? 0)}</span>
-          <span class="chip-glyph" aria-hidden="true">{sd === 'up' ? '▲' : sd === 'down' ? '▼' : '·'}</span>
-        </button>
+    <!-- Market-adjacent chips: credit spread (fear of default) + the economy-wide
+         P&L pair (revenue / profit). Click reads the explainer; ★ promotes to the
+         hero chart. These stream from the engine econ block (W5.2). -->
+    {#if econChipIds.length}
+      <div class="market-chips" aria-label="Economy series">
+        {#each econChipIds as id (id)}
+          {@const sd = sim.macroDir(id)}
+          <div class="econ-chip-wrap" class:hero-sel={heroMacro === id}>
+            <button
+              class="market-chip chip-{sd}"
+              class:active={heroMacro === id}
+              onclick={() => expandedMacro = id}
+              title={macroLabel(id)}
+            >
+              <span class="chip-tk">{macroLabel(id)}</span>
+              <span class="chip-val num">{formatMacroValue(id, sim.macro[id]?.last ?? 0)}</span>
+              <span class="chip-glyph" aria-hidden="true">{sd === 'up' ? '▲' : sd === 'down' ? '▼' : '·'}</span>
+            </button>
+            <button
+              class="chip-promote"
+              class:on={heroMacro === id}
+              title="Promote {macroLabel(id)} to the big chart"
+              onclick={() => promoteMacro(id)}
+            >★</button>
+          </div>
+        {/each}
       </div>
     {/if}
 
@@ -343,6 +363,15 @@
   .chip-glyph { font-size: 0.7rem; color: var(--fg-muted); }
   .chip-up .chip-glyph   { color: var(--accent-success); }
   .chip-down .chip-glyph { color: var(--accent-danger); }
+
+  .econ-chip-wrap { display: inline-flex; align-items: stretch; gap: 0.2rem; }
+  .chip-promote {
+    width: 1.5rem; line-height: 1;
+    background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 2px;
+    color: var(--fg-muted); cursor: pointer; font-size: 0.8rem;
+  }
+  .chip-promote:hover { color: var(--accent-primary); border-color: var(--accent-primary); }
+  .chip-promote.on { color: var(--accent-primary); border-color: var(--accent-primary); }
 
   .right-rail { position: relative; display: flex; align-items: flex-start; }
   .right-rail.collapsed { width: 1.5rem; }

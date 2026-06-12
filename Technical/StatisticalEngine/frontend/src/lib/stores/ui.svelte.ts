@@ -18,6 +18,16 @@ export type Screen = 'title' | 'game' | 'game-over';
 export type AnnualReportMode = 'modal' | 'card' | 'auto';
 
 /**
+ * Decision-pause behaviour (STAR_02 Addendum A.1):
+ *   'pause-major' — (default) MAJOR non-crisis decisions pause the auto-continue
+ *                   scheduler until the player acts on or dismisses them; routine
+ *                   memos still lapse. Crises always hard-pause regardless.
+ *   'lapse'       — nothing but a crisis pauses; every non-crisis decision lapses
+ *                   on the auto-continue timer (the original "watch it flow" feel).
+ */
+export type DecisionPause = 'lapse' | 'pause-major';
+
+/**
  * The four persistent tabs (P2). Phases now gate content RICHNESS within a tab,
  * not the whole layout. Keyboard 1-4 map to these in order.
  */
@@ -66,6 +76,27 @@ class UIStore {
 
   /** Annual-report presentation mode (0.6). Default 'auto' = speed-dependent. */
   annualReportMode = $state<AnnualReportMode>('auto');
+
+  /**
+   * Decision-pause behaviour (STAR_02 Addendum A.1). Default 'pause-major'.
+   * Persisted in localStorage so the owner's choice survives a reload. The
+   * websocket auto-continue scheduler reads this to decide whether a MAJOR
+   * non-crisis decision should freeze the world until acted on.
+   */
+  decisionPause = $state<DecisionPause>(this.loadDecisionPause());
+
+  private loadDecisionPause(): DecisionPause {
+    try {
+      const raw = localStorage.getItem('stvg.decisionPause');
+      if (raw === 'lapse' || raw === 'pause-major') return raw;
+    } catch { /* ignore */ }
+    return 'pause-major';
+  }
+
+  setDecisionPause(mode: DecisionPause) {
+    this.decisionPause = mode;
+    try { localStorage.setItem('stvg.decisionPause', mode); } catch { /* ignore */ }
+  }
 
   // ── Tabs (P2) ────────────────────────────────────────────────────────────
   /** Active top-level tab. Default 'economy' (the day-trading hero view). */

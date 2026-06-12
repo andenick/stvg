@@ -134,6 +134,24 @@
         />
       </label>
 
+      <!-- W5.1: how decisions interrupt the auto-running sim. Crises always
+           hard-pause regardless of this setting. -->
+      <label class="row">
+        <span class="label">Decisions</span>
+        <select
+          value={ui.decisionPause}
+          onchange={(e) => ui.setDecisionPause((e.currentTarget as HTMLSelectElement).value as 'lapse' | 'pause-major')}
+        >
+          <option value="pause-major">Pause for major decisions</option>
+          <option value="lapse">Let all decisions lapse</option>
+        </select>
+      </label>
+      <p class="muted small">
+        {ui.decisionPause === 'pause-major'
+          ? 'Big calls (acquisitions, heavy-cost moves) pause the sim until you act; routine memos lapse if ignored.'
+          : 'Nothing but a crisis stops the clock — every decision lapses if you don’t act in time.'}
+      </p>
+
       {#if scenarios.length}
         <p class="muted small">{scenarios.length} scenario(s) available; default = Full Game.</p>
       {/if}

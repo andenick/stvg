@@ -4,14 +4,18 @@
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│  Frontend: React+Vite (TypeScript), 19 components, 393KB    │
-│  Zustand state, WebSocket auto-reconnect, dark terminal     │
-│  theme, builds to static/ via `npm run build`               │
+│  Frontend: Svelte 5 (runes) + Vite + TypeScript, 38 .svelte  │
+│  TopBar + TabShell → Economy / Hire / My Bank / Financials   │
+│  CharacterCard portrait overlay; macro + market charts;      │
+│  DealBoard rail; telemetry v2 batches to /api/telemetry.     │
+│  Runes stores, WebSocket auto-reconnect, builds to static/   │
 └──────────────────────┬───────────────────────────────────────┘
-                       │ REST (~30 endpoints) + WebSocket (Crow)
+                       │ REST (40 routes) + WebSocket (Crow)
 ┌──────────────────────┴───────────────────────────────────────┐
-│  API Layer: api/WebSocketServer.h (~604 lines)               │
-│  ~30 REST endpoints + WebSocket broadcast + CORS + static    │
+│  API Layer: api/WebSocketServer.h (~860 lines)               │
+│  40 CROW_ROUTE routes + WebSocket broadcast + CORS + static, │
+│  /assets/portraits/ static route, /macro-history, /trade,    │
+│  /api/telemetry (batched events → telemetry/session_*.jsonl) │
 └──────────────────────┬───────────────────────────────────────┘
                        │
 ┌──────────────────────┴───────────────────────────────────────┐
@@ -51,6 +55,10 @@
 │  ├── EraEngine.h            (7 eras, division/market gating) │
 │  ├── RegulatoryEngine.h     (7 regulations, enact/repeal)   │
 │  ├── PathEngine.h           (5-axis strategic DNA)           │
+│  ├── ReputationLens.h       (fortress/gunslinger/global tags│
+│  │                           tilt pools, deal risk, pricing) │
+│  ├── ArchetypeRegistry.h    (archetypes.json: 8 families +  │
+│  │                           33 specs → β/σ P&L distribution)│
 │  ├── CEOProfile.h           (24 CEOs, special abilities)     │
 │  ├── PersonalityProfile.h   (11-axis personality model)      │
 │  └── PoliticalEngine.h      (lobbying, political capital)    │
@@ -61,8 +69,13 @@
 │  └── ClimateEngine.h        (temperature, tipping points)   │
 ├──────────────────────────────────────────────────────────────┤
 │  Simulation:                                                 │
-│  ├── EconomicEngine.h       (7 OU-process indicators)       │
+│  ├── EconomicEngine.h       (7 OU indicators, gdpLevel,     │
+│  │                           creditImpulse)                  │
+│  ├── core/MacroHistory.h    (saved macro series, base 100   │
+│  │                           @1945 → GET /macro-history)     │
 │  ├── MarketSimulator.h      (6 correlated GARCH markets)    │
+│  ├── PersonalBook.h         (CEO off-balance-sheet trading  │
+│  │                           account, SFC-safe → /trade)     │
 │  └── TraderAI.h             (personality-driven positions)   │
 ├──────────────────────────────────────────────────────────────┤
 │  Math:                                                       │
@@ -87,7 +100,7 @@
 └──────────────────────────────────────────────────────────────┘
 ```
 
-**Total: 52 header files across 6 namespaces (core, game, math, simulation, api, autoplay)**
+**Total: 59 header files across 6 namespaces (core 25, game 4, math 5, simulation 19, api 1, autoplay 5). The STAR_02 overhaul (2026-06-12) added MacroHistory, ArchetypeRegistry, ReputationLens (core) and PersonalBook (simulation).**
 
 ## Game Lifecycle
 
@@ -164,6 +177,8 @@ Each era defines: available divisions, tradeable instruments, economy OU targets
    ├── RegulatoryEngine: check regulation enact/repeal dates
    ├── HistoricalEventLoader: filter events by game year
    ├── EventEngine: weight events by bank state, draw 4-5
+   │     (draws sign-weighted to engine macro direction; market
+   │      coupling applied when eventMarketCoupling is ON)
    ├── DecisionEngine: generate decision options from events
    │   ├── Standard decisions (autonomy, capital, personnel, deals, investigation)
    │   ├── Climate decisions (annual, 2020+)
@@ -182,15 +197,20 @@ Each era defines: available divisions, tradeable instruments, economy OU targets
    └── Output: resolved decisions, remaining AP
 
 3. Simulation (63 daily ticks)
-   ├── EconomicEngine: OU processes update 7 indicators
+   ├── EconomicEngine: OU processes update 7 indicators (gdpLevel, creditImpulse)
    ├── MarketSimulator: GARCH + correlations + jumps update 6 markets
+   ├── MacroHistory: append macro series points (GDP/rate/credit), saved + served via /macro-history
    ├── TraderAI: positions generate P&L, hidden positions accumulate
-   └── Output: market updates via WebSocket
+   ├── PersonalBook: CEO off-balance-sheet trades mark-to-market (BUY/SELL via /trade)
+   └── Output: per-tick `econ` block (incl. economyRevenue/economyProfit) + market updates via WebSocket
 
 4. QuarterEnd
    ├── ConsequenceTracker: resolve delayed consequences
-   ├── Division revenues computed (base × macro × staff quality × era rate)
-   ├── Division costs computed (salary + infrastructure + compliance)
+   ├── Division revenues computed via ArchetypeRegistry P&L distribution:
+   │     expected · clamp(1 + Σwβ·x, .4, 1.8) · (1 + σZ), one RNG draw per
+   │     division per quarter (lockstep-preserved; gated by archetypePnlVariance)
+   ├── Division costs computed (honest salary via SALARY_COST_SCALE + infra + compliance)
+   ├── ReputationLens: recompute bank reputation tags (tilt pools, deal risk, poach pricing)
    ├── Bank.endQuarter(): aggregate financials, hidden risk accumulation
    ├── CrisisEngine: escalate active crises, check new triggers
    ├── AICEOEngine: update AI efficiency, check singularity
@@ -227,3 +247,6 @@ The game implements organizational complexity through two JSON views:
 - **Starting positions**: 5 configurations (Commercial, Trading, IB, Community, Universal) with factory methods
 - **CEO abilities**: Special powers with cooldowns, consuming AP or political capital
 - **Era-gating**: Divisions, markets, instruments, and deal templates locked to historical periods
+- **Archetype P&L distribution**: hire archetypes (8 families + 33 specializations, `data/archetypes/archetypes.json` via ArchetypeRegistry) drive per-division revenue dispersion through macro betas + idiosyncratic σ — the owner's "core equation"
+- **Portrait / credibility layer (frontend)**: CharacterCard overlay shows recurring bankers + presidents; the credibility line-assembler encodes honesty in language (honest = short/specific/falsifiable; crony = padded/vague/urgent) so length itself is a tell. DiceBear placeholders behind `portraitFor()` (PNG manifest can override later) served from `/assets/portraits/`
+- **Telemetry pipeline**: frontend batches 42 event types (incl. dwell + hover) → `POST /api/telemetry` → `telemetry/session_*.jsonl`; `_playtest/analyze_session.py` renders a session report for tuning
