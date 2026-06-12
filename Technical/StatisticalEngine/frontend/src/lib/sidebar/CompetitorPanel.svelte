@@ -6,13 +6,10 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { fmtMoney } from '../util/money';
+  import { dwell, panelView } from '../actions/dwell';
 
-  function fmtAssets(v: number): string {
-    if (Math.abs(v) >= 1e12) return `$${(v / 1e12).toFixed(2)}T`;
-    if (Math.abs(v) >= 1e9)  return `$${(v / 1e9).toFixed(1)}B`;
-    if (Math.abs(v) >= 1e6)  return `$${(v / 1e6).toFixed(0)}M`;
-    return `$${v.toFixed(0)}`;
-  }
+  const fmtAssets = (v: number): string => fmtMoney(v);
 
   let sorted = $derived(
     [...sim.competitors].sort((a, b) => (b.totalAssets ?? 0) - (a.totalAssets ?? 0))
@@ -20,7 +17,7 @@
 </script>
 
 {#if sim.competitors.length > 0 && sim.year >= 1965}
-  <section class="panel" aria-label="Competitors">
+  <section class="panel" aria-label="Competitors" use:dwell={'panel:CompetitorPanel'} use:panelView={'CompetitorPanel'}>
     <header>
       <h3>Competitors</h3>
       <span class="count">{sim.competitors.filter((c) => c.alive).length} live</span>

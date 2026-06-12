@@ -39,6 +39,7 @@ public:
 
         // Initialize markets (era-gated)
         marketSim_.init(config.startYear);
+        marketSim_.setVolatilityScale(config.marketVolScale);
 
         // Populate initial state so markets are available before first tick()
         state_.economics = econ_.state();

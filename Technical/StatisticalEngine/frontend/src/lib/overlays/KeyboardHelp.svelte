@@ -1,6 +1,6 @@
 <script lang="ts">
   /*
-   * Keyboard shortcuts cheat sheet. Toggled by '?' — handled in SimControls'
+   * Keyboard shortcuts cheat sheet. Toggled by '?' — handled in TopBar's
    * keydown listener. Esc dismisses.
    */
 
@@ -19,7 +19,8 @@
 
   const SHORTCUTS = [
     { keys: ['Space'],          label: 'Play / Pause simulation' },
-    { keys: ['1', '2', '3', '4'], label: 'Set speed (1x / 2x / 4x / 8x)' },
+    { keys: ['1', '2', '3', '4'], label: 'Switch tab (Economy / Hire / My Bank / Financials)' },
+    { keys: ['[', ']'],         label: 'Slower / Faster simulation speed' },
     { keys: ['D'],              label: 'Toggle decision drawer (late eras)' },
     { keys: ['↑', '↓'],         label: 'Navigate decision options' },
     { keys: ['←', '→'],         label: 'Cycle pending decisions (drawer)' },

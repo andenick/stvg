@@ -149,7 +149,7 @@ public:
             double risk = opts[i].riskImpact.riskChange;
             double cost = opts[i].financialImpact.immediateCost;
             double rev = opts[i].financialImpact.expectedRevenue;
-            double score = prob * 1.5 + (rev - cost) / 1e7 - risk * 3.0;
+            double score = prob * 1.5 + (rev - cost) / 1e3 - risk * 3.0;
             if (score > bestScore) { bestScore = score; bestIdx = i; }
         }
         return opts[bestIdx].id;
@@ -257,6 +257,7 @@ public:
         : name_("Personality_" + label), p_(p) {}
 
     std::string name() const override { return name_; }
+    double riskTolerance() const override { return p_.riskTolerance; }
 
     std::string chooseOption(const QuarterlyTurnManager& game,
                               const simulation::Decision& decision) override {
@@ -351,7 +352,7 @@ public:
             const auto& o = opts[i];
 
             // Normalized financial signal (revenue net of cost, scaled).
-            double net = (o.financialImpact.expectedRevenue - o.financialImpact.immediateCost) / 1e7;
+            double net = (o.financialImpact.expectedRevenue - o.financialImpact.immediateCost) / 1e3;
 
             // Risk aversion scales with (1-riskTolerance). Doubled when capital is near minimum.
             double riskAversion = (1.0 - p_.riskTolerance) * 3.0;
@@ -363,7 +364,7 @@ public:
             score += p_.analyticalAbility * o.successProbability * 1.5;
 
             // Phase 4 A2: longTermFocus amplified 10x + multi-quarter bonus
-            score += p_.longTermFocus * (o.financialImpact.expectedRevenue / 1e7);
+            score += p_.longTermFocus * (o.financialImpact.expectedRevenue / 1e3);
             score += p_.longTermFocus * o.financialImpact.timelineQuarters * 0.5;
 
             // Phase 4 A2: persuasion scales deal value for revenue-positive options

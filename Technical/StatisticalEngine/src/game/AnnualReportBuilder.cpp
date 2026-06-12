@@ -1,5 +1,6 @@
 #include "stvg/game/AnnualReportBuilder.h"
 #include <spdlog/spdlog.h>
+#include <unordered_set>
 
 namespace stvg::game {
 
@@ -27,7 +28,17 @@ void AnnualReportBuilder::generate(
     report.progression = progression;
     report.regulatoryStatus = regulatoryStatus;
     report.eraName = eraName;
-    report.headlines = acc.yearHeadlines;
+    // 0.3: the year accumulates each quarter's headlines, so genuinely-identical
+    // lines (e.g. a flat-quarter "...$0K Q? profit" before quarter-stamping, or
+    // any repeated consequence/character headline) would otherwise appear 3-4×.
+    // Dedup while preserving first-seen order.
+    report.headlines.clear();
+    {
+        std::unordered_set<std::string> seen;
+        for (const auto& h : acc.yearHeadlines) {
+            if (seen.insert(h).second) report.headlines.push_back(h);
+        }
+    }
     report.quartersPlayed = acc.yearQuarterCount;
 
     // Financial statement fields

@@ -6,6 +6,7 @@
 #include "ScoringEngine.h"
 #include "SimulationClock.h"
 #include "ConsequenceTracker.h"
+#include "MacroHistory.h"
 #include "../math/RandomEngine.h"
 #include "../simulation/MarketSimulator.h"
 #include "../simulation/EconomicEngine.h"
@@ -17,6 +18,7 @@
 #include "../simulation/CrisisEngine.h"
 #include "../simulation/CharacterGenerator.h"
 #include "../simulation/DealPortfolio.h"
+#include "../simulation/PersonalBook.h"
 #include "../simulation/NarrativeEngine.h"
 #include "../simulation/HistoricalEventLoader.h"
 #include "../simulation/CompetitorEngine.h"
@@ -32,6 +34,8 @@
 #include "RiskWeightedAssets.h"
 #include "RegulatoryEngine.h"
 #include "PathEngine.h"
+#include "ReputationLens.h"
+#include "ArchetypeRegistry.h"
 #include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 #include <algorithm>
@@ -82,6 +86,7 @@ public:
         initial.creditSpread = eraEcon.creditSpread;
         econ_.init(initial);
         marketSim_.init(config.startYear);
+        marketSim_.setVolatilityScale(config.marketVolScale);
 
         // Apply CEO profile if specified
         BankConfig effectiveBankConfig = bankConfig;
@@ -167,6 +172,12 @@ public:
         startingCapital_ = bank_.capital;
         peakCapital_ = bank_.capital;
         annualAccum_.yearStartCapital = bank_.capital;
+
+        // STAR_02 P7: seed the CEO's off-balance-sheet personal trading account
+        // with 5% of starting capital (the light "tradey" hedge). Kept separate
+        // from bank_.capital so the SFC identity in Bank::endQuarter() is
+        // untouched — see PersonalBook.h for the accounting rationale.
+        personalBook_.seed(startingCapital_);
 
         // Try loading historical events (non-fatal if file not found)
         for (const auto& path : {"data/events/historical_events.json",
@@ -284,7 +295,11 @@ public:
     //   v1 — initial (Phase 0)
     //   v2 — Phase 3.2: added consecutiveProfitableQuarters, recentDividendQuarters,
     //        doomMeters, state.currentDay/totalDaysElapsed
-    static constexpr int kSaveVersion = 2;
+    //   v3 — STAR_02 P3.2: added macroHistory (per-quarter macro+close ring).
+    //        Backward-compatible: a v1/v2 save loads with empty macroHistory.
+    //   v4 — STAR_02 P7: added personalBook (CEO off-balance-sheet trading
+    //        account). Backward-compatible: an older save keeps the seeded book.
+    static constexpr int kSaveVersion = 4;
 
     nlohmann::json saveGame() const {
         return {
@@ -296,6 +311,8 @@ public:
             {"bank", bank_},
             {"economic", econ_.toSaveJson()},
             {"market", marketSim_.toSaveJson()},
+            {"macroHistory", macroHistory_.toSaveJson()},
+            {"personalBook", personalBook_.toSaveJson()},   // STAR_02 P7
             {"crisis", crisisEngine_.toSaveJson()},
             {"progression", progression_},
             {"ceo", {{"id", hasCeo_ ? ceoProfile_.id : ""},
@@ -354,6 +371,12 @@ public:
             if (j.contains("rng"))      rng_.loadSaveJson(j["rng"]);
             if (j.contains("economic")) econ_.loadSaveJson(j["economic"]);
             if (j.contains("market"))   marketSim_.loadSaveJson(j["market"]);
+            // P3.2 (v3): macroHistory is backward-compatible — missing → empty.
+            if (j.contains("macroHistory")) macroHistory_.loadSaveJson(j["macroHistory"]);
+            else macroHistory_.clear();
+            // STAR_02 P7: personal trading account (backward-compatible — a save
+            // without it simply keeps the freshly-seeded book).
+            if (j.contains("personalBook")) personalBook_.loadSaveJson(j["personalBook"]);
             if (j.contains("crisis"))   crisisEngine_.loadSaveJson(j["crisis"]);
 
             // Clock
@@ -486,20 +509,86 @@ public:
     const std::vector<simulation::GameEvent>& quarterEvents() const { return quarterEvents_; }
     const Bank& bank() const { return bank_; }
     const SimulationState& state() const { return state_; }
+    // P3.2: per-quarter macro history (for chart hydration + REST endpoint).
+    const MacroHistory& macroHistory() const { return macroHistory_; }
+    nlohmann::json macroHistoryJson() const { return macroHistory_.toApiJson(); }
     const ActionPointBudget& actionPoints() const { return actionPoints_; }
     const PlayerProgression& progression() const { return progression_; }
     const std::vector<simulation::Trader>& traders() const { return traders_; }
     const QuarterlyReport& lastReport() const { return lastReport_; }
     const std::vector<simulation::EmployeeCandidate>& hiringPool() const { return hiringPool_; }
+    // STAR_02 P6: outstanding poach offers (rival divisions you can buy whole).
+    const std::vector<simulation::PoachOffer>& poachOffers() const { return poachOffers_; }
+    // STAR_02 P6: the ReputationLens tag the world recognizes you by.
+    std::string reputationTag() const { return ReputationLens::tagFor(pathEngine_.state()); }
     const std::vector<simulation::DealOpportunity>& availableDeals() const { return dealPortfolio_.availableDeals(); }
     const std::vector<simulation::ActiveDeal>& activeDeals() const { return dealPortfolio_.activeDeals(); }
 
+    // P5 §5.3 test/telemetry seam: active event-driven per-quarter drift for a
+    // division (0 if none). Lets a test register a known event and assert the
+    // resulting trading/division nudge without depending on RNG event draws.
+    double eventDriftFor(const std::string& divisionPascalName) const {
+        auto it = eventDivisionDrift_.find(divisionPascalName);
+        return (it != eventDivisionDrift_.end() && it->second.quartersLeft > 0)
+            ? it->second.perQuarter : 0.0;
+    }
+    bool historicalEventsLoaded() const { return historicalEventsLoaded_; }
+    // Force-register an event's drift (bypasses the RNG draw) — used by tests
+    // and only meaningful when eventMarketCoupling is enabled in config.
+    void registerEventDriftForTest(const std::string& eventId) { registerEventDrift(eventId); }
+
     bool acceptDeal(const std::string& dealId, double investmentAmount) {
+        // Guard against NaN/inf and non-positive amounts before any state change.
+        if (!(investmentAmount > 0.0) || !std::isfinite(investmentAmount)) return false;
         int currentQ = state_.currentQuarter + (state_.currentYear - config_.startYear) * 4;
         if (investmentAmount > bank_.capital * 0.3) return false; // Max 30% of capital per deal
+        // Only deduct capital AFTER the deal is confirmed to exist — otherwise an
+        // unknown/expired dealId would silently leak capital (it returned false
+        // to the route but had already debited the bank). Order matters.
+        if (!dealPortfolio_.acceptDeal(dealId, investmentAmount, currentQ)) return false;
         bank_.capital -= investmentAmount;
-        return dealPortfolio_.acceptDeal(dealId, investmentAmount, currentQ);
+        return true;
     }
+
+    // ── STAR_02 P7: personal trading book ──────────────────────────────────────
+    // Current mid price for a market id (0 if unknown). Reads the live snapshot.
+    double marketPriceFor(const std::string& marketId) const {
+        for (const auto& m : marketSim_.snapshot())
+            if (m.id == marketId) return m.currentPrice;
+        return 0.0;
+    }
+
+    // Live prices keyed by id — for mark-to-market.
+    std::unordered_map<std::string, double> marketPriceMap() const {
+        std::unordered_map<std::string, double> px;
+        for (const auto& m : marketSim_.snapshot()) px[m.id] = m.currentPrice;
+        return px;
+    }
+
+    // Execute a market order on the CEO's personal account. side = "buy"|"sell",
+    // amount = dollar notional. Exogenous player input (no RNG → lockstep-safe).
+    // Returns the PersonalBook::TradeResult (ok + reason on failure). Capital on
+    // the bank's books is NEVER touched (off-balance-sheet — see PersonalBook.h).
+    simulation::PersonalBook::TradeResult trade(const std::string& marketId,
+                                                const std::string& side, double amount) {
+        simulation::PersonalBook::TradeResult r;
+        if (!marketSim_.hasMarket(marketId)) { r.err = "unknown market"; return r; }
+        double price = marketPriceFor(marketId);
+        if (side == "buy") {
+            return personalBook_.buy(marketId, amount, price, bank_.capital, state_.currentYear);
+        } else if (side == "sell") {
+            return personalBook_.sell(marketId, amount, price);
+        }
+        r.err = "side must be buy or sell";
+        return r;
+    }
+
+    // Player-view JSON for the personal account (positions + marked value/P&L).
+    nlohmann::json tradeBookJson() const {
+        return personalBook_.toPlayerJson(marketPriceMap());
+    }
+
+    const simulation::PersonalBook& personalBook() const { return personalBook_; }
 
     // Hire a candidate from the pool into a division
     bool hireEmployee(const std::string& candidateId, const std::string& divisionId) {
@@ -510,18 +599,143 @@ public:
             [&](const simulation::EmployeeCandidate& c) { return c.id == candidateId; });
         if (it == hiringPool_.end()) return false;
 
-        // Signing bonus = 1 quarter salary
-        double signingCost = it->annualSalary / 4.0;
+        // Signing bonus = 1 quarter salary (honest wage -> in-economy cost, 0.9)
+        double signingCost = it->annualSalary * simulation::SALARY_COST_SCALE / 4.0;
         bank_.capital -= signingCost;
 
+        simulation::Archetype hiredArchetype = it->archetype;
         div->staff.push_back(std::move(*it));
         hiringPool_.erase(it);
         div->employees = div->staffCount();
         div->morale = std::min(div->morale + 2.0, 100.0); // New hire boosts morale
 
+        // STAR_02 P5 §3: hiring shifts the bank's institutional culture along
+        // the path axes via the family cultureShift vector (un-breaks the
+        // NORTH_STAR "hiring gunslingers shifts culture" mechanic).
+        pathEngine_.applyHireEffect(hiredArchetype);
+
         spdlog::info("Hired {} to {} (signing cost: ${:.0f})",
             div->staff.back().name, div->name, signingCost);
         return true;
+    }
+
+    // STAR_02 P6: accept a poach offer. Deducts askPrice, creates/boosts the
+    // division with imported staff of the offer's archetype mix, imports a chunk
+    // of the rival's σ/β by stamping the team's families, fires a reputation
+    // event, and weakens + angers the poached rival. Returns false if unknown,
+    // expired, or unaffordable.
+    bool acceptPoach(const std::string& offerId) {
+        auto it = std::find_if(poachOffers_.begin(), poachOffers_.end(),
+            [&](const simulation::PoachOffer& o) { return o.id == offerId && o.active; });
+        if (it == poachOffers_.end()) return false;
+        if (it->askPrice > bank_.capital * 0.6) return false;  // can't bet >60% of capital
+        if (!std::isfinite(it->askPrice) || it->askPrice <= 0) return false;
+
+        // 1. Deduct the price.
+        bank_.capital -= it->askPrice;
+
+        // 2. Create or boost the division of that type.
+        Division* div = bank_.getDivisionByType(it->divisionType);
+        if (!div) {
+            Division nd;
+            nd.id = "div_poach_" + std::to_string(++poachCounter_);
+            nd.type = it->divisionType;
+            nd.name = it->divisionName;
+            nd.autonomyLevel = 0.4;
+            nd.morale = 70.0;
+            // Seed the new division's budget from the price paid (capability bought).
+            nd.budget = std::max(it->askPrice * 0.5, 100.0);
+            bank_.divisions.push_back(std::move(nd));
+            div = &bank_.divisions.back();
+        } else {
+            div->budget += it->askPrice * 0.3;   // boost existing line
+            div->morale = std::min(div->morale + 5.0, 100.0);
+        }
+
+        // 3. Import the team — staff of the offer's archetype mix (imports their
+        // σ/β by family, consumed by the P5 distribution + crowding).
+        int idx = 0;
+        for (const auto& famId : it->archetypeMix) {
+            simulation::EmployeeCandidate emp;
+            emp.id = "poach_" + it->id + "_" + std::to_string(++idx);
+            // Map the family id string back to the Archetype enum.
+            try { nlohmann::json j = famId; emp.archetype = j.get<simulation::Archetype>(); }
+            catch (...) { emp.archetype = simulation::Archetype::Operator; }
+            emp.name = it->rivalName + " alum " + std::to_string(idx);
+            for (int s = 0; s < 10; ++s) emp.stats.stat(s) = 62; // seasoned team
+            emp.yearsExperience = 12;
+            emp.level = simulation::CareerLevel::Director;
+            emp.annualSalary = 95000.0;
+            emp.potentialRevealed = true; // a known team, not a blind hire
+            div->staff.push_back(std::move(emp));
+            // Each imported banker nudges culture (gunslinger team → riskier DNA).
+            pathEngine_.applyHireEffect(div->staff.back().archetype);
+        }
+        div->employees = div->staffCount();
+
+        // 4. Reputation event: a splashy raid lifts visibility/reputation.
+        bank_.reputation = std::clamp(bank_.reputation + 3.0, 0.0, 100.0);
+        lastReport_.headlines.push_back(
+            "TEAM RAID: poached " + it->divisionName + " team from " + it->rivalName);
+
+        // 5. Weaken + anger the poached rival.
+        competitorEngine_.applyPoachToRival(it->rivalId, it->teamSize);
+        bank_.recalcBalanceSheet();
+
+        spdlog::info("POACH ACCEPTED: {} team from {} for ${:.0f} ({} bankers)",
+            it->divisionName, it->rivalName, it->askPrice, it->teamSize);
+
+        it->active = false;
+        poachOffers_.erase(it);
+        return true;
+    }
+
+    // STAR_02 P5 rebalance seam: populate each division with a small starting
+    // staff whose archetype mix reflects a risk appetite (0..1). High risk →
+    // gunslinger/dealmaker-heavy (high β, high σ); low risk → lifer/operator/
+    // patrician (low β, low σ). This makes the archetype P&L distribution
+    // actually engage for autoplay bots (which otherwise never hire), so the
+    // aggressive-vs-conservative variance spread the rebalance checks is real.
+    // Uses charGen_ (shared rng_) — call ONCE before the sim loop starts.
+    void seedArchetypeStaff(double riskTolerance, int perDivision = 4) {
+        using simulation::Archetype;
+        // Aggressive pool vs conservative pool; blend by riskTolerance.
+        const std::array<Archetype, 4> aggressive{
+            Archetype::Gunslinger, Archetype::Dealmaker, Archetype::Prodigy, Archetype::Quant};
+        const std::array<Archetype, 4> conservative{
+            Archetype::Lifer, Archetype::Operator, Archetype::Patrician, Archetype::Rainmaker};
+        int counter = 0;
+        for (auto& div : bank_.divisions) {
+            for (int i = 0; i < perDivision; ++i) {
+                bool pickAggressive = rng_.uniform() < riskTolerance;
+                const auto& pool = pickAggressive ? aggressive : conservative;
+                Archetype a = pool[(size_t)(rng_.uniform() * pool.size()) % pool.size()];
+                simulation::EmployeeCandidate emp;
+                emp.id = "seed_" + std::to_string(++counter);
+                emp.archetype = a;
+                emp.name = "Staff " + std::to_string(counter);
+                // Reasonable mid-career stats so staffQualityMultiplier is sane.
+                for (int s = 0; s < 10; ++s) emp.stats.stat(s) = 55;
+                emp.yearsExperience = 8;
+                emp.annualSalary = 70000.0;
+                emp.level = simulation::CareerLevel::VP;
+                div.staff.push_back(std::move(emp));
+            }
+            div.employees = div.staffCount();
+        }
+    }
+
+    // STAR_02 P6: intra-quarter hiring trickle. Mirrors DealPortfolio's deal
+    // trickle (called from the SAME daily-tick draw site in BOTH the batch and
+    // day-by-day paths, so it is RNG-lockstep-safe). Appends ONE fresh candidate
+    // to hiringPool_, capped, tilted by the current ReputationLens. The arriving
+    // candidate's id is recorded so the frontend can animate it in.
+    void addTrickleCandidate() {
+        constexpr int kMaxPool = 8;
+        if ((int)hiringPool_.size() >= kMaxPool) return;
+        auto tilt = ReputationLens::compute(pathEngine_.state()).familyMult;
+        auto fresh = charGen_.generateCandidates(1, state_.currentYear, bank_.reputation, &tilt);
+        if (!fresh.empty()) hiringPool_.push_back(std::move(fresh.front()));
     }
 
     // Adjust division autonomy (costs 1 AP)
@@ -540,7 +754,7 @@ public:
             auto it = std::find_if(div.staff.begin(), div.staff.end(),
                 [&](const simulation::EmployeeCandidate& e) { return e.id == employeeId; });
             if (it != div.staff.end()) {
-                double severance = it->annualSalary / 4.0;
+                double severance = it->annualSalary * simulation::SALARY_COST_SCALE / 4.0;
                 bank_.capital -= severance;
                 div.morale = std::max(div.morale - 5.0, 10.0);
 
@@ -565,10 +779,12 @@ public:
 
     nlohmann::json marketTickPayload() const {
         nlohmann::json prices = nlohmann::json::array();
+        std::unordered_map<std::string, double> pxMap;
         for (const auto& m : marketSim_.snapshot()) {
             double dr = m.previousClose > 0
                 ? (m.currentPrice - m.previousClose) / m.previousClose : 0.0;
             prices.push_back({{"id", m.id}, {"price", m.currentPrice}, {"dailyReturn", dr}});
+            pxMap[m.id] = m.currentPrice;
         }
         return {
             {"day", clock_.dayInQuarter()},
@@ -578,6 +794,40 @@ public:
             {"prices", prices},
             {"bankCapital", bank_.capital},
             {"bankAssets", bank_.totalAssets},
+            // Balance-sheet stream so the frontend can plot a live moving
+            // balance sheet (equity / loans / assets) and show cash->investments.
+            {"bankLoans", bank_.loans},
+            {"bankSecurities", bank_.securities},
+            {"bankReserves", bank_.reserves},
+            {"bankDeposits", bank_.totalDeposits},
+            {"bankInterbank", bank_.interbankBorrowing},
+            // Stream live deal flow so trickle opportunities pop in mid-quarter.
+            {"availableDeals", dealPortfolio_.availableDeals()},
+            // STAR_02 P7: stream the loan-outcome feed + scoreboard so the Book
+            // strip / outcome barks fire the moment a deal resolves, and the
+            // personal trading book marks-to-market live against the ticking tape.
+            {"dealOutcomes", dealPortfolio_.dealOutcomes()},
+            {"loanBookStats", dealPortfolio_.loanBookStats()},
+            {"personalBookValue", personalBook_.totalValue(pxMap)},
+            {"personalBookPnl", personalBook_.unrealizedPnl(pxMap)},
+            // STAR_02 P6: stream the hiring pool + poach offers so candidates
+            // arrive intra-quarter (the frontend animates new ids) and poach
+            // cards appear without waiting for the next quarter-boundary view.
+            {"hiringPool", hiringPoolPlayerJson()},
+            {"poachOffers", poachOffers_},
+            // P3.2: per-day macro stream so macro lines move intraday like
+            // markets do (EconomicEngine ticks daily). Read live from econ_.
+            {"econ", {
+                {"gdpLevel", econ_.state().gdpLevel},
+                {"gdpGrowth", econ_.state().gdpGrowth},
+                {"unemployment", econ_.state().unemployment},
+                {"fedFundsRate", econ_.state().fedFundsRate},
+                {"cpiInflation", econ_.state().cpiInflation},
+                {"creditSpread", econ_.state().creditSpread},
+                // P5 §5: economy-wide P&L series (v1 proxy).
+                {"economyRevenue", econ_.state().economyRevenue},
+                {"economyProfit", econ_.state().economyProfit}
+            }},
             {"regime", marketSim_.currentRegime(econ_.stressScore())}
         };
     }
@@ -628,6 +878,8 @@ public:
             {"resolvedConsequences", resolvedConsequences_},
             {"pendingConsequenceCount", consequenceTracker_.pendingCount()},
             {"hiringPool", hiringPool_},
+            {"poachOffers", poachOffers_},
+            {"reputationTag", ReputationLens::tagFor(pathEngine_.state())},
             {"availableDeals", dealPortfolio_.availableDeals()},
             {"activeDeals", dealPortfolio_.activeDeals()},
             {"era", eraEngine_.currentEra()},
@@ -653,15 +905,18 @@ public:
     // Backward compat alias
     nlohmann::json toJson() const { return toGodJson(); }
 
-    // Player view: filtered through organizational complexity
-    nlohmann::json toPlayerJson() const {
-        // Filter hiring pool: hide hidden stats for unrevealed candidates
+    // STAR_02 P6: the filtered hiring pool as player-view JSON (hidden stats
+    // hidden — you hire blind). Extracted so both toPlayerJson() and the live
+    // market_tick stream share one shape. Includes specializationId for the
+    // P6 candidate-card specialization display.
+    nlohmann::json hiringPoolPlayerJson() const {
         nlohmann::json filteredPool = nlohmann::json::array();
         for (const auto& c : hiringPool_) {
             nlohmann::json ej;
             ej["id"] = c.id;
             ej["name"] = c.name;
             ej["archetype"] = c.archetype;
+            ej["specializationId"] = c.specializationId; // P6 display
             ej["level"] = c.level;
             ej["annualSalary"] = c.annualSalary;
             ej["yearsExperience"] = c.yearsExperience;
@@ -675,6 +930,13 @@ public:
             ej["expectedSharpe"] = c.expectedSharpe();
             filteredPool.push_back(ej);
         }
+        return filteredPool;
+    }
+
+    // Player view: filtered through organizational complexity
+    nlohmann::json toPlayerJson() const {
+        // Filter hiring pool: hide hidden stats for unrevealed candidates
+        nlohmann::json filteredPool = hiringPoolPlayerJson();
 
         // Build bank JSON with division commentary
         auto bankJson = bankToPlayerJson(bank_);
@@ -698,8 +960,16 @@ public:
             {"resolvedConsequences", resolvedConsequences_},
             {"pendingConsequenceCount", consequenceTracker_.pendingCount()},
             {"hiringPool", filteredPool},
+            {"poachOffers", poachOffers_},                 // P6
+            {"reputationTag", ReputationLens::tagFor(pathEngine_.state())}, // P6
             {"availableDeals", dealPortfolio_.availableDeals()},
             {"activeDeals", dealPortfolio_.activeDeals()},
+            // STAR_02 P7: loan-outcome feedback loop — the player-facing feed of
+            // resolved deals + the cumulative loan-book scoreboard ("loany" heart).
+            {"dealOutcomes", dealPortfolio_.dealOutcomes()},
+            {"loanBookStats", dealPortfolio_.loanBookStats()},
+            // STAR_02 P7: the CEO's personal trading account (off-balance-sheet).
+            {"tradeBook", personalBook_.toPlayerJson(marketPriceMap())},
             {"era", eraEngine_.currentEra()},
             {"regulatory", regulatoryEngine_.state()},
             {"competitors", competitorEngine_.toPlayerJson(state_.currentYear)},
@@ -743,6 +1013,7 @@ private:
     ConsequenceTracker consequenceTracker_;
     simulation::CharacterGenerator charGen_;
     simulation::DealPortfolio dealPortfolio_;
+    simulation::PersonalBook personalBook_;   // STAR_02 P7: CEO personal trading account
     std::vector<SimulationDigestEvent> simulationDigest_;
     std::vector<std::string> nextQuarterPreview_;
 
@@ -757,8 +1028,19 @@ private:
 
     SimulationConfig config_;
     SimulationState state_;
+    MacroHistory macroHistory_;  // P3.2: per-quarter macro+market-close ring
     Bank bank_;
     std::vector<simulation::EmployeeCandidate> hiringPool_;
+    // STAR_02 P6: per-candidate expiry quarter (era-flavored turnover); when the
+    // global quarter passes this, the candidate leaves the pool. Keyed by id.
+    std::map<std::string, int> candidateExpiry_;
+    // STAR_02 P6: outstanding poach offers + a monotonic counter for ids.
+    std::vector<simulation::PoachOffer> poachOffers_;
+    int poachCounter_ = 0;
+    int quartersUntilNextPoach_ = 0;  // countdown to the next offer (era-scaled)
+    // STAR_02 P6 ReputationLens: last tag, to fire reputation_tag_changed only
+    // on a real transition (telemetry-only — the tag itself is in the player view).
+    std::string lastReputationTag_;
     ActionPointBudget actionPoints_;
     PlayerProgression progression_;
     TurnPhase phase_ = TurnPhase::QuarterStart;
@@ -799,9 +1081,21 @@ private:
     simulation::HistoricalEventLoader historicalLoader_;
     bool historicalEventsLoaded_ = false;
 
+    // STAR_02 P5 §5.1: previous-quarter macro snapshot, used to form the
+    // change terms (Δfed, Δspread, Δvix) in the archetype×macro P&L vector.
+    // Captured at the end of onQuarterEnd; seeded from the initial econ.
+    EconomicIndicators prevQuarterEcon_;
+    bool prevQuarterEconValid_ = false;
+
+    // STAR_02 P5 §5.3 (P3.4 Stage B): active event-driven drift nudges, keyed
+    // by DivisionType json name, decremented each quarter they apply. Only
+    // populated when config_.eventMarketCoupling is true.
+    struct EventDrift { double perQuarter = 0.0; int quartersLeft = 0; };
+    std::map<std::string, EventDrift> eventDivisionDrift_;
+
     // Balance tracking
-    double startingCapital_ = 10e9;
-    double peakCapital_ = 10e9;
+    double startingCapital_ = 1e6;   // rescaled from 10e9
+    double peakCapital_ = 1e6;
 
     // Endgame tracking
     int consecutivePoorQuarters_ = 0;
@@ -846,6 +1140,10 @@ private:
     void onQuarterStart();
     void runSimulation();
     void onQuarterEnd();
+
+    // P5 §5.3: register a per-division drift nudge from a drawn historical
+    // event's affects/risk (eventMarketCoupling). Defined in QuarterlyPhases.h.
+    void registerEventDrift(const std::string& eventId);
 
 
     void generateAnnualReport() {

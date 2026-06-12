@@ -19,7 +19,7 @@ struct CEOProfile {
     std::string specialAbilityDesc;
     int specialAbilityCooldown = 4;
 
-    double startingCapital = 10e9;
+    double startingCapital = 1e6;   // $1M-scale default; JSON overrides also $1M-scale (rescaled /10,000 from old 10e9 units)
     double startingReputation = 50.0;
 
     double riskMultiplier = 1.0;
@@ -52,7 +52,7 @@ struct CEOProfile {
                             p.specialAbilityName = entry.value("specialAbilityName", "");
                             p.specialAbilityDesc = entry.value("specialAbilityDesc", "");
                             p.specialAbilityCooldown = entry.value("specialAbilityCooldown", 4);
-                            p.startingCapital = entry.value("startingCapital", 10e9);
+                            p.startingCapital = entry.value("startingCapital", 1e6);
                             p.startingReputation = entry.value("startingReputation", 50.0);
                             p.riskMultiplier = entry.value("riskMultiplier", 1.0);
                             p.revenueMultiplier = entry.value("revenueMultiplier", 1.0);
@@ -80,10 +80,10 @@ struct CEOProfile {
                 spdlog::warn("No CEO profiles loaded — using fallback defaults");
                 profiles.push_back({"sterling", "Victoria Sterling", "The Gambler",
                     "Default CEO", "Double Down", "Doubles revenue", 4,
-                    50e9, 45.0, 1.3, 1.2, 0.0, 0.0, PersonalityProfile::gambler()});
+                    5e6, 45.0, 1.3, 1.2, 0.0, 0.0, PersonalityProfile::gambler()});
                 profiles.push_back({"okonkwo", "Dr. Amara Okonkwo", "The Quant",
                     "Default CEO", "Full Spectrum Analysis", "Reveals hidden risk", 4,
-                    75e9, 55.0, 1.0, 1.0, 15.0, 0.0, PersonalityProfile::balanced()});
+                    7.5e6, 55.0, 1.0, 1.0, 15.0, 0.0, PersonalityProfile::balanced()});
             }
         }
         return profiles;

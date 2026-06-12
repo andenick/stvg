@@ -6,20 +6,15 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { fmtMoney } from '../util/money';
+  import { dwell, panelView } from '../actions/dwell';
 
-  function fmt(v: number | undefined): string {
-    if (v == null) return '—';
-    const abs = Math.abs(v);
-    const sign = v < 0 ? '-' : '';
-    if (abs >= 1e9) return `${sign}$${(abs / 1e9).toFixed(2)}B`;
-    if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(0)}M`;
-    return `${sign}$${abs.toFixed(0)}`;
-  }
+  const fmt = (v: number | undefined): string => fmtMoney(v);
 </script>
 
 {#if sim.annualReport && sim.year >= 1950}
   {@const r = sim.annualReport}
-  <section class="panel" aria-label="Annual Report">
+  <section class="panel" aria-label="Annual Report" use:dwell={'panel:AnnualReportPanel'} use:panelView={'AnnualReportPanel'}>
     <header>
       <h3>{r.year} Annual Report</h3>
       <span class="era">{r.eraName}</span>
@@ -39,7 +34,7 @@
           class="num value"
           class:up={r.capitalGrowthPct > 0}
           class:down={r.capitalGrowthPct < 0}
-        >{r.capitalGrowthPct > 0 ? '+' : ''}{(r.capitalGrowthPct * 100).toFixed(1)}%</span>
+        >{r.capitalGrowthPct > 0 ? '+' : ''}{r.capitalGrowthPct.toFixed(1)}%</span>
       </div>
     </div>
     {#if r.headlines && r.headlines.length}

@@ -15,12 +15,22 @@
   import { ui } from '../stores/ui.svelte';
   import { wsClient } from '../ws/websocket';
   import { onMount } from 'svelte';
+  import { fmtMoney } from '../util/money';
+  import { telemetry } from '../telemetry';
   import type { GameEndReason } from '../types/server';
 
   let playAgainReady = $state(false);
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   onMount(() => {
+    // Lifecycle: game_end (P1). Mount is the single point the run is over.
+    telemetry.log('game_end', {
+      reason: sim.gameEnd?.reason ?? 'unknown',
+      isVictory: sim.gameEnd?.isVictory ?? false,
+      finalCapital: sim.bankCapital,
+      year: sim.year,
+    });
+    telemetry.flush(true);
     timer = setTimeout(() => { playAgainReady = true; }, 3000);
     return () => clearTimeout(timer);
   });
@@ -68,15 +78,7 @@
     }
   }
 
-  function fmt(v: number | undefined): string {
-    if (v == null) return '—';
-    const abs = Math.abs(v);
-    const sign = v < 0 ? '-' : '';
-    if (abs >= 1e12) return `${sign}$${(abs / 1e12).toFixed(2)}T`;
-    if (abs >= 1e9)  return `${sign}$${(abs / 1e9).toFixed(2)}B`;
-    if (abs >= 1e6)  return `${sign}$${(abs / 1e6).toFixed(0)}M`;
-    return `${sign}$${abs.toFixed(0)}`;
-  }
+  const fmt = (v: number | undefined): string => fmtMoney(v);
 </script>
 
 <main class="game-over" class:victory={isVictory} class:defeat={!isVictory}>

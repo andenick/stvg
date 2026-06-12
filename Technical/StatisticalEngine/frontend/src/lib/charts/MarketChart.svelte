@@ -9,6 +9,7 @@
 
   import { createChart, LineSeries, type IChartApi, type ISeriesApi, LineType } from 'lightweight-charts';
   import { sim } from '../stores/simulation.svelte';
+  import { telemetry } from '../telemetry';
   import {
     baseChartOptions,
     eraChartColors,
@@ -20,10 +21,14 @@
     marketId: string;
     label?: string;
     compact?: boolean;
+    /** Hero presentation: taller chart + last-value label, no click-to-expand. */
+    hero?: boolean;
+    /** Time-scale window in trading days (P2.3). Infinity = whole buffer. */
+    maxDays?: number;
     onExpand?: (id: string) => void;
   }
 
-  let { marketId, label, compact = false, onExpand }: Props = $props();
+  let { marketId, label, compact = false, hero = false, maxDays = Infinity, onExpand }: Props = $props();
 
   let containerEl: HTMLDivElement | undefined = $state();
   let chart: IChartApi | null = null;
@@ -50,10 +55,10 @@
     });
     series = chart.addSeries(LineSeries, {
       color: colors.lineColor,
-      lineWidth: 2,
+      lineWidth: hero ? 3 : 2,
       lineType: LineType.Simple,
       priceLineVisible: false,
-      lastValueVisible: !compact,
+      lastValueVisible: hero || !compact,
     });
     hydrate();
   }
@@ -62,16 +67,23 @@
     if (!series) return;
     const s = sim.markets[marketId];
     if (!s) return;
-    const data = s.history.map((p) => ({
-      time: totalDayToTime(p.time),
-      value: p.value,
-    }));
+    const lastDay = s.history.length ? s.history[s.history.length - 1].time : 0;
+    const cutoff = maxDays === Infinity ? -Infinity : lastDay - maxDays;
+    const data = s.history
+      .filter((p) => p.time >= cutoff)
+      .map((p) => ({ time: totalDayToTime(p.time), value: p.value }));
     if (data.length) {
       series.setData(data);
       chart?.timeScale().fitContent();
-      lastSeenTime = data[data.length - 1].time as unknown as number;
+      lastSeenTime = s.history[s.history.length - 1].time;
     }
   }
+
+  // Re-hydrate when the time-scale window changes (hero toggle).
+  $effect(() => {
+    void maxDays;
+    if (series) hydrate();
+  });
 
   $effect(() => {
     const s = sim.markets[marketId];
@@ -114,6 +126,12 @@
   function handleClick() {
     if (onExpand) onExpand(marketId);
   }
+
+  // P1 hover wiring: throttled in telemetry.hover() so a slow graze over a
+  // ticker logs once, not per mousemove. Key `market:<id>` groups in the report.
+  function handleHover() {
+    telemetry.hover(`market:${marketId}`, { id: marketId });
+  }
 </script>
 
 {#snippet head()}
@@ -137,12 +155,13 @@
     class="market-chart clickable"
     class:compact
     onclick={handleClick}
+    onmouseenter={handleHover}
   >
     {@render head()}
     <div bind:this={containerEl} class="chart"></div>
   </button>
 {:else}
-  <div class="market-chart" class:compact>
+  <div class="market-chart" class:compact class:hero onmouseenter={handleHover} role="presentation">
     {@render head()}
     <div bind:this={containerEl} class="chart"></div>
   </div>
@@ -199,4 +218,9 @@
   .compact .chart {
     min-height: 4.5rem;
   }
+  .hero { min-height: 38vh; }
+  .hero .chart { min-height: 34vh; }
+  .hero .ticker { font-size: var(--fs-sm); }
+  .hero .price { font-size: 1.3rem; }
+  .hero .ret { font-size: 0.95rem; }
 </style>

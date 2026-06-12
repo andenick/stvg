@@ -50,7 +50,7 @@ void setYear(QuarterlyTurnManager& mgr, int year) {
 TEST(EndgamePaths, AbolitionRequiresHighRepLowCapitalSmallBank) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 30, 30, 30, 30);  // all calm
-    setBank(mgr, 5e9, 95, 2);             // half starting capital, sky-high rep, 2 divs
+    setBank(mgr, 5e5, 95, 2);             // half starting capital, sky-high rep, 2 divs
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::EndgameAbolition);
@@ -61,7 +61,7 @@ TEST(EndgamePaths, AbolitionRequiresHighRepLowCapitalSmallBank) {
 TEST(EndgamePaths, TransformationRequiresBigBankAndCleanWorld) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 30, 30, 30, 30);
-    setBank(mgr, 25e9, 85, 6);            // 2.5x starting, high rep, normal bank
+    setBank(mgr, 2.5e6, 85, 6);            // 2.5x starting, high rep, normal bank
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::EndgameTransformation);
@@ -71,7 +71,7 @@ TEST(EndgamePaths, TransformationRequiresBigBankAndCleanWorld) {
 TEST(EndgamePaths, ReconstructionAfterCrisisFighting) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 95, 60, 60, 50);   // 1 meter near max
-    setBank(mgr, 8e9, 75, 5);              // burned some capital, decent rep
+    setBank(mgr, 8e5, 75, 5);              // burned some capital, decent rep
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::EndgameReconstruction);
@@ -81,7 +81,7 @@ TEST(EndgamePaths, ReconstructionAfterCrisisFighting) {
 TEST(EndgamePaths, ManagedDeclineWhenMetersHigh) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 80, 75, 60, 50);   // 2 meters high, none maxed
-    setBank(mgr, 12e9, 50, 6);             // healthy bank, mediocre rep
+    setBank(mgr, 1.2e6, 50, 6);             // healthy bank, mediocre rep
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::EndgameManagedDecline);
@@ -91,7 +91,7 @@ TEST(EndgamePaths, ManagedDeclineWhenMetersHigh) {
 TEST(EndgamePaths, FortressWhenBankThrivedButWorldBurned) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 100, 60, 60, 60);  // one meter maxed
-    setBank(mgr, 20e9, 50, 6);             // 2x capital, mediocre rep
+    setBank(mgr, 2e6, 50, 6);             // 2x capital, mediocre rep
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::EndgameFortress);
@@ -101,7 +101,7 @@ TEST(EndgamePaths, FortressWhenBankThrivedButWorldBurned) {
 TEST(EndgamePaths, CollapseAsDefault) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 100, 100, 80, 80);  // multiple meters maxed
-    setBank(mgr, 5e9, 30, 6);                // capital low, rep low
+    setBank(mgr, 5e5, 30, 6);                // capital low, rep low
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::EndgameCollapse);
@@ -113,7 +113,7 @@ TEST(EndgamePaths, CollapseAsDefault) {
 TEST(EndgamePaths, MeterAtHundredFiresEndgame) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 100, 0, 0, 0);
-    setBank(mgr, 10e9, 50, 6);
+    setBank(mgr, 1e6, 50, 6);
     setYear(mgr, 2010);  // not year 2040
     auto end = mgr.checkGameEnd();
     // Should have hit the endgame branch (any of the 6 paths, not None)
@@ -123,7 +123,7 @@ TEST(EndgamePaths, MeterAtHundredFiresEndgame) {
 TEST(EndgamePaths, Year2040FiresEndgame) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 30, 30, 30, 30);
-    setBank(mgr, 10e9, 50, 6);
+    setBank(mgr, 1e6, 50, 6);
     setYear(mgr, 2040);
     auto end = mgr.checkGameEnd();
     EXPECT_NE(end.reason, GameEndReason::None);
@@ -132,7 +132,7 @@ TEST(EndgamePaths, Year2040FiresEndgame) {
 TEST(EndgamePaths, NoEndgameBefore2040WithCleanMeters) {
     auto mgr = makeMgr();
     setDoomMeters(mgr, 30, 30, 30, 30);
-    setBank(mgr, 10e9, 50, 6);
+    setBank(mgr, 1e6, 50, 6);
     setYear(mgr, 2030);
     auto end = mgr.checkGameEnd();
     EXPECT_EQ(end.reason, GameEndReason::None);

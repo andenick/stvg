@@ -1,0 +1,178 @@
+{"schema":2,"type":"meta"}
+{"data":{"capital":0,"day":0,"paused":true,"quarter":1,"sessionId":"smqasi3eh7iar","speed":1,"startedAt":"2026-06-12T10:34:46.080Z","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0","year":1945},"t":7,"type":"session_start"}
+{"data":{"capital":1000000,"ceoId":null,"day":0,"paused":true,"quarter":1,"scenario":"default","speed":1,"startingPosition":"commercial_bank","year":1945},"t":2503,"type":"game_start"}
+{"data":{"capital":1000000,"cheapestSalary":108200,"day":0,"paused":true,"quarter":1,"speed":1,"year":1945},"t":2900,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":36336.02126103116,"capital":1000000,"day":0,"id":"deal_1","paused":true,"quarter":1,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":2900,"type":"deal_arrived"}
+{"data":{"capital":1000000,"day":0,"id":"evt_59","paused":true,"quarter":1,"speed":1,"title":"Product Innovation Pressure","year":1945},"t":2933,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_26","paused":true,"quarter":1,"speed":1,"title":"New Product Launch Decision","year":1945},"t":2933,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_48","paused":true,"quarter":1,"speed":1,"title":"Star Analyst Publishes Report","year":1945},"t":2933,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_1","paused":true,"quarter":1,"speed":1,"title":"Fed Rate Decision Pending","year":1945},"t":2933,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_ve_day_conversion","paused":true,"quarter":1,"speed":1,"title":"War-to-Peace Industrial Conversion","year":1945},"t":2933,"type":"news"}
+{"data":{"capital":1000000,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":1,"speed":1,"trigger":"advisor","year":1945},"t":2934,"type":"portrait_shown"}
+{"data":{"capital":1000000,"day":0,"paused":true,"quarter":1,"speed":2,"year":1945},"t":4925,"type":"sim_speed"}
+{"data":{"capital":1000000,"day":0,"paused":true,"quarter":1,"speed":4,"year":1945},"t":4928,"type":"sim_speed"}
+{"data":{"capital":1000000,"day":0,"paused":true,"quarter":1,"speed":8,"year":1945},"t":4929,"type":"sim_speed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_1_q1","optionId":"dec_1_q1_act","paused":true,"quarter":1,"speed":8,"title":"Product Innovation Pressure","year":1945},"t":4931,"type":"decision_submit"}
+{"data":{"capital":1000000,"day":0,"key":"decision:dec_1_q1","ms":1982,"paused":true,"quarter":1,"speed":8,"title":"Product Innovation Pressure","year":1945},"t":4946,"type":"dwell"}
+{"data":{"capital":1000000,"day":0,"id":"deal_1","paused":true,"quarter":1,"speed":8,"visibleMs":2046,"year":1945},"t":4946,"type":"deal_expired"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_2_q1","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_3_q1","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_4_q1","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_5_q1","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_loanspread_y1945","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_creditstd_y1945","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"day":0,"decisionId":"dec_duration_y1945","paused":true,"quarter":1,"speed":8,"visibleMs":2021,"year":1945},"t":4950,"type":"decision_lapsed"}
+{"data":{"capital":1000000,"cheapestSalary":108200,"day":1,"paused":false,"quarter":1,"speed":8,"year":1945},"t":5621,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":39875.53001088912,"capital":1000000,"day":14,"id":"deal_2","paused":false,"quarter":1,"speed":8,"title":"Corporate Credit Facility","year":1945},"t":6624,"type":"deal_arrived"}
+{"data":{"amount":77160.87853890154,"capital":1000000,"day":18,"id":"deal_3","paused":false,"quarter":1,"speed":8,"title":"Mortgage Pool Origination","year":1945},"t":6941,"type":"deal_arrived"}
+{"data":{"amount":114027.03367884179,"capital":1000000,"day":28,"id":"deal_4","paused":false,"quarter":1,"speed":8,"title":"Real Estate Development Loan","year":1945},"t":7730,"type":"deal_arrived"}
+{"data":{"amount":63379.55803084146,"capital":1000000,"day":36,"id":"deal_5","paused":false,"quarter":1,"speed":8,"title":"Real Estate Development Loan","year":1945},"t":8326,"type":"deal_arrived"}
+{"data":{"amount":49755.18390048977,"capital":1000000,"day":38,"id":"deal_6","paused":false,"quarter":1,"speed":8,"title":"GI Bill Mortgage Pool","year":1945},"t":8485,"type":"deal_arrived"}
+{"data":{"amount":67078.95417928274,"capital":1000000,"day":54,"id":"deal_7","paused":false,"quarter":1,"speed":8,"title":"Mortgage Pool Origination","year":1945},"t":9735,"type":"deal_arrived"}
+{"data":{"amount":40251.401003987725,"capital":1062838.9505337577,"day":0,"id":"deal_8","paused":true,"quarter":2,"speed":8,"title":"Wildcat Oil Play","year":1945},"t":10560,"type":"deal_arrived"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_1","paused":true,"quarter":2,"speed":8,"visibleMs":0,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_2","paused":true,"quarter":2,"speed":8,"visibleMs":3936,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_3","paused":true,"quarter":2,"speed":8,"visibleMs":3619,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_4","paused":true,"quarter":2,"speed":8,"visibleMs":2830,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_5","paused":true,"quarter":2,"speed":8,"visibleMs":2234,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_6","paused":true,"quarter":2,"speed":8,"visibleMs":2075,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_7","paused":true,"quarter":2,"speed":8,"visibleMs":825,"year":1945},"t":10560,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_1_q1","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_2_q1","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_3_q1","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_4_q1","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_5_q1","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_loanspread_y1945","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_creditstd_y1945","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_duration_y1945","paused":true,"quarter":2,"speed":8,"visibleMs":59,"year":1945},"t":10577,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"evt_7","paused":true,"quarter":2,"speed":8,"title":"Housing Market Cooling","year":1945},"t":10577,"type":"news"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"evt_4","paused":true,"quarter":2,"speed":8,"title":"Commodity Supercycle","year":1945},"t":10577,"type":"news"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"evt_58","paused":true,"quarter":2,"speed":8,"title":"International Expansion Opportunity","year":1945},"t":10577,"type":"news"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"evt_27","paused":true,"quarter":2,"speed":8,"title":"Geographic Expansion Opportunity","year":1945},"t":10577,"type":"news"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_1_q2","optionId":"dec_1_q2_aggressive","paused":true,"quarter":2,"speed":8,"title":"Housing Market Cooling","year":1945},"t":11110,"type":"decision_submit"}
+{"data":{"capital":1062838.9505337577,"day":0,"key":"decision:dec_1_q2","ms":499,"paused":true,"quarter":2,"speed":8,"title":"Housing Market Cooling","year":1945},"t":11114,"type":"dwell"}
+{"data":{"capital":1062838.9505337577,"day":0,"id":"deal_8","paused":true,"quarter":2,"speed":8,"visibleMs":554,"year":1945},"t":11114,"type":"deal_expired"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_2_q2","paused":true,"quarter":2,"speed":8,"visibleMs":551,"year":1945},"t":11128,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_3_q2","paused":true,"quarter":2,"speed":8,"visibleMs":551,"year":1945},"t":11128,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_4_q2","paused":true,"quarter":2,"speed":8,"visibleMs":551,"year":1945},"t":11128,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_5_q2","paused":true,"quarter":2,"speed":8,"visibleMs":551,"year":1945},"t":11128,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"day":0,"decisionId":"dec_inv_q2","paused":true,"quarter":2,"speed":8,"visibleMs":551,"year":1945},"t":11128,"type":"decision_lapsed"}
+{"data":{"capital":1062838.9505337577,"cheapestSalary":108200,"day":1,"paused":false,"quarter":2,"speed":8,"year":1945},"t":11577,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":44942.88516730685,"capital":1062838.9505337577,"day":38,"id":"deal_9","paused":false,"quarter":2,"speed":8,"title":"War Bond Rollover","year":1945},"t":14484,"type":"deal_arrived"}
+{"data":{"capital":1062838.9505337577,"day":44,"ms":12054,"npcId":"npc_marcus_kane","paused":false,"quarter":2,"read":false,"speed":8,"trigger":"advisor","year":1945},"t":14988,"type":"portrait_dismissed"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"deal_8","paused":true,"quarter":3,"speed":8,"visibleMs":0,"year":1945},"t":16543,"type":"deal_expired"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"deal_9","paused":true,"quarter":3,"speed":8,"visibleMs":2059,"year":1945},"t":16543,"type":"deal_expired"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_1_q2","paused":true,"quarter":3,"speed":8,"visibleMs":76,"year":1945},"t":16558,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_2_q2","paused":true,"quarter":3,"speed":8,"visibleMs":76,"year":1945},"t":16558,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_3_q2","paused":true,"quarter":3,"speed":8,"visibleMs":76,"year":1945},"t":16558,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_4_q2","paused":true,"quarter":3,"speed":8,"visibleMs":76,"year":1945},"t":16558,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_5_q2","paused":true,"quarter":3,"speed":8,"visibleMs":76,"year":1945},"t":16558,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_inv_q2","paused":true,"quarter":3,"speed":8,"visibleMs":76,"year":1945},"t":16558,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"evt_15","paused":true,"quarter":3,"speed":8,"title":"Star Trader Poached","year":1945},"t":16559,"type":"news"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"evt_14","paused":true,"quarter":3,"speed":8,"title":"Lobbying Opportunity","year":1945},"t":16559,"type":"news"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"evt_64","paused":true,"quarter":3,"speed":8,"title":"Client Poaching Campaign","year":1945},"t":16559,"type":"news"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"evt_9","paused":true,"quarter":3,"speed":8,"title":"Regulatory Audit Notice","year":1945},"t":16559,"type":"news"}
+{"data":{"capital":1115894.6198227736,"day":0,"id":"evt_bretton_woods_order","paused":true,"quarter":3,"speed":8,"title":"Bretton Woods New World Order","year":1945},"t":16559,"type":"news"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":3,"speed":8,"title":"Star Trader Poached","year":1945},"t":17310,"type":"decision_submit"}
+{"data":{"capital":1115894.6198227736,"day":0,"key":"decision:dec_1_q3","ms":772,"paused":true,"quarter":3,"speed":8,"title":"Star Trader Poached","year":1945},"t":17314,"type":"dwell"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_2_q3","paused":true,"quarter":3,"speed":8,"visibleMs":771,"year":1945},"t":17329,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_3_q3","paused":true,"quarter":3,"speed":8,"visibleMs":771,"year":1945},"t":17329,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_4_q3","paused":true,"quarter":3,"speed":8,"visibleMs":771,"year":1945},"t":17329,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_5_q3","paused":true,"quarter":3,"speed":8,"visibleMs":771,"year":1945},"t":17329,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_6_q3","paused":true,"quarter":3,"speed":8,"visibleMs":771,"year":1945},"t":17329,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"day":0,"decisionId":"dec_inv_q3","paused":true,"quarter":3,"speed":8,"visibleMs":771,"year":1945},"t":17329,"type":"decision_lapsed"}
+{"data":{"capital":1115894.6198227736,"cheapestSalary":108200,"day":1,"paused":false,"quarter":3,"speed":8,"year":1945},"t":17546,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":65760.95469704071,"capital":1115894.6198227736,"day":1,"id":"deal_10","paused":false,"quarter":3,"speed":8,"title":"GI Bill Mortgage Pool","year":1945},"t":17546,"type":"deal_arrived"}
+{"data":{"amount":17765.674835449743,"capital":1115894.6198227736,"day":62,"id":"deal_11","paused":false,"quarter":3,"speed":8,"title":"GI Bill Mortgage Pool","year":1945},"t":22296,"type":"deal_arrived"}
+{"data":{"capital":1152613.2020551607,"crisisId":"crisis_1","day":0,"paused":true,"quarter":4,"severity":6,"speed":8,"title":"Regulatory Enforcement Action","year":1945},"t":22467,"type":"crisis_start"}
+{"data":{"capital":1152613.2020551607,"day":0,"mode":"card","paused":true,"quarter":4,"speed":8,"year":1945},"t":22467,"type":"annual_report_open"}
+{"data":{"capital":1152613.2020551607,"day":0,"npcId":"npc_sol_perez","paused":true,"quarter":4,"speed":8,"trigger":"crisis_start","year":1945},"t":22469,"type":"portrait_shown"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":22524,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":23541,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":24549,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":25556,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":26565,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":27571,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":28579,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":29587,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":30595,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":31602,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":32609,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":33617,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"ms":12007,"npcId":"npc_sol_perez","paused":true,"quarter":4,"read":false,"speed":8,"trigger":"crisis_start","year":1945},"t":34476,"type":"portrait_dismissed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":34624,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":35632,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":36640,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":37647,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":38654,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":39662,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":40669,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":41677,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":4,"speed":8,"trigger":"advisor","year":1945},"t":42493,"type":"portrait_shown"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":42685,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":43692,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":44699,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":45707,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":46715,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":47722,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":48730,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":49737,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":50745,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":51752,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":52760,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":53768,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"ms":12002,"npcId":"npc_marcus_kane","paused":true,"quarter":4,"read":false,"speed":8,"trigger":"advisor","year":1945},"t":54496,"type":"portrait_dismissed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":54776,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":55783,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":56792,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":57798,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":58806,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":59813,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":60822,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":61830,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":4,"speed":8,"trigger":"advisor","year":1945},"t":62527,"type":"portrait_shown"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":62837,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":63844,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":64852,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":65860,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":66868,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":67874,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":68882,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":69890,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":70897,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":71905,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":72912,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":73920,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"ms":12012,"npcId":"npc_marcus_kane","paused":true,"quarter":4,"read":false,"speed":8,"trigger":"advisor","year":1945},"t":74540,"type":"portrait_dismissed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":74928,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":75935,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":76943,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":77950,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":78958,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":79966,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":80973,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":81329,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":81686,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":82043,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":82400,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":4,"speed":8,"trigger":"advisor","year":1945},"t":82549,"type":"portrait_shown"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":82756,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":83112,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_1_q3","optionId":"dec_1_q3_retain","paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":83469,"type":"decision_submit"}
+{"data":{"capital":1152613.2020551607,"day":0,"paused":false,"quarter":4,"speed":8,"year":1945},"t":83827,"type":"sim_toggle"}
+{"data":{"capital":1152613.2020551607,"day":0,"key":"decision:dec_1_q3","ms":61455,"paused":true,"quarter":4,"speed":8,"title":"Star Trader Poached","year":1945},"t":83982,"type":"dwell"}
+{"data":{"capital":1152613.2020551607,"day":0,"id":"deal_10","paused":true,"quarter":4,"speed":8,"visibleMs":66436,"year":1945},"t":83982,"type":"deal_expired"}
+{"data":{"capital":1152613.2020551607,"day":0,"id":"deal_11","paused":true,"quarter":4,"speed":8,"visibleMs":61686,"year":1945},"t":83982,"type":"deal_expired"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_2_q3","paused":true,"quarter":4,"speed":8,"visibleMs":61537,"year":1945},"t":84004,"type":"decision_lapsed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_3_q3","paused":true,"quarter":4,"speed":8,"visibleMs":61537,"year":1945},"t":84004,"type":"decision_lapsed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_4_q3","paused":true,"quarter":4,"speed":8,"visibleMs":61537,"year":1945},"t":84004,"type":"decision_lapsed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_5_q3","paused":true,"quarter":4,"speed":8,"visibleMs":61537,"year":1945},"t":84004,"type":"decision_lapsed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_6_q3","paused":true,"quarter":4,"speed":8,"visibleMs":61537,"year":1945},"t":84004,"type":"decision_lapsed"}
+{"data":{"capital":1152613.2020551607,"day":0,"decisionId":"dec_inv_q3","paused":true,"quarter":4,"speed":8,"visibleMs":61537,"year":1945},"t":84004,"type":"decision_lapsed"}
+{"data":{"capital":1152613.2020551607,"day":0,"id":"evt_66","paused":true,"quarter":4,"speed":8,"title":"Celebrity Client Signs On","year":1945},"t":84004,"type":"news"}
+{"data":{"capital":1152613.2020551607,"day":0,"id":"evt_60","paused":true,"quarter":4,"speed":8,"title":"Board Succession Crisis","year":1945},"t":84004,"type":"news"}
+{"data":{"capital":1152613.2020551607,"day":0,"from":"economy","paused":true,"quarter":4,"speed":8,"to":"hire","year":1945},"t":84439,"type":"tab_switch"}
+{"data":{"capital":1152613.2020551607,"day":0,"key":"tab:economy","ms":81876,"paused":true,"quarter":4,"speed":8,"year":1945},"t":84446,"type":"dwell"}
+{"data":{"capital":1152613.2020551607,"day":11,"id":"emp_13","paused":false,"quarter":4,"specializationId":"doc_checker","speed":8,"year":1945},"t":85874,"type":"hire_detail_open"}
+{"data":{"amount":107036.41168061497,"capital":1152613.2020551607,"day":28,"id":"deal_12","paused":false,"quarter":4,"speed":8,"title":"Real Estate Development Loan","year":1945},"t":87132,"type":"deal_arrived"}
+{"data":{"amount":62171.31994078371,"capital":1152613.2020551607,"day":32,"id":"deal_13","paused":false,"quarter":4,"speed":8,"title":"Wildcat Oil Play","year":1945},"t":87440,"type":"deal_arrived"}

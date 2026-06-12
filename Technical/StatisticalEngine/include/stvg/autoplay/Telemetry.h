@@ -89,6 +89,17 @@ struct BatchResult {
     double medianScore = 0;
     double stdDevScore = 0;
     double avgCapital = 0;
+    // STAR_02 P5 §5.2 rebalance: capital-outcome dispersion across the batch,
+    // used to verify aggressive bots carry ≥2× the conservative bots' variance.
+    double medianCapital = 0;
+    double stdDevCapital = 0;
+    double cvCapital = 0;       // coefficient of variation (stdDev/|mean|)
+    // Peak-capital dispersion: the boom-height variance, NOT truncated by death
+    // (a gunslinger desk that booms then busts still records a high peak). This
+    // is the honest archetype-variance signal for bots that die.
+    double avgPeakCapital = 0;
+    double stdDevPeakCapital = 0;
+    double cvPeakCapital = 0;
     double avgLevel = 0;
     double avgCrises = 0;
     double avgTurnTimeMs = 0;
@@ -149,6 +160,29 @@ struct BatchResult {
         double sumSq = 0;
         for (double s : scores) sumSq += (s - r.avgScore) * (s - r.avgScore);
         r.stdDevScore = std::sqrt(sumSq / scores.size());
+
+        // Capital dispersion (P5 §5.2 rebalance metric).
+        {
+            std::vector<double> caps = capitals;
+            std::sort(caps.begin(), caps.end());
+            r.medianCapital = caps[caps.size() / 2];
+            double cSumSq = 0;
+            for (double c : caps) cSumSq += (c - r.avgCapital) * (c - r.avgCapital);
+            r.stdDevCapital = std::sqrt(cSumSq / caps.size());
+            r.cvCapital = std::abs(r.avgCapital) > 1e-9
+                ? r.stdDevCapital / std::abs(r.avgCapital) : 0.0;
+        }
+        // Peak-capital dispersion (death-robust archetype-variance signal).
+        {
+            std::vector<double> peaks;
+            for (const auto& g : games) peaks.push_back(g.peakCapital);
+            r.avgPeakCapital = std::accumulate(peaks.begin(), peaks.end(), 0.0) / peaks.size();
+            double pSumSq = 0;
+            for (double p : peaks) pSumSq += (p - r.avgPeakCapital) * (p - r.avgPeakCapital);
+            r.stdDevPeakCapital = std::sqrt(pSumSq / peaks.size());
+            r.cvPeakCapital = std::abs(r.avgPeakCapital) > 1e-9
+                ? r.stdDevPeakCapital / std::abs(r.avgPeakCapital) : 0.0;
+        }
 
         // P95 turn time
         std::sort(turnTimes.begin(), turnTimes.end());

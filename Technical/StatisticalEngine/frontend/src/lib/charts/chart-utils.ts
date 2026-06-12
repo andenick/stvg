@@ -75,9 +75,10 @@ export interface ChartEraColors {
 
 const ERA_COLORS: Record<EraName, ChartEraColors> = {
   'Post-War Stability': {
-    background: '#16120c', text: '#9a8d70', grid: '#1c1610',
-    border: '#2a2218', upColor: '#6b8e4e', downColor: '#a8453a',
-    lineColor: '#c4a35a',
+    // Light "ledger paper" theme to match the beige default UI.
+    background: '#e9e0c9', text: '#5a4e36', grid: '#cfc09a',
+    border: '#b3a47e', upColor: '#4d7836', downColor: '#9d382c',
+    lineColor: '#876a2c',
   },
   'Expansion & Innovation': {
     background: '#102019', text: '#8aaa9c', grid: '#16291f',

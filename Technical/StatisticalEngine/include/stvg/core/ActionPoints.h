@@ -11,9 +11,9 @@ struct ActionPointBudget {
     int remaining() const { return total - spent; }
 
     static int budgetForBankSize(double totalAssets) {
-        if (totalAssets < 50e9) return 5;
-        if (totalAssets < 200e9) return 7;
-        if (totalAssets < 500e9) return 8;
+        if (totalAssets < 5e6) return 5;     // rescaled /10,000
+        if (totalAssets < 2e7) return 7;
+        if (totalAssets < 5e7) return 8;
         return 10;
     }
 

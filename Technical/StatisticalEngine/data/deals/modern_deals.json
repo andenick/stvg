@@ -1,50 +1,82 @@
 [
-    {
-        "title": "Fintech Partnership",
-        "description": "A mobile payments startup wants your bank's charter and deposit base. Revenue share deal.",
-        "requiredDivision": "Fintech",
-        "eraRange": [2015, 2035],
-        "risk": { "riskLevel": 5, "returnRange": [10, 30], "successProbability": 0.60, "duration": 4 },
-        "investmentRequired": 100000000
-    },
-    {
-        "title": "Crypto Custody Onboarding",
-        "description": "A sovereign wealth fund wants $5B in Bitcoin custody. Regulatory approval needed.",
-        "requiredDivision": "CryptoCustody",
-        "eraRange": [2020, 2035],
-        "risk": { "riskLevel": 6, "returnRange": [5, 40], "successProbability": 0.55, "duration": 2 },
-        "investmentRequired": 50000000
-    },
-    {
-        "title": "ESG Green Bond Issuance",
-        "description": "Structure and sell $2B in green bonds for renewable energy infrastructure.",
-        "requiredDivision": "InvestmentBanking",
-        "eraRange": [2020, 2040],
-        "risk": { "riskLevel": 3, "returnRange": [5, 15], "successProbability": 0.80, "duration": 3 },
-        "investmentRequired": 40000000
-    },
-    {
-        "title": "SPAC Underwriting",
-        "description": "A blank-check company wants to raise $1B. Fees are 5.5%.",
-        "requiredDivision": "InvestmentBanking",
-        "eraRange": [2020, 2022],
-        "risk": { "riskLevel": 6, "returnRange": [15, 55], "successProbability": 0.55, "duration": 2 },
-        "investmentRequired": 30000000
-    },
-    {
-        "title": "AI Trading Infrastructure",
-        "description": "Build proprietary ML-driven trading systems. $200M investment, potential 3x edge.",
-        "requiredDivision": "TradingDesk",
-        "eraRange": [2023, 2040],
-        "risk": { "riskLevel": 7, "returnRange": [10, 50], "successProbability": 0.50, "duration": 6 },
-        "investmentRequired": 200000000
-    },
-    {
-        "title": "Private Credit Direct Lending",
-        "description": "Bypass public markets — lend directly to mid-market companies at 12% yields.",
-        "requiredDivision": "PrivateEquity",
-        "eraRange": [2018, 2035],
-        "risk": { "riskLevel": 5, "returnRange": [8, 20], "successProbability": 0.65, "duration": 4 },
-        "investmentRequired": 300000000
-    }
+  {
+    "title": "Leveraged Loan CLOs",
+    "description": "The CDO's respectable cousin is back, in a sharper suit and a new acronym. Slice up corporate loans, stamp them AAA, and try not to think about 2008.",
+    "requiredDivision": "Securitization",
+    "eraRange": [2012, 2040],
+    "risk": { "riskLevel": 9, "successProbability": 0.45, "duration": 3 },
+    "investmentRequired": 280000
+  },
+  {
+    "title": "Commercial Real Estate Boom",
+    "description": "Values up 15% this quarter, cranes on every corner, money practically begging to be lent. Lending opportunities abound — but is it a bubble?",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [2010, 2040],
+    "risk": { "riskLevel": 7, "successProbability": 0.55, "duration": 6 },
+    "investmentRequired": 240000
+  },
+  {
+    "title": "Fintech Charter Rental",
+    "description": "A payments app with a unicorn valuation wants to borrow your boring banking license. They get the cool; you get the cut.",
+    "requiredDivision": "Fintech",
+    "eraRange": [2015, 2035],
+    "risk": { "riskLevel": 5, "successProbability": 0.62, "duration": 4 },
+    "investmentRequired": 160000
+  },
+  {
+    "title": "Crypto Custody Mandate",
+    "description": "A sovereign fund wants you to babysit a mountain of Bitcoin. The fees are astronomical. So is the chance regulators change their minds by Tuesday.",
+    "requiredDivision": "CryptoCustody",
+    "eraRange": [2020, 2035],
+    "risk": { "riskLevel": 7, "successProbability": 0.52, "duration": 2 },
+    "investmentRequired": 150000
+  },
+  {
+    "title": "SPAC Underwriting",
+    "description": "A blank check. A celebrity sponsor. A pitch deck with no company in it yet. Raise a billion on a vibe. The vibe is fading — move fast.",
+    "requiredDivision": "InvestmentBanking",
+    "eraRange": [2020, 2022],
+    "risk": { "riskLevel": 7, "successProbability": 0.50, "duration": 2 },
+    "investmentRequired": 130000
+  },
+  {
+    "title": "AI Trading Edge",
+    "description": "Spend big on machine-learning quants who promise a 3x edge. Either you front-run the whole market — or you fund a very expensive science project.",
+    "requiredDivision": "TradingDesk",
+    "eraRange": [2023, 2040],
+    "risk": { "riskLevel": 8, "successProbability": 0.48, "duration": 6 },
+    "investmentRequired": 260000
+  },
+  {
+    "title": "Private Credit Direct Lend",
+    "description": "Skip the public markets, lend straight to mid-market firms at 12%. Banks are retreating; you walk in and name your price. Until defaults bite.",
+    "requiredDivision": "PrivateEquity",
+    "eraRange": [2018, 2040],
+    "risk": { "riskLevel": 5, "successProbability": 0.65, "duration": 4 },
+    "investmentRequired": 300000
+  },
+  {
+    "title": "ESG Green Bond",
+    "description": "Wrap a renewable-energy project in a green bow and sell it to funds with mandates to feel good. Modest yield, spotless conscience.",
+    "requiredDivision": "InvestmentBanking",
+    "eraRange": [2020, 2040],
+    "risk": { "riskLevel": 3, "successProbability": 0.80, "duration": 3 },
+    "investmentRequired": 140000
+  },
+  {
+    "title": "Meme-Stock Market Making",
+    "description": "Retail traders on a forum have decided a dying retailer is worth billions. Provide liquidity into the chaos. Thrilling. Unhinged. Profitable — for a week.",
+    "requiredDivision": "TradingDesk",
+    "eraRange": [2021, 2025],
+    "risk": { "riskLevel": 9, "successProbability": 0.42, "duration": 1 },
+    "investmentRequired": 120000
+  },
+  {
+    "title": "Climate Resilience Fund",
+    "description": "Finance seawalls, microgrids, and drought-proof farms. Slow money, long horizon — but when the tipping points hit, you're on the right side of the ledger.",
+    "requiredDivision": "AssetManagement",
+    "eraRange": [2030, 2040],
+    "risk": { "riskLevel": 4, "successProbability": 0.70, "duration": 6 },
+    "investmentRequired": 200000
+  }
 ]

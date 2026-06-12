@@ -113,9 +113,9 @@ TEST(FullGame, BotsProduceDifferentOutcomes) {
 
     // Different strategies should produce different final capitals
     // (at least 2 of the 3 should differ significantly)
-    bool differ = (std::abs(h.finalCapital - s.finalCapital) > 1e8)
-               || (std::abs(h.finalCapital - v.finalCapital) > 1e8)
-               || (std::abs(s.finalCapital - v.finalCapital) > 1e8);
+    bool differ = (std::abs(h.finalCapital - s.finalCapital) > 1e4)
+               || (std::abs(h.finalCapital - v.finalCapital) > 1e4)
+               || (std::abs(s.finalCapital - v.finalCapital) > 1e4);   // threshold rescaled /10,000
     EXPECT_TRUE(differ);
 }
 

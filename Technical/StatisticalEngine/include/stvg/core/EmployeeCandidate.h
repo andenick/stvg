@@ -13,6 +13,15 @@ namespace stvg::simulation {
 // and BankState (Division.staff) without circular dependencies.
 // ════════════════════════════════════════════════════════════════════
 
+// 0.9: annualSalary is now stored as an HONEST annual wage (~$24K-$130K) — the
+// exact number the UI shows. To keep the $1M-scale bank economics balanced, a
+// wage is converted to its in-economy cost by multiplying by this scale wherever
+// it is actually charged (division salary cost, signing bonus, severance). This
+// reproduces the EFFECTIVE deduction of the old fudged units (wage ÷10,000),
+// while the displayed figure is finally truthful. Display = wage; cost = wage ×
+// SALARY_COST_SCALE.
+constexpr double SALARY_COST_SCALE = 1.0e-4;
+
 enum class Archetype {
     Patrician, Gunslinger, Quant, Dealmaker,
     Operator, Rainmaker, Prodigy, Lifer,
@@ -73,11 +82,15 @@ struct EmployeeCandidate {
     std::string id;
     std::string name;
     Archetype archetype;
+    // STAR_02 P5: optional registry specialization id (division+era-flavored
+    // variant of the family). Display/flavor only for later phases — does NOT
+    // affect any current mechanic, P&L, or RNG sequence. Empty = unspecialized.
+    std::string specializationId;
     CareerLevel level = CareerLevel::Analyst;
     EmployeeStats stats;
     int yearsExperience = 0;
     int age = 22;
-    double annualSalary = 50000;
+    double annualSalary = 50000.0;   // honest annual wage (displayed value); cost = ×SALARY_COST_SCALE
     std::string specialty;
     std::string education;
     std::string backstory;
@@ -122,6 +135,7 @@ struct EmployeeCandidate {
 inline void to_json(nlohmann::json& j, const EmployeeCandidate& e) {
     j = nlohmann::json{
         {"id", e.id}, {"name", e.name}, {"archetype", e.archetype},
+        {"specializationId", e.specializationId},
         {"level", e.level}, {"stats", e.stats},
         {"yearsExperience", e.yearsExperience}, {"age", e.age},
         {"annualSalary", e.annualSalary}, {"specialty", e.specialty},

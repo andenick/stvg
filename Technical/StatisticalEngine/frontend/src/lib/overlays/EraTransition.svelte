@@ -6,6 +6,7 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { telemetry } from '../telemetry';
   import type { Era } from '../types/server';
 
   let visible = $state(false);
@@ -26,6 +27,9 @@
 
     // Era actually changed → fire the cinematic.
     if (shownEra && era.name !== shownEra.name) {
+      // Lifecycle: era_transition (P1). Logged before we overwrite shownEra so
+      // {from, to} are both accurate.
+      telemetry.log('era_transition', { from: shownEra.name, to: era.name });
       shownEra = era;
       visible = true;
       clearTimeout(dismissTimer);

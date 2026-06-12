@@ -1,0 +1,121 @@
+{"schema":2,"type":"meta"}
+{"data":{"capital":0,"day":0,"paused":true,"quarter":1,"sessionId":"smqaui4nj7g7t","speed":1,"startedAt":"2026-06-12T11:30:46.934Z","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0","year":1945},"t":7,"type":"session_start"}
+{"data":{"capital":1000000,"ceoId":null,"day":0,"paused":true,"quarter":1,"scenario":"default","speed":1,"startingPosition":"commercial_bank","year":1945},"t":2568,"type":"game_start"}
+{"data":{"capital":1000000,"cheapestSalary":108200,"day":0,"paused":true,"quarter":1,"speed":1,"year":1945},"t":3009,"type":"hire_affordable_pulse_seen"}
+{"data":{"amount":36336.02126103116,"capital":1000000,"day":0,"id":"deal_1","paused":true,"quarter":1,"speed":1,"title":"Struggling Regional Bank","year":1945},"t":3009,"type":"deal_arrived"}
+{"data":{"capital":1000000,"day":0,"id":"evt_59","paused":true,"quarter":1,"speed":1,"title":"Product Innovation Pressure","year":1945},"t":3042,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_26","paused":true,"quarter":1,"speed":1,"title":"New Product Launch Decision","year":1945},"t":3042,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_48","paused":true,"quarter":1,"speed":1,"title":"Star Analyst Publishes Report","year":1945},"t":3042,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_1","paused":true,"quarter":1,"speed":1,"title":"Fed Rate Decision Pending","year":1945},"t":3042,"type":"news"}
+{"data":{"capital":1000000,"day":0,"id":"evt_ve_day_conversion","paused":true,"quarter":1,"speed":1,"title":"War-to-Peace Industrial Conversion","year":1945},"t":3042,"type":"news"}
+{"data":{"capital":1000000,"day":0,"npcId":"npc_marcus_kane","paused":true,"quarter":1,"speed":1,"trigger":"advisor","year":1945},"t":3043,"type":"portrait_shown"}
+{"data":{"capital":1000000,"day":0,"paused":true,"quarter":1,"speed":2,"year":1945},"t":4932,"type":"sim_speed"}
+{"data":{"capital":1000000,"day":0,"paused":true,"quarter":1,"speed":4,"year":1945},"t":4934,"type":"sim_speed"}
+{"data":{"capital":1000000,"day":0,"paused":true,"quarter":1,"speed":8,"year":1945},"t":4936,"type":"sim_speed"}
+{"data":{"capital":950000,"day":1,"id":"deal_1","paused":true,"quarter":1,"speed":8,"visibleMs":2511,"year":1945},"t":5520,"type":"deal_expired"}
+{"data":{"amount":36605.82175887848,"capital":950000,"day":17,"id":"deal_2","paused":false,"quarter":1,"speed":8,"title":"GI Bill Mortgage Pool","year":1945},"t":6754,"type":"deal_arrived"}
+{"data":{"amount":24980.218475089583,"capital":950000,"day":33,"id":"deal_3","paused":false,"quarter":1,"speed":8,"title":"GI Bill Mortgage Pool","year":1945},"t":8073,"type":"deal_arrived"}
+{"data":{"amount":16590.823442054472,"capital":950000,"day":54,"id":"deal_4","paused":false,"quarter":1,"speed":8,"title":"Wildcat Oil Play","year":1945},"t":9657,"type":"deal_arrived"}
+{"data":{"capital":992584.1384099089,"day":0,"key":"decision:dec_1_q1","ms":7416,"paused":true,"quarter":2,"speed":8,"title":"Product Innovation Pressure","year":1945},"t":10493,"type":"dwell"}
+{"data":{"amount":61730.38104071783,"capital":992584.1384099089,"day":0,"id":"deal_5","paused":true,"quarter":2,"speed":8,"title":"War Bond Rollover","year":1945},"t":10493,"type":"deal_arrived"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"deal_2","paused":true,"quarter":2,"speed":8,"visibleMs":3739,"year":1945},"t":10493,"type":"deal_expired"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"deal_3","paused":true,"quarter":2,"speed":8,"visibleMs":2420,"year":1945},"t":10493,"type":"deal_expired"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"deal_4","paused":true,"quarter":2,"speed":8,"visibleMs":836,"year":1945},"t":10493,"type":"deal_expired"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_1_q1","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_2_q1","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_3_q1","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_4_q1","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_5_q1","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_loanspread_y1945","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_creditstd_y1945","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"decisionId":"dec_duration_y1945","paused":true,"quarter":2,"speed":8,"visibleMs":7473,"year":1945},"t":10510,"type":"decision_lapsed"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"evt_10","paused":true,"quarter":2,"speed":8,"title":"New Capital Requirements","year":1945},"t":10510,"type":"news"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"evt_4","paused":true,"quarter":2,"speed":8,"title":"Commodity Supercycle","year":1945},"t":10510,"type":"news"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"evt_7","paused":true,"quarter":2,"speed":8,"title":"Housing Market Cooling","year":1945},"t":10510,"type":"news"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"evt_50","paused":true,"quarter":2,"speed":8,"title":"FDIC Examination Surprise","year":1945},"t":10510,"type":"news"}
+{"data":{"capital":992584.1384099089,"day":0,"id":"evt_bretton_woods_order","paused":true,"quarter":2,"speed":8,"title":"Bretton Woods New World Order","year":1945},"t":10510,"type":"news"}
+{"data":{"amount":35816.23087594488,"capital":992584.1384099089,"day":10,"id":"deal_6","paused":true,"quarter":2,"speed":8,"title":"Wildcat Oil Play","year":1945},"t":11395,"type":"deal_arrived"}
+{"data":{"amount":26030.157013561806,"capital":992584.1384099089,"day":43,"id":"deal_7","paused":false,"quarter":2,"speed":8,"title":"Railroad Refinancing","year":1945},"t":13947,"type":"deal_arrived"}
+{"data":{"amount":23706.784370386027,"capital":992584.1384099089,"day":56,"id":"deal_8","paused":false,"quarter":2,"speed":8,"title":"Railroad Refinancing","year":1945},"t":14968,"type":"deal_arrived"}
+{"data":{"amount":67505.35823052963,"capital":992584.1384099089,"day":57,"id":"deal_9","paused":false,"quarter":2,"speed":8,"title":"Mortgage Pool Origination","year":1945},"t":15050,"type":"deal_arrived"}
+{"data":{"capital":992584.1384099089,"day":57,"ms":12058,"npcId":"npc_marcus_kane","paused":false,"quarter":2,"read":false,"speed":8,"trigger":"advisor","year":1945},"t":15101,"type":"portrait_dismissed"}
+{"data":{"capital":1020444.1210522491,"day":0,"key":"decision:dec_1_q2","ms":5125,"paused":true,"quarter":3,"speed":8,"title":"New Capital Requirements","year":1945},"t":15618,"type":"dwell"}
+{"data":{"amount":73012.25483342847,"capital":1020444.1210522491,"day":0,"id":"deal_10","paused":true,"quarter":3,"speed":8,"title":"Real Estate Development Loan","year":1945},"t":15618,"type":"deal_arrived"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"deal_5","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15618,"type":"deal_expired"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"deal_6","paused":true,"quarter":3,"speed":8,"visibleMs":4223,"year":1945},"t":15618,"type":"deal_expired"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"deal_7","paused":true,"quarter":3,"speed":8,"visibleMs":1671,"year":1945},"t":15618,"type":"deal_expired"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"deal_8","paused":true,"quarter":3,"speed":8,"visibleMs":650,"year":1945},"t":15618,"type":"deal_expired"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"deal_9","paused":true,"quarter":3,"speed":8,"visibleMs":568,"year":1945},"t":15618,"type":"deal_expired"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_1_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_2_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_3_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_4_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_5_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_6_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"decisionId":"dec_inv_q2","paused":true,"quarter":3,"speed":8,"visibleMs":5125,"year":1945},"t":15635,"type":"decision_lapsed"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"evt_44","paused":true,"quarter":3,"speed":8,"title":"Key Client Relationship at Risk","year":1945},"t":15636,"type":"news"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"evt_8","paused":true,"quarter":3,"speed":8,"title":"IPO Window Opens","year":1945},"t":15636,"type":"news"}
+{"data":{"capital":1020444.1210522491,"day":0,"id":"evt_31","paused":true,"quarter":3,"speed":8,"title":"Major Client Defection","year":1945},"t":15636,"type":"news"}
+{"data":{"amount":26101.86567870725,"capital":1020444.1210522491,"day":37,"id":"deal_11","paused":false,"quarter":3,"speed":8,"title":"Struggling Regional Bank","year":1945},"t":18704,"type":"deal_arrived"}
+{"data":{"amount":70334.26032460039,"capital":1020444.1210522491,"day":45,"id":"deal_12","paused":false,"quarter":3,"speed":8,"title":"Wildcat Oil Play","year":1945},"t":19338,"type":"deal_arrived"}
+{"data":{"capital":1069246.0664294001,"day":0,"mode":"card","paused":true,"quarter":4,"speed":8,"year":1945},"t":20877,"type":"annual_report_open"}
+{"data":{"capital":1069246.0664294001,"day":0,"key":"decision:dec_1_q3","ms":5325,"paused":true,"quarter":4,"speed":8,"title":"Key Client Relationship at Risk","year":1945},"t":20943,"type":"dwell"}
+{"data":{"amount":47913.00417328353,"capital":1069246.0664294001,"day":0,"id":"deal_13","paused":true,"quarter":4,"speed":8,"title":"War Bond Rollover","year":1945},"t":20943,"type":"deal_arrived"}
+{"data":{"amount":40165.74680313398,"capital":1069246.0664294001,"day":0,"id":"deal_14","paused":true,"quarter":4,"speed":8,"title":"Struggling Regional Bank","year":1945},"t":20943,"type":"deal_arrived"}
+{"data":{"capital":1069246.0664294001,"day":0,"id":"deal_10","paused":true,"quarter":4,"speed":8,"visibleMs":5325,"year":1945},"t":20943,"type":"deal_expired"}
+{"data":{"capital":1069246.0664294001,"day":0,"id":"deal_11","paused":true,"quarter":4,"speed":8,"visibleMs":2239,"year":1945},"t":20943,"type":"deal_expired"}
+{"data":{"capital":1069246.0664294001,"day":0,"id":"deal_12","paused":true,"quarter":4,"speed":8,"visibleMs":1605,"year":1945},"t":20943,"type":"deal_expired"}
+{"data":{"capital":1069246.0664294001,"day":0,"decisionId":"dec_1_q3","paused":true,"quarter":4,"speed":8,"visibleMs":5330,"year":1945},"t":20965,"type":"decision_lapsed"}
+{"data":{"capital":1069246.0664294001,"day":0,"decisionId":"dec_2_q3","paused":true,"quarter":4,"speed":8,"visibleMs":5330,"year":1945},"t":20965,"type":"decision_lapsed"}
+{"data":{"capital":1069246.0664294001,"day":0,"decisionId":"dec_3_q3","paused":true,"quarter":4,"speed":8,"visibleMs":5330,"year":1945},"t":20965,"type":"decision_lapsed"}
+{"data":{"capital":1069246.0664294001,"day":0,"decisionId":"dec_4_q3","paused":true,"quarter":4,"speed":8,"visibleMs":5330,"year":1945},"t":20965,"type":"decision_lapsed"}
+{"data":{"capital":1069246.0664294001,"day":0,"decisionId":"dec_5_q3","paused":true,"quarter":4,"speed":8,"visibleMs":5330,"year":1945},"t":20965,"type":"decision_lapsed"}
+{"data":{"capital":1069246.0664294001,"day":0,"decisionId":"dec_inv_q3","paused":true,"quarter":4,"speed":8,"visibleMs":5330,"year":1945},"t":20965,"type":"decision_lapsed"}
+{"data":{"capital":1069246.0664294001,"day":0,"id":"evt_49","paused":true,"quarter":4,"speed":8,"title":"Congressional Banking Hearing","year":1945},"t":20965,"type":"news"}
+{"data":{"capital":1069246.0664294001,"day":0,"id":"evt_17","paused":true,"quarter":4,"speed":8,"title":"Whistleblower Report","year":1945},"t":20965,"type":"news"}
+{"data":{"capital":1069246.0664294001,"day":0,"id":"evt_42","paused":true,"quarter":4,"speed":8,"title":"Real Estate Boom","year":1945},"t":20965,"type":"news"}
+{"data":{"capital":1069246.0664294001,"day":0,"mode":"card","paused":true,"quarter":4,"speed":8,"year":1945},"t":21075,"type":"annual_report_close"}
+{"data":{"capital":1069246.0664294001,"day":25,"npcId":"npc_marcus_kane","paused":false,"quarter":4,"speed":8,"trigger":"advisor","year":1945},"t":23114,"type":"portrait_shown"}
+{"data":{"amount":92037.02200424846,"capital":1069246.0664294001,"day":35,"id":"deal_15","paused":false,"quarter":4,"speed":8,"title":"Real Estate Development Loan","year":1945},"t":23832,"type":"deal_arrived"}
+{"data":{"amount":77817.94450630226,"capital":1069246.0664294001,"day":60,"id":"deal_16","paused":false,"quarter":4,"speed":8,"title":"Mortgage Pool Origination","year":1945},"t":25797,"type":"deal_arrived"}
+{"data":{"capital":1107470.267415242,"day":0,"key":"decision:dec_1_q4","ms":5211,"paused":true,"quarter":1,"speed":8,"title":"Congressional Banking Hearing","year":1946},"t":26154,"type":"dwell"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"deal_13","paused":true,"quarter":1,"speed":8,"visibleMs":5211,"year":1946},"t":26154,"type":"deal_expired"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"deal_14","paused":true,"quarter":1,"speed":8,"visibleMs":5211,"year":1946},"t":26154,"type":"deal_expired"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"deal_15","paused":true,"quarter":1,"speed":8,"visibleMs":2322,"year":1946},"t":26154,"type":"deal_expired"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"deal_16","paused":true,"quarter":1,"speed":8,"visibleMs":357,"year":1946},"t":26154,"type":"deal_expired"}
+{"data":{"capital":1107470.267415242,"day":0,"decisionId":"dec_1_q4","paused":true,"quarter":1,"speed":8,"visibleMs":5204,"year":1946},"t":26169,"type":"decision_lapsed"}
+{"data":{"capital":1107470.267415242,"day":0,"decisionId":"dec_2_q4","paused":true,"quarter":1,"speed":8,"visibleMs":5204,"year":1946},"t":26169,"type":"decision_lapsed"}
+{"data":{"capital":1107470.267415242,"day":0,"decisionId":"dec_3_q4","paused":true,"quarter":1,"speed":8,"visibleMs":5204,"year":1946},"t":26169,"type":"decision_lapsed"}
+{"data":{"capital":1107470.267415242,"day":0,"decisionId":"dec_4_q4","paused":true,"quarter":1,"speed":8,"visibleMs":5204,"year":1946},"t":26169,"type":"decision_lapsed"}
+{"data":{"capital":1107470.267415242,"day":0,"decisionId":"dec_5_q4","paused":true,"quarter":1,"speed":8,"visibleMs":5204,"year":1946},"t":26169,"type":"decision_lapsed"}
+{"data":{"capital":1107470.267415242,"day":0,"decisionId":"dec_inv_q4","paused":true,"quarter":1,"speed":8,"visibleMs":5204,"year":1946},"t":26169,"type":"decision_lapsed"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"evt_27","paused":true,"quarter":1,"speed":8,"title":"Geographic Expansion Opportunity","year":1946},"t":26169,"type":"news"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"evt_46","paused":true,"quarter":1,"speed":8,"title":"Executive Poaching Attempt","year":1946},"t":26169,"type":"news"}
+{"data":{"capital":1107470.267415242,"day":0,"id":"evt_gi_bill_mortgages","paused":true,"quarter":1,"speed":8,"title":"GI Bill Mortgage Boom","year":1946},"t":26169,"type":"news"}
+{"data":{"amount":45114.50972155232,"capital":996723.2406737178,"day":26,"id":"deal_17","paused":false,"quarter":1,"speed":8,"title":"GI Bill Mortgage Pool","year":1946},"t":28423,"type":"deal_arrived"}
+{"data":{"amount":110812.39174313829,"capital":996723.2406737178,"day":34,"id":"deal_18","paused":false,"quarter":1,"speed":8,"title":"Real Estate Development Loan","year":1946},"t":29051,"type":"deal_arrived"}
+{"data":{"amount":55968.70679274431,"capital":996723.2406737178,"day":57,"id":"deal_19","paused":false,"quarter":1,"speed":8,"title":"Mortgage Pool Origination","year":1946},"t":30809,"type":"deal_arrived"}
+{"data":{"capital":1095371.4659581636,"day":0,"id":"deal_1","outcome":"defaulted","paused":true,"pnl":0,"quarter":2,"quartersHeld":5,"speed":8,"year":1946},"t":31391,"type":"deal_resolved"}
+{"data":{"capital":1095371.4659581636,"day":0,"key":"decision:dec_1_q1","ms":5289,"paused":true,"quarter":2,"speed":8,"title":"Geographic Expansion Opportunity","year":1946},"t":31443,"type":"dwell"}
+{"data":{"amount":43744.83247071069,"capital":1095371.4659581636,"day":0,"id":"deal_20","paused":true,"quarter":2,"speed":8,"title":"Railroad Refinancing","year":1946},"t":31443,"type":"deal_arrived"}
+{"data":{"capital":1095371.4659581636,"day":0,"id":"deal_17","paused":true,"quarter":2,"speed":8,"visibleMs":3020,"year":1946},"t":31443,"type":"deal_expired"}
+{"data":{"capital":1095371.4659581636,"day":0,"id":"deal_18","paused":true,"quarter":2,"speed":8,"visibleMs":2392,"year":1946},"t":31443,"type":"deal_expired"}
+{"data":{"capital":1095371.4659581636,"day":0,"id":"deal_19","paused":true,"quarter":2,"speed":8,"visibleMs":634,"year":1946},"t":31443,"type":"deal_expired"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_1_q1","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_2_q1","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_3_q1","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_4_q1","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_5_q1","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_inv_q1","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_buyback_q5","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_loanspread_y1946","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_creditstd_y1946","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"decisionId":"dec_duration_y1946","paused":true,"quarter":2,"speed":8,"visibleMs":5297,"year":1946},"t":31466,"type":"decision_lapsed"}
+{"data":{"capital":1095371.4659581636,"day":0,"id":"evt_62","paused":true,"quarter":2,"speed":8,"title":"Price War Escalation","year":1946},"t":31466,"type":"news"}
+{"data":{"capital":985834.3193623472,"day":18,"ms":12000,"npcId":"npc_marcus_kane","paused":true,"quarter":2,"read":false,"speed":8,"trigger":"advisor","year":1946},"t":35114,"type":"portrait_dismissed"}
+{"data":{"capital":985834.3193623472,"day":18,"id":"deal_20","paused":true,"quarter":2,"risk":4,"speed":8,"title":"Railroad Refinancing","year":1946},"t":38200,"type":"deal_opened"}
+{"data":{"capital":985834.3193623472,"day":18,"id":"SP500","paused":true,"quarter":2,"speed":8,"year":1946},"t":40910,"type":"chart_promote"}
+{"data":{"capital":985834.3193623472,"day":18,"from":"economy","paused":true,"quarter":2,"speed":8,"to":"financials","year":1946},"t":42062,"type":"tab_switch"}
+{"data":{"capital":985834.3193623472,"day":18,"key":"deal:deal_20","ms":3847,"paused":true,"quarter":2,"risk":4,"speed":8,"title":"Railroad Refinancing","year":1946},"t":42062,"type":"dwell"}
+{"data":{"capital":985834.3193623472,"day":18,"key":"tab:economy","ms":39439,"paused":true,"quarter":2,"speed":8,"year":1946},"t":42072,"type":"dwell"}
+{"data":{"capital":985834.3193623472,"day":18,"npcId":"npc_marcus_kane","paused":true,"quarter":2,"speed":8,"trigger":"advisor","year":1946},"t":43138,"type":"portrait_shown"}

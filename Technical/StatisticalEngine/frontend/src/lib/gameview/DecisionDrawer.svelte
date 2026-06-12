@@ -24,7 +24,11 @@
   import { api, ApiError } from '../api/rest';
   import { wsClient } from '../ws/websocket';
   import { toasts } from '../stores/toasts.svelte';
-  import type { PendingDecision, DecisionOption } from '../types/server';
+  import { telemetry } from '../telemetry';
+  import { dwell } from '../actions/dwell';
+  import { fmtMoney } from '../util/money';
+  import { cardFromAdvisor } from '../characters/triggers';
+  import type { PendingDecision, DecisionOption, FinancialImpact } from '../types/server';
 
   // Currently focused decision index + option index (for keyboard nav)
   let selectedDecisionIdx = $state(0);
@@ -57,13 +61,73 @@
     lastCount = sim.pendingDecisions.length;
   });
 
+  /*
+   * P1 decision_lapsed — the CRITICAL "saw it and let it expire" signal.
+   *
+   * Pending decisions are replaced wholesale by applyPlayerView on every
+   * quarter_boundary. A decision that was on the desk last tick but is gone now,
+   * and which the player never submitted, has LAPSED (auto-continue advanced the
+   * quarter past it). We log decision_lapsed {decisionId, visibleMs} with the
+   * read-time from when it first appeared — distinguishing "never saw" (no
+   * appeared record) from "saw and ignored".
+   */
+  let decisionFirstSeen = new Map<string, number>();
+  let submittedIds = new Set<string>();
+  let prevDecisionIds = new Set<string>(sim.pendingDecisions.map((d) => d.id));
+  $effect(() => {
+    const liveIds = new Set(sim.pendingDecisions.map((d) => d.id));
+    const now = Date.now();
+    // Record first-seen for newcomers.
+    for (const d of sim.pendingDecisions) {
+      if (!decisionFirstSeen.has(d.id)) decisionFirstSeen.set(d.id, now);
+    }
+    // Detect departures.
+    for (const id of prevDecisionIds) {
+      if (!liveIds.has(id)) {
+        if (!submittedIds.has(id)) {
+          const since = decisionFirstSeen.get(id);
+          const visibleMs = since != null ? now - since : 0;
+          telemetry.log('decision_lapsed', { decisionId: id, visibleMs });
+        }
+        decisionFirstSeen.delete(id);
+        submittedIds.delete(id);
+      }
+    }
+    prevDecisionIds = liveIds;
+  });
+
   let currentDecision = $derived<PendingDecision | undefined>(
     sim.pendingDecisions[selectedDecisionIdx]
   );
 
+  /*
+   * Advisor portrait barks (P4 §4.1): when a decision SPAWNS, surface its
+   * strongest Support (bull) advisor as a bust card — the engine already names
+   * the advisor (characterName). The queue rate-limits + dedups, so we just
+   * enqueue once per newly-arrived decision and let the store decide cadence.
+   */
+  let advisorFired = new Set<string>();
+  $effect(() => {
+    for (const dec of sim.pendingDecisions) {
+      if (advisorFired.has(dec.id)) continue;
+      advisorFired.add(dec.id);
+      let bullRec: { characterName?: string; reasoning?: string; argument?: string; recommendation?: string } | null = null;
+      for (const o of dec.options) {
+        for (const r of o.recommendations ?? []) {
+          const k = String(r.recommendation ?? '').toLowerCase();
+          if (k === 'support' && (r.reasoning ?? r.argument) && r.characterName) { bullRec = r; break; }
+        }
+        if (bullRec) break;
+      }
+      if (bullRec) cardFromAdvisor(bullRec, dec.id);
+    }
+  });
+
   async function submit(decision: PendingDecision, option: DecisionOption) {
     if (submitting || !sim.gameId) return;
     submitting = true;
+    submittedIds.add(decision.id);   // suppress decision_lapsed when it leaves the list
+    telemetry.log('decision_submit', { decisionId: decision.id, optionId: option.id, title: decision.title });
     try {
       const view = await api.submitDecision(sim.gameId, decision.id, option.id);
       sim.applyPlayerView(view);
@@ -117,26 +181,53 @@
     return () => window.removeEventListener('keydown', onKey);
   });
 
-  function fmtImpact(v: number | undefined): string {
-    if (v == null || v === 0) return '';
-    const abs = Math.abs(v);
-    const sign = v > 0 ? '+' : '-';
-    if (abs >= 1e9) return `${sign}$${(abs / 1e9).toFixed(2)}B`;
-    if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(0)}M`;
-    if (abs >= 1e3) return `${sign}$${(abs / 1e3).toFixed(0)}K`;
-    return `${sign}$${abs.toFixed(0)}`;
+  // The engine sends a FinancialImpact STRUCT; collapse it to a net headline
+  // number (expected upside minus immediate cost). Tolerates a legacy scalar.
+  function netImpact(fi: FinancialImpact | number | undefined | null): number {
+    if (fi == null) return 0;
+    if (typeof fi === 'number') return fi;
+    return (fi.expectedRevenue ?? 0) - (fi.immediateCost ?? 0);
   }
 
-  function recIcon(rec: 'support' | 'oppose' | 'neutral' | string): string {
-    if (rec === 'support') return '▲';   // ▲
-    if (rec === 'oppose')  return '▼';   // ▼
-    return '●';                          // ●
+  function fmtImpact(v: number | undefined): string {
+    if (v == null || v === 0) return '';
+    return fmtMoney(v, { signed: true });
+  }
+
+  function recKey(rec: string): string { return String(rec ?? '').toLowerCase(); }
+  function recReason(r: { reasoning?: string; argument?: string }): string {
+    return r.reasoning ?? r.argument ?? '';
+  }
+  function recIcon(rec: string): string {
+    const k = recKey(rec);
+    if (k === 'support') return '▲';
+    if (k === 'oppose')  return '▼';
+    return '●';
   }
   function recClass(rec: string): string {
-    if (rec === 'support') return 'rec-support';
-    if (rec === 'oppose')  return 'rec-oppose';
+    const k = recKey(rec);
+    if (k === 'support') return 'rec-support';
+    if (k === 'oppose')  return 'rec-oppose';
     return 'rec-neutral';
   }
+
+  // The bull (strongest Support) and bear (strongest Oppose) across this
+  // decision's options — surfaced as quoted advisor lines so the player has
+  // something to feel about, not just numbers.
+  let bull = $derived.by(() => {
+    if (!currentDecision) return null;
+    for (const o of currentDecision.options)
+      for (const r of o.recommendations ?? [])
+        if (recKey(r.recommendation) === 'support' && recReason(r)) return r;
+    return null;
+  });
+  let bear = $derived.by(() => {
+    if (!currentDecision) return null;
+    for (const o of currentDecision.options)
+      for (const r of o.recommendations ?? [])
+        if (recKey(r.recommendation) === 'oppose' && recReason(r)) return r;
+    return null;
+  });
 </script>
 
 {#if sim.pendingDecisions.length === 0 && sim.paused && sim.gameId && sim.connected}
@@ -151,7 +242,7 @@
   {#if ui.phase === 1}
     <!-- ── MEMORANDUM (phase 1) ─────────────────────────────────────── -->
     <div class="memo-overlay" role="dialog" aria-labelledby="memo-title">
-      <article class="memo">
+      <article class="memo" use:dwell={{ key: `decision:${currentDecision?.id ?? 'none'}`, data: { title: currentDecision?.title } }}>
         <header class="memo-head">
           <p class="memo-stamp">MEMORANDUM TO THE BOARD</p>
           <p class="memo-meta">{sim.year} &middot; Q{sim.quarter}</p>
@@ -159,6 +250,25 @@
         {#if currentDecision}
           <h1 id="memo-title" class="memo-title">{currentDecision.title}</h1>
           <p class="memo-body">{currentDecision.description}</p>
+
+          {#if bull || bear}
+            <div class="bull-bear">
+              {#if bull}
+                <div class="bb bb-bull">
+                  <span class="bb-tag">▲ The case for</span>
+                  <p class="bb-line">“{recReason(bull)}”</p>
+                  <span class="bb-by">— {bull.characterName ?? 'Advisor'}</span>
+                </div>
+              {/if}
+              {#if bear}
+                <div class="bb bb-bear">
+                  <span class="bb-tag">▼ The case against</span>
+                  <p class="bb-line">“{recReason(bear)}”</p>
+                  <span class="bb-by">— {bear.characterName ?? 'Advisor'}</span>
+                </div>
+              {/if}
+            </div>
+          {/if}
 
           {#if sim.pendingDecisions.length > 1}
             <p class="memo-counter">Item {selectedDecisionIdx + 1} of {sim.pendingDecisions.length}</p>
@@ -179,7 +289,7 @@
                   {#if opt.description}<span class="opt-desc">{opt.description}</span>{/if}
                 </span>
                 <span class="opt-meta">
-                  {#if opt.financialImpact}<span class="opt-impact">{fmtImpact(opt.financialImpact)}</span>{/if}
+                  {#if netImpact(opt.financialImpact)}<span class="opt-impact">{fmtImpact(netImpact(opt.financialImpact))}</span>{/if}
                   {#if opt.successProbability != null}<span class="opt-prob">{Math.round(opt.successProbability * 100)}%</span>{/if}
                 </span>
               </button>
@@ -223,6 +333,7 @@
               onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectedDecisionIdx = i; selectedOptionIdx = 0; } }}
               role="button"
               tabindex="0"
+              use:dwell={{ key: `decision:${dec.id}`, data: { title: dec.title } }}
             >
               <header class="dec-head">
                 <span class="dec-title">{dec.title}</span>
@@ -239,7 +350,7 @@
                   >
                     <span class="dec-opt-title">{opt.title}</span>
                     <span class="dec-opt-meta">
-                      {#if opt.financialImpact}<span class="opt-impact">{fmtImpact(opt.financialImpact)}</span>{/if}
+                      {#if netImpact(opt.financialImpact)}<span class="opt-impact">{fmtImpact(netImpact(opt.financialImpact))}</span>{/if}
                       {#if opt.successProbability != null}<span class="opt-prob">{Math.round(opt.successProbability * 100)}%</span>{/if}
                     </span>
                   </button>
@@ -304,27 +415,39 @@
   .resume-btn:hover { background: var(--accent-secondary); border-color: var(--accent-secondary); }
 
   /* ── MEMORANDUM (phase 1) ──────────────────────────────────────────── */
+  /*
+   * NON-BLOCKING memo card. The phase-1 decision used to be a full-viewport
+   * near-opaque dark scrim that blacked out the whole beige world on every
+   * decision. It's now a right-anchored floating card with NO scrim — the live
+   * simulation stays fully visible and interactive behind it, and auto-continue
+   * lapses the decision if the player doesn't act. The card itself is clickable.
+   */
   .memo-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(13, 11, 8, 0.93);
-    display: grid;
-    place-items: center;
-    padding: 2rem;
+    top: 5rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: min(30rem, 94vw);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
     z-index: 850;
-    animation: fadeIn 280ms var(--ease);
-    overflow-y: auto;
+    pointer-events: none;            /* clicks pass through to the board… */
+    animation: fadeIn 220ms var(--ease);
   }
   .memo {
-    /* top_20 #2: never clip — generous max-width + consistent padding */
-    max-width: 44rem;
+    pointer-events: auto;            /* …except on the card */
     width: 100%;
-    min-width: 18rem;
+    max-height: 100%;
+    overflow-y: auto;
+    min-width: 16rem;
     background: var(--bg-card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-primary);
     border-radius: var(--card-radius);
-    padding: 2.5rem 3rem;
-    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
+    padding: 1.6rem 1.75rem;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.18);
+    animation: slideInRight 260ms var(--ease);
   }
   .memo-head {
     display: flex;
@@ -348,11 +471,11 @@
   }
   .memo-title {
     font-family: var(--font-display);
-    font-size: 1.9rem;
+    font-size: 1.5rem;
     color: var(--fg-primary);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.85rem 0;
     letter-spacing: 0.02em;
-    line-height: 1.15;
+    line-height: 1.18;
   }
   .memo-body {
     font-family: var(--font-body);
@@ -367,6 +490,42 @@
     color: var(--fg-secondary);
     letter-spacing: 0.2em;
     margin: 0 0 1rem 0;
+  }
+
+  .bull-bear {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem 0;
+  }
+  .bb {
+    padding: 0.45rem 0.6rem;
+    border-radius: 2px;
+    border-left: 2px solid var(--border);
+    background: var(--bg-elevated);
+  }
+  .bb-bull { border-left-color: var(--accent-success); }
+  .bb-bear { border-left-color: var(--accent-danger); }
+  .bb-tag {
+    font-family: var(--font-chrome);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .bb-bull .bb-tag { color: var(--accent-success); }
+  .bb-bear .bb-tag { color: var(--accent-danger); }
+  .bb-line {
+    margin: 0.2rem 0 0.15rem;
+    font-style: italic;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: var(--fg-primary);
+  }
+  .bb-by {
+    font-family: var(--font-chrome);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--fg-secondary);
   }
   .memo-options {
     display: flex;

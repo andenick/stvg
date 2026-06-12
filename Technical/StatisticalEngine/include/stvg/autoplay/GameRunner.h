@@ -17,6 +17,12 @@ public:
     // the internal QuarterlyTurnManager is constructed. Null = baseline.
     CustomEconomyHook* customEcon = nullptr;
 
+    // STAR_02 P5 rebalance knobs. archetypePnlVariance scales the archetype σ
+    // (1.0 = full ON, 0.0 = deterministic baseline for A/B comparison).
+    // seedArchetypeStaff toggles the per-personality staff seeding.
+    double archetypePnlVariance = 1.0;
+    bool seedArchetypeStaff = true;
+
     // Run a single complete game
     GameSummary runGame(BotStrategy& bot, const GameConfig& config,
                          uint64_t seed, int maxQuarters = 380) {
@@ -31,6 +37,7 @@ public:
         simCfg.startYear = config.timing.startYear;
         simCfg.startQuarter = config.timing.startQuarter;
         simCfg.quarterDurationDays = config.timing.quarterDurationDays;
+        simCfg.archetypePnlVariance = archetypePnlVariance; // P5 rebalance knob
 
         BankConfig bankCfg;
         bankCfg.startingCapital = config.bank.startingCapital;
@@ -42,6 +49,11 @@ public:
         mgr.setCustomEconomy(customEcon);  // v3: inject before any ticks
         mgr.setSkipDeleveraging(config.restrictions.noDeleveraging);
         mgr.setSkipCrises(config.restrictions.noCrises);
+        // STAR_02 P5: seed an archetype-appropriate starting staff so the
+        // archetype × macro P&L distribution actually engages for this bot
+        // (aggressive personalities → gunslinger-heavy desks, wide σ).
+        if (seedArchetypeStaff)
+            mgr.seedArchetypeStaff(bot.riskTolerance());
         summary.peakCapital = mgr.bank().capital;
         summary.nadirCapital = mgr.bank().capital;
 

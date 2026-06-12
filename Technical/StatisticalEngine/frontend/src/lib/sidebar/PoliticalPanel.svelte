@@ -5,11 +5,12 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { dwell, panelView } from '../actions/dwell';
 </script>
 
 {#if sim.political && sim.year >= 1973}
   {@const p = sim.political}
-  <section class="panel" aria-label="Political">
+  <section class="panel" aria-label="Political" use:dwell={'panel:PoliticalPanel'} use:panelView={'PoliticalPanel'}>
     <header><h3>Political</h3></header>
     <div class="bars">
       <div class="bar">

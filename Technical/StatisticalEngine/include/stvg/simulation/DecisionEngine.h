@@ -285,7 +285,7 @@ private:
         }
         lobby.description = "Use political connections to soften the regulation. Success: "
             + std::to_string((int)(lobbyProb * 100)) + "%";
-        lobby.financialImpact = {2e6, 0, bank.capital * 0.005, 2};
+        lobby.financialImpact = {2e2, 0, bank.capital * 0.005, 2};
         lobby.riskImpact = {0.05, 0.1, "Regulatory risk if lobbying fails"};
         lobby.successProbability = lobbyProb;
 
@@ -303,7 +303,7 @@ private:
         retain.id = d.id + "_retain";
         retain.title = "Match Offer / Retain Talent";
         retain.description = "Counter-offer to keep the employee.";
-        retain.financialImpact = {500000, 200000, 0, 4};
+        retain.financialImpact = {50, 20, 0, 4};
         retain.riskImpact = {0, 0, "Maintains team stability"};
         retain.successProbability = 0.65;
 
@@ -311,7 +311,7 @@ private:
         release.id = d.id + "_release";
         release.title = "Let Them Go";
         release.description = "Accept the departure and promote from within.";
-        release.financialImpact = {100000, -150000, 0, 2};
+        release.financialImpact = {10, -15, 0, 2};
         release.riskImpact = {0.05, 0, "Temporary skill gap"};
         release.successProbability = 0.8;
 
@@ -401,7 +401,7 @@ public:
         green.id = d.id + "_green";
         green.title = "Green Lending Initiative";
         green.description = "Shift 20% of lending to green projects. Reduces fossil exposure.";
-        green.financialImpact = {500e6, 0, bank.capital * 0.003, 2};
+        green.financialImpact = {5e4, 0, bank.capital * 0.003, 2};
         green.riskImpact = {-0.05, 0, "Reduced climate exposure"};
         green.successProbability = 0.80;
 
@@ -409,7 +409,7 @@ public:
         esg.id = d.id + "_esg";
         esg.title = "ESG Bond Program";
         esg.description = "Launch ESG bond desk. Generates new revenue proportional to carbon price.";
-        esg.financialImpact = {1e9, 0, bank.capital * 0.005, 4};
+        esg.financialImpact = {1e5, 0, bank.capital * 0.005, 4};
         esg.riskImpact = {0, 0, "New revenue stream"};
         esg.successProbability = 0.75;
 
@@ -417,7 +417,7 @@ public:
         divest.id = d.id + "_divest";
         divest.title = "Divest Fossil Assets";
         divest.description = "Immediate write-down but eliminates future stranded asset risk.";
-        divest.financialImpact = {2e9, 0, 0, 1};
+        divest.financialImpact = {2e5, 0, 0, 1};
         divest.riskImpact = {-0.15, 0, "Eliminated fossil exposure"};
         divest.successProbability = 0.95;
 
@@ -446,12 +446,12 @@ public:
         d.urgency = DecisionUrgency::Urgent;
         d.actionPointCost = 2;
 
-        double matchCost = aiState.efficiency * 10e9;
+        double matchCost = aiState.efficiency * 1e6;   // rescaled from 10e9
 
         DecisionOption invest;
         invest.id = d.id + "_invest";
         invest.title = "Match AI Investment";
-        invest.description = "Invest $" + std::to_string((long long)(matchCost / 1e9)) + "B in AI capabilities.";
+        invest.description = "Invest $" + std::to_string((long long)(matchCost / 1e6)) + "M in AI capabilities.";
         invest.financialImpact = {matchCost, 0, matchCost * 0.3, 4};
         invest.riskImpact = {0.05, 0, "Heavy AI investment"};
         invest.successProbability = 0.70;
@@ -473,7 +473,7 @@ public:
         acquire.id = d.id + "_acquire";
         acquire.title = "Acquire AI Startup";
         acquire.description = "High risk, high reward: buy cutting-edge AI talent.";
-        acquire.financialImpact = {5e9, 0, 2e9, 4};
+        acquire.financialImpact = {5e5, 0, 2e5, 4};
         acquire.riskImpact = {0.10, 0, "Startup integration risk"};
         acquire.successProbability = 0.40;
 
@@ -481,7 +481,7 @@ public:
         partner.id = d.id + "_partner";
         partner.title = "Partner with AI Bank";
         partner.description = "Share in AI efficiency gains at cost of some autonomy.";
-        partner.financialImpact = {2e9, 0, aiState.efficiency * 1e9, 4};
+        partner.financialImpact = {2e5, 0, aiState.efficiency * 1e5, 4};
         partner.riskImpact = {0.03, 0, "Dependency on AI partner"};
         partner.successProbability = 0.65;
 

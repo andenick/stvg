@@ -1,0 +1,12 @@
+{"data":{"ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36"},"t":6,"type":"session_start"}
+{"data":{"paused":false,"quarter":1,"year":1945},"t":3530,"type":"sim_toggle"}
+{"data":{"amount":200000,"id":"deal_1","title":"Struggling Regional Bank"},"t":3618,"type":"deal_arrived"}
+{"data":{"id":"evt_58","title":"International Expansion Opportunity"},"t":3655,"type":"news"}
+{"data":{"id":"evt_25","title":"Acquisition Target Identified"},"t":3655,"type":"news"}
+{"data":{"id":"evt_46","title":"Executive Poaching Attempt"},"t":3655,"type":"news"}
+{"data":{"id":"evt_1","title":"Fed Rate Decision Pending"},"t":3655,"type":"news"}
+{"data":{"id":"evt_ve_day_conversion","title":"War-to-Peace Industrial Conversion"},"t":3655,"type":"news"}
+{"data":{"amount":100000,"id":"deal_2","title":"Mortgage Pool Origination"},"t":18001,"type":"deal_arrived"}
+{"data":{"amount":180000,"id":"deal_3","title":"Wildcat Oil Play"},"t":33353,"type":"deal_arrived"}
+{"data":{"id":"evt_42","title":"Real Estate Boom"},"t":39024,"type":"news"}
+{"data":{"id":"evt_19","title":"Employee Morale Crisis"},"t":39024,"type":"news"}

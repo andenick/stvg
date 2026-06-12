@@ -69,7 +69,7 @@ TEST(CompetitorEngine, AggressiveBanksSufferInCrisis) {
     auto* trad = engine.getCompetitor("continental");
     if (guns->alive && trad->alive) {
         // Conservative should outperform in crisis
-        EXPECT_GT(trad->totalAssets / 8e9, guns->totalAssets / 5e9);
+        EXPECT_GT(trad->totalAssets / 8e5, guns->totalAssets / 5e5);   // rescaled start sizes
     }
 }
 

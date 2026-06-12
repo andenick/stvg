@@ -72,7 +72,7 @@ public:
 
         // Partnership revenue scales with AI efficiency
         if (state_.partnershipActive) {
-            state_.partnershipRevenue = state_.efficiency * 0.5e9; // $500M * efficiency
+            state_.partnershipRevenue = state_.efficiency * 0.5e5; // rescaled /10,000
         }
 
         // Market capture: steals 2% * efficiency per year from all banks
@@ -95,7 +95,7 @@ public:
     bool singularityReached() const { return state_.singularityProgress >= 100; }
 
     double costToMatchAI() const {
-        return state_.efficiency * 10e9; // $10B per efficiency unit to keep pace
+        return state_.efficiency * 1e6; // rescaled /10,000 to keep pace
     }
     double costToRegulateAI() const {
         return 5.0 + state_.efficiency * 2.0; // Political capital cost

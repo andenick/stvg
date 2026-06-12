@@ -42,6 +42,72 @@ struct GameEvent {
     std::vector<std::string> decisionIds;
 };
 
+// ════════════════════════════════════════════════════════════════════
+// Event sign-bias (STAR_02 P3.4 Stage A)
+//
+// A directional read of the current macro/market state, derived from
+// EconomicIndicators at the draw call site. Used to bias event-draw weights
+// so the narrative matches the engine direction: crisis/bear-flavored events
+// are up-weighted when the economy is turning down, boom/opportunity events
+// when it is rising. This is weight biasing ONLY — it never adds or removes
+// an rng_ draw, so the day-by-day vs batch RNG lockstep contract is preserved.
+// ════════════════════════════════════════════════════════════════════
+
+struct EventBias {
+    // True when the macro/market picture is risk-off (recession/stress).
+    bool bearish = false;
+    // True when the macro/market picture is risk-on (boom/expansion).
+    bool bullish = false;
+    // Strength multiplier applied to the matching flavor (>= 1.0).
+    double k = 1.0;
+
+    // Derive a directional bias from the macro state. Cheap, deterministic.
+    static EventBias fromEconomics(const EconomicIndicators& e) {
+        EventBias b;
+        // Risk-off score: negative growth, high vix, falling equities, wide spread.
+        double bearScore = 0.0;
+        if (e.gdpGrowth < 0.0)     bearScore += 1.0;
+        if (e.vix > 28.0)          bearScore += 1.0;
+        if (e.sp500Return < 0.0)   bearScore += 0.5;
+        if (e.creditSpread > 0.025) bearScore += 0.5;
+
+        double bullScore = 0.0;
+        if (e.gdpGrowth > 0.03)    bullScore += 1.0;
+        if (e.vix < 15.0)          bullScore += 0.5;
+        if (e.sp500Return > 0.0)   bullScore += 0.5;
+
+        if (bearScore > bullScore && bearScore > 0.0) {
+            b.bearish = true;
+            b.k = 1.0 + std::min(bearScore, 3.0); // up to 4x at full crisis
+        } else if (bullScore > 0.0) {
+            b.bullish = true;
+            b.k = 1.0 + std::min(bullScore, 2.0); // up to 3x in a clear boom
+        }
+        return b;
+    }
+
+    // Multiplier for a given event category under this bias.
+    double weightFor(EventCategory cat) const {
+        if (bearish) {
+            switch (cat) {
+                case EventCategory::Crisis:      return k;
+                case EventCategory::Market:      return 1.0 + 0.5 * (k - 1.0);
+                case EventCategory::Opportunity: return 1.0 / k; // fewer in a downturn
+                default:                         return 1.0;
+            }
+        }
+        if (bullish) {
+            switch (cat) {
+                case EventCategory::Opportunity: return k;
+                case EventCategory::Strategic:   return 1.0 + 0.5 * (k - 1.0);
+                case EventCategory::Crisis:      return 1.0 / k; // fewer when rising
+                default:                         return 1.0;
+            }
+        }
+        return 1.0;
+    }
+};
+
 inline void to_json(nlohmann::json& j, const GameEvent& e) {
     j = nlohmann::json{
         {"id", e.id}, {"title", e.title}, {"description", e.description},
@@ -59,7 +125,8 @@ public:
     std::vector<GameEvent> drawEvents(const Bank& bank,
                                        const SimulationState& simState,
                                        math::RandomEngine& rng,
-                                       int count = 5) {
+                                       int count = 5,
+                                       const EventBias& bias = {}) {
         int year = simState.currentYear;
 
         std::vector<double> weights;
@@ -72,6 +139,9 @@ public:
             }
             double w = event.baseWeight;
             w *= categoryWeight(event.category, bank, simState);
+            // P3.4 Stage A: bias by current macro/market direction. Weight-only,
+            // no extra rng draw → lockstep-safe.
+            w *= bias.weightFor(event.category);
             weights.push_back(std::max(w, 0.01));
         }
 

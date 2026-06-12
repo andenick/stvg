@@ -8,16 +8,16 @@ using namespace stvg::simulation;
 TEST(AICEOCountermeasures, CostToMatchAIScalesWithEfficiency) {
     AICEOEngine engine;
     // Initial efficiency = 1.0
-    EXPECT_DOUBLE_EQ(engine.costToMatchAI(), 1.0 * 10e9);
+    EXPECT_DOUBLE_EQ(engine.costToMatchAI(), 1.0 * 1e6);   // rescaled /10,000
 
     // Trigger emergence and grow efficiency
     engine.recordAIInvestment(600);
     engine.simulateYear(2025); // Emerge + first efficiency gain
     // efficiency = 1.0 + 0.2 = 1.2
-    EXPECT_NEAR(engine.costToMatchAI(), 1.2 * 10e9, 1e6);
+    EXPECT_NEAR(engine.costToMatchAI(), 1.2 * 1e6, 1e2);
 
     engine.simulateYear(2026); // efficiency = 1.4
-    EXPECT_NEAR(engine.costToMatchAI(), 1.4 * 10e9, 1e6);
+    EXPECT_NEAR(engine.costToMatchAI(), 1.4 * 1e6, 1e2);
 }
 
 TEST(AICEOCountermeasures, CostToRegulateAIFormula) {
@@ -82,6 +82,6 @@ TEST(AICEOCountermeasures, PartnershipActivatesAndGeneratesRevenue) {
     // Revenue set on next simulateYear
     engine.simulateYear(2026);
     // efficiency after 2026 = 1.0 + 2*0.2 = 1.4
-    // revenue = 1.4 * 0.5e9 = 0.7e9
-    EXPECT_NEAR(engine.state().partnershipRevenue, engine.efficiency() * 0.5e9, 1e3);
+    // revenue = 1.4 * 0.5e5 (rescaled /10,000)
+    EXPECT_NEAR(engine.state().partnershipRevenue, engine.efficiency() * 0.5e5, 1e1);
 }

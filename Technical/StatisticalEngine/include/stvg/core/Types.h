@@ -277,11 +277,28 @@ struct EconomicIndicators {
     double sp500Return = 0.0;
     double treasuryYield10Y = 0.04;
     double creditSpread = 0.015;
+    // STAR_02 P3.2: nominal GDP level index (base 100.0 at 1945), accumulated
+    // by EconomicEngine each tick as gdpLevel *= (1 + gdpGrowth*dt).
+    double gdpLevel = 100.0;
+    // STAR_02 P3.2: SFC Phase C credit impulse promoted out of EconomicEngine
+    // internals so the frontend can plot the credit channel directly.
+    double creditImpulse = 0.0;
+    // STAR_02 P5 §5 (economy-wide P&L series, v1 proxy):
+    //   margin    = 0.10 + 0.5·(gdpGrowth-0.025) - 1.0·(creditSpread-0.015)
+    //               clamped to [0.04, 0.16] — a corporate-margin cycle that
+    //               widens in expansions and compresses when credit is dear.
+    //   economyRevenue = gdpLevel  (nominal activity index, base 100 @ 1945)
+    //   economyProfit  = gdpLevel · margin
+    // These are an honest, cheap macro proxy (v2 = per-quarter competitor P&L,
+    // deferred). Computed each tick by EconomicEngine; serialized + streamed.
+    double economyRevenue = 100.0;
+    double economyProfit = 10.0;
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(EconomicIndicators,
     fedFundsRate, cpiInflation, gdpGrowth, unemployment,
-    vix, sp500Return, treasuryYield10Y, creditSpread)
+    vix, sp500Return, treasuryYield10Y, creditSpread,
+    gdpLevel, creditImpulse, economyRevenue, economyProfit)
 
 // ════════════════════════════════════════════════════════════════════
 // Simulation session state
@@ -315,11 +332,28 @@ struct SimulationConfig {
     // Difficulty-tunable reputation balance
     double reputationRecoveryRate = 5.0;          // Rep gained per profitable quarter
     double reputationCrisisDamageMultiplier = 1.0; // Multiplier on crisis rep damage (1.0 = severity * 1.0)
+
+    // Displayed intra-quarter volatility exaggeration (1.0 = raw historical
+    // calibration; the live player server raises this for a livelier market).
+    double marketVolScale = 1.0;
+
+    // STAR_02 P5: scale on the archetype-driven idiosyncratic P&L variance
+    // (σ_div) in the fee/securities revenue distribution. Default 1.0 = full
+    // archetype variance ON; 0.0 reproduces the old deterministic behavior for
+    // tests that need it (same convention as marketVolScale).
+    double archetypePnlVariance = 1.0;
+
+    // STAR_02 P5/§5.3 (P3.4 Stage B): when true, drawn historical events nudge
+    // the drift of the markets/divisions they benefit/suffer over the event
+    // duration. Default false so deterministic tests are unaffected; the live
+    // server sets it true (marketVolScale precedent).
+    bool eventMarketCoupling = false;
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(SimulationConfig,
     seed, ticksPerSecond, daysPerTick, quarterDurationDays, startYear, startQuarter, quartersPerGame,
-    reputationRecoveryRate, reputationCrisisDamageMultiplier)
+    reputationRecoveryRate, reputationCrisisDamageMultiplier, marketVolScale,
+    archetypePnlVariance, eventMarketCoupling)
 
 // Four converging crises that force endgame resolution
 struct DoomMeters {

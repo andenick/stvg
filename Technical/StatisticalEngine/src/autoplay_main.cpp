@@ -157,11 +157,16 @@ void writeTimeSeries(const std::vector<GameSummary>& games, const std::string& s
 void writeCSV(const std::vector<BatchResult>& results, const std::string& path) {
     std::ofstream f(path);
     f << "strategy,games,survived,survivalRate,avgScore,medianScore,stdDev,avgCapital,"
+         "medianCapital,stdDevCapital,cvCapital,"
+         "avgPeakCapital,stdDevPeakCapital,cvPeakCapital,"
          "avgLevel,avgCrises,avgTurnMs,maxTurnMs,nanCount,stuckCount,bankruptcies\n";
     for (const auto& r : results) {
         f << r.strategyName << "," << r.gamesPlayed << "," << r.gamesSurvived << ","
           << r.survivalRate << "," << r.avgScore << "," << r.medianScore << ","
-          << r.stdDevScore << "," << r.avgCapital << "," << r.avgLevel << ","
+          << r.stdDevScore << "," << r.avgCapital << ","
+          << r.medianCapital << "," << r.stdDevCapital << "," << r.cvCapital << ","
+          << r.avgPeakCapital << "," << r.stdDevPeakCapital << "," << r.cvPeakCapital << ","
+          << r.avgLevel << ","
           << r.avgCrises << "," << r.avgTurnTimeMs << "," << r.maxTurnTimeMs << ","
           << r.nanCount << "," << r.stuckCount << "," << r.bankruptcyCount << "\n";
     }
@@ -200,6 +205,7 @@ int main(int argc, char* argv[]) {
     bool timeSeries = false;
     bool parallel = false;
     bool sensitivity = false;
+    bool archetypeVarianceOff = false; // P5: A/B baseline (archetypes off)
     std::string sweepKey;
     std::vector<double> sweepValues;
     std::string restrictLabel;
@@ -229,6 +235,7 @@ int main(int argc, char* argv[]) {
             else { std::cerr << "ERROR: unknown --restrict value: " << rval << "\n"; return 1; }
         }
         else if (arg == "--sensitivity") { sensitivity = true; }
+        else if (arg == "--no-archetype-variance") { archetypeVarianceOff = true; }
         else if (arg == "--help") {
             std::cout << "Usage: stvg_autoplay [--games N] [--quarters N] [--output dir] [--full-matrix] [--quick-matrix] [--sweep KEY=v1,v2,v3] [--time-series]\n";
             std::cout << "  --full-matrix:  12 bots x 10 seeds x 380 quarters (full 95-year games, ~10 min)\n";
@@ -301,6 +308,11 @@ int main(int argc, char* argv[]) {
     }
 
     GameRunner runner;
+    if (archetypeVarianceOff) {       // P5 A/B baseline: archetypes fully off
+        runner.archetypePnlVariance = 0.0;
+        runner.seedArchetypeStaff = false;
+        std::cout << "[P5] Archetype variance OFF (baseline mode)\n";
+    }
     std::vector<BatchResult> allResults;
 
     auto totalStart = std::chrono::high_resolution_clock::now();

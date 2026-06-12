@@ -9,8 +9,8 @@ TEST(TutorialConfig, HasExpectedDefaults) {
     // Tutorial should be short (20 quarters)
     EXPECT_EQ(config.timing.quartersPerGame, 20);
 
-    // Double starting capital
-    EXPECT_DOUBLE_EQ(config.bank.startingCapital, 20e9);
+    // Double starting capital (rescaled from 20e9)
+    EXPECT_DOUBLE_EQ(config.bank.startingCapital, 2e6);
 
     // High starting reputation
     EXPECT_DOUBLE_EQ(config.bank.startingReputation, 80.0);

@@ -5,7 +5,7 @@
     "specialAbilityName": "Double Down",
     "specialAbilityDesc": "Doubles all division revenue for one quarter. High risk, high reward.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 50e9, "startingReputation": 45.0,
+    "startingCapital": 5000000, "startingReputation": 45.0,
     "riskMultiplier": 1.3, "revenueMultiplier": 1.2, "visibilityBonus": 0.0, "regulatoryBonus": 0.0,
     "personality": [0.95, 0.9, 0.0, 0.1, 0.3, 0.4, 0.3, 0.1, 0.2, 1.0, 0.0]
   },
@@ -15,7 +15,7 @@
     "specialAbilityName": "Political Cover",
     "specialAbilityDesc": "Zeroes regulatory crisis probability for one quarter. Your friends in DC make problems disappear.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 100e9, "startingReputation": 60.0,
+    "startingCapital": 10000000, "startingReputation": 60.0,
     "riskMultiplier": 0.8, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 20.0,
     "personality": [0.4, 0.5, 0.6, 0.9, 0.4, 0.7, 0.5, 0.5, 0.5, 0.4, 0.5]
   },
@@ -25,7 +25,7 @@
     "specialAbilityName": "Full Spectrum Analysis",
     "specialAbilityDesc": "Reveals ALL hidden risk across every division for one quarter. Knowledge is power.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 75e9, "startingReputation": 55.0,
+    "startingCapital": 7500000, "startingReputation": 55.0,
     "riskMultiplier": 1.0, "revenueMultiplier": 1.0, "visibilityBonus": 15.0, "regulatoryBonus": 0.0,
     "personality": [0.5, 0.5, 0.5, 0.4, 0.8, 0.5, 0.6, 0.5, 0.7, 0.5, 0.6]
   },
@@ -35,7 +35,7 @@
     "specialAbilityName": "Fortress Balance Sheet",
     "specialAbilityDesc": "Prevents any crisis from triggering for one quarter. Safety has a price.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 150e9, "startingReputation": 70.0,
+    "startingCapital": 15000000, "startingReputation": 70.0,
     "riskMultiplier": 0.6, "revenueMultiplier": 0.8, "visibilityBonus": 0.0, "regulatoryBonus": 0.0,
     "personality": [0.15, 0.2, 0.7, 0.3, 0.5, 0.3, 0.5, 0.4, 0.8, 0.0, 0.9]
   },
@@ -45,7 +45,7 @@
     "specialAbilityName": "Truth Serum",
     "specialAbilityDesc": "Resets all division heads to Honest for one quarter. The truth shall set you free.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 80e9, "startingReputation": 65.0,
+    "startingCapital": 8000000, "startingReputation": 65.0,
     "riskMultiplier": 1.0, "revenueMultiplier": 1.0, "visibilityBonus": 10.0, "regulatoryBonus": 10.0,
     "personality": [0.1, 0.0, 1.0, 0.5, 0.4, 0.3, 0.4, 0.1, 1.0, 0.0, 0.7]
   },
@@ -55,7 +55,7 @@
     "specialAbilityName": "The Rolodex",
     "specialAbilityDesc": "Open foreign markets without entry costs for 4 quarters. Gain 20 political capital from diplomatic connections.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 80e9, "startingReputation": 70.0,
+    "startingCapital": 8000000, "startingReputation": 70.0,
     "riskMultiplier": 0.9, "revenueMultiplier": 0.9, "visibilityBonus": 0.0, "regulatoryBonus": 15.0,
     "personality": [0.3, 0.4, 0.6, 0.95, 0.5, 0.8, 0.8, 0.4, 0.7, 0.3, 0.9]
   },
@@ -65,7 +65,7 @@
     "specialAbilityName": "Sovereign Lending",
     "specialAbilityDesc": "Unlock developing-country debt markets at 2x yield for 4 quarters. Risk: sovereign default cascade possible.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 60e9, "startingReputation": 50.0,
+    "startingCapital": 6000000, "startingReputation": 50.0,
     "riskMultiplier": 1.2, "revenueMultiplier": 1.3, "visibilityBonus": 0.0, "regulatoryBonus": 0.0,
     "personality": [0.7, 0.85, 0.2, 0.4, 0.7, 0.6, 0.6, 0.5, 0.5, 0.7, 0.6]
   },
@@ -75,7 +75,7 @@
     "specialAbilityName": "Crisis Acquisitions",
     "specialAbilityDesc": "During financial panics, acquire failing competitors at 50% discount with government backstops.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 120e9, "startingReputation": 65.0,
+    "startingCapital": 12000000, "startingReputation": 65.0,
     "riskMultiplier": 0.7, "revenueMultiplier": 1.1, "visibilityBonus": 10.0, "regulatoryBonus": 10.0,
     "personality": [0.4, 0.6, 0.7, 0.6, 0.9, 0.6, 0.8, 0.6, 0.7, 0.4, 0.8]
   },
@@ -85,7 +85,7 @@
     "specialAbilityName": "Shock Therapy",
     "specialAbilityDesc": "Raise rates to crush inflation — causes 2-quarter recession but 8 quarters of stable low-inflation growth.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 90e9, "startingReputation": 75.0,
+    "startingCapital": 9000000, "startingReputation": 75.0,
     "riskMultiplier": 0.8, "revenueMultiplier": 0.8, "visibilityBonus": 0.0, "regulatoryBonus": 25.0,
     "personality": [0.2, 0.1, 0.95, 0.3, 0.8, 0.4, 0.9, 0.2, 0.95, 0.2, 0.95]
   },
@@ -95,7 +95,7 @@
     "specialAbilityName": "Financial Supermarket",
     "specialAbilityDesc": "Merge with another institution, adding a new division and revenue stream. Complexity penalty rises with each.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 70e9, "startingReputation": 55.0,
+    "startingCapital": 7000000, "startingReputation": 55.0,
     "riskMultiplier": 1.1, "revenueMultiplier": 1.2, "visibilityBonus": 0.0, "regulatoryBonus": -10.0,
     "personality": [0.7, 0.85, 0.2, 0.5, 0.5, 0.8, 0.7, 0.4, 0.4, 0.7, 0.5]
   },
@@ -105,7 +105,7 @@
     "specialAbilityName": "Both Sides of the Trade",
     "specialAbilityDesc": "Profit from market downturns via proprietary positions against client products. +50% crisis-period revenue. Reputation risk.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 85e9, "startingReputation": 40.0,
+    "startingCapital": 8500000, "startingReputation": 40.0,
     "riskMultiplier": 1.3, "revenueMultiplier": 1.4, "visibilityBonus": 0.0, "regulatoryBonus": -5.0,
     "personality": [0.7, 0.8, 0.2, 0.5, 0.7, 0.7, 0.5, 0.5, 0.3, 0.7, 0.4]
   },
@@ -115,7 +115,7 @@
     "specialAbilityName": "High Yield Revolution",
     "specialAbilityDesc": "Unlock junk bond market with 2x M&A capability. Growing investigation probability with each use.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 40e9, "startingReputation": 35.0,
+    "startingCapital": 4000000, "startingReputation": 35.0,
     "riskMultiplier": 1.5, "revenueMultiplier": 1.5, "visibilityBonus": 0.0, "regulatoryBonus": -20.0,
     "personality": [0.9, 0.9, 0.0, 0.3, 0.8, 0.7, 0.5, 0.4, 0.2, 0.8, 0.3]
   },
@@ -125,7 +125,7 @@
     "specialAbilityName": "Algorithmic Edge",
     "specialAbilityDesc": "Technology investment compounds returns over time. +5% revenue per tech investment level.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 50e9, "startingReputation": 45.0,
+    "startingCapital": 5000000, "startingReputation": 45.0,
     "riskMultiplier": 1.2, "revenueMultiplier": 1.3, "visibilityBonus": 5.0, "regulatoryBonus": 0.0,
     "personality": [0.7, 0.8, 0.3, 0.3, 0.9, 0.5, 0.6, 0.4, 0.5, 0.7, 0.5]
   },
@@ -135,7 +135,7 @@
     "specialAbilityName": "Offshore Markets",
     "specialAbilityDesc": "Create instruments that bypass domestic regulation. First-mover advantage in international debt issuance.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 45e9, "startingReputation": 60.0,
+    "startingCapital": 4500000, "startingReputation": 60.0,
     "riskMultiplier": 0.9, "revenueMultiplier": 1.0, "visibilityBonus": 5.0, "regulatoryBonus": 5.0,
     "personality": [0.5, 0.5, 0.5, 0.6, 0.7, 0.6, 0.6, 0.6, 0.8, 0.4, 0.8]
   },
@@ -145,7 +145,7 @@
     "specialAbilityName": "Sovereign Diplomacy",
     "specialAbilityDesc": "Issue sovereign war loans with high yield and diplomatic influence. Political backlash risk from war profiteering.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 70e9, "startingReputation": 55.0,
+    "startingCapital": 7000000, "startingReputation": 55.0,
     "riskMultiplier": 1.1, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 10.0,
     "personality": [0.5, 0.5, 0.4, 0.8, 0.5, 0.7, 0.7, 0.4, 0.6, 0.5, 0.7]
   },
@@ -155,7 +155,7 @@
     "specialAbilityName": "Systems Analysis",
     "specialAbilityDesc": "Quantitative framework maximizes lending volume and efficiency. Development lending unlocks emerging markets.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 60e9, "startingReputation": 50.0,
+    "startingCapital": 6000000, "startingReputation": 50.0,
     "riskMultiplier": 0.8, "revenueMultiplier": 0.9, "visibilityBonus": 15.0, "regulatoryBonus": 5.0,
     "personality": [0.4, 0.5, 0.6, 0.4, 0.9, 0.4, 0.6, 0.3, 0.6, 0.4, 0.7]
   },
@@ -165,7 +165,7 @@
     "specialAbilityName": "Maximum Leverage",
     "specialAbilityDesc": "Increase leverage beyond normal limits for outsized bull-market returns. No government bailout if it fails. Game over risk.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 30e9, "startingReputation": 40.0,
+    "startingCapital": 3000000, "startingReputation": 40.0,
     "riskMultiplier": 1.8, "revenueMultiplier": 1.6, "visibilityBonus": -10.0, "regulatoryBonus": -15.0,
     "personality": [0.95, 0.95, 0.0, 0.2, 0.4, 0.5, 0.6, 0.0, 0.3, 1.0, 0.1]
   },
@@ -175,7 +175,7 @@
     "specialAbilityName": "The Greenspan Put",
     "specialAbilityDesc": "Suppress market volatility by signaling rate cuts during downturns. Each use inflates the next bubble larger.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 100e9, "startingReputation": 60.0,
+    "startingCapital": 10000000, "startingReputation": 60.0,
     "riskMultiplier": 0.7, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 20.0,
     "personality": [0.6, 0.5, 0.1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.4, 0.6, 0.3]
   },
@@ -185,7 +185,7 @@
     "specialAbilityName": "Revolving Door",
     "specialAbilityDesc": "Transition between banking and government roles. Insider regulatory knowledge. Conflict-of-interest risk grows.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 90e9, "startingReputation": 55.0,
+    "startingCapital": 9000000, "startingReputation": 55.0,
     "riskMultiplier": 1.0, "revenueMultiplier": 1.1, "visibilityBonus": 0.0, "regulatoryBonus": 10.0,
     "personality": [0.5, 0.5, 0.3, 0.7, 0.8, 0.6, 0.5, 0.5, 0.3, 0.5, 0.4]
   },
@@ -195,7 +195,7 @@
     "specialAbilityName": "TARP Authority",
     "specialAbilityDesc": "During systemic crisis, force-inject capital across the banking system. Saves everyone but creates moral hazard.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 110e9, "startingReputation": 60.0,
+    "startingCapital": 11000000, "startingReputation": 60.0,
     "riskMultiplier": 0.8, "revenueMultiplier": 1.0, "visibilityBonus": 0.0, "regulatoryBonus": 15.0,
     "personality": [0.4, 0.5, 0.6, 0.7, 0.6, 0.5, 0.7, 0.5, 0.7, 0.4, 0.6]
   },
@@ -205,7 +205,7 @@
     "specialAbilityName": "Convergence Trade",
     "specialAbilityDesc": "Extract near-riskless profits from spread mispricings. Returns scale with leverage. Liquidity evaporation risk.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 35e9, "startingReputation": 45.0,
+    "startingCapital": 3500000, "startingReputation": 45.0,
     "riskMultiplier": 1.6, "revenueMultiplier": 1.4, "visibilityBonus": 20.0, "regulatoryBonus": -10.0,
     "personality": [0.8, 0.7, 0.1, 0.2, 0.95, 0.4, 0.4, 0.3, 0.5, 0.8, 0.4]
   },
@@ -215,7 +215,7 @@
     "specialAbilityName": "Radical Transparency",
     "specialAbilityDesc": "Early warning of economic regime changes. Risk parity portfolio reduces drawdowns. Breaks down in novel events.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 80e9, "startingReputation": 55.0,
+    "startingCapital": 8000000, "startingReputation": 55.0,
     "riskMultiplier": 0.9, "revenueMultiplier": 1.0, "visibilityBonus": 15.0, "regulatoryBonus": 0.0,
     "personality": [0.5, 0.5, 0.5, 0.3, 0.9, 0.4, 0.7, 0.5, 0.7, 0.5, 0.8]
   },
@@ -225,7 +225,7 @@
     "specialAbilityName": "Derivatives Warning",
     "specialAbilityDesc": "Issue early warning on systemic risks in unregulated markets. If heeded, prevents crisis. If overridden, crisis is 2x worse.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 50e9, "startingReputation": 70.0,
+    "startingCapital": 5000000, "startingReputation": 70.0,
     "riskMultiplier": 0.6, "revenueMultiplier": 0.7, "visibilityBonus": 20.0, "regulatoryBonus": 30.0,
     "personality": [0.1, 0.1, 1.0, 0.3, 0.9, 0.3, 0.6, 0.1, 1.0, 0.1, 1.0]
   },
@@ -235,7 +235,7 @@
     "specialAbilityName": "Consumer Protection",
     "specialAbilityDesc": "Impose compliance costs on predatory products. Clean banks unaffected. Extractive banks face revenue compression.",
     "specialAbilityCooldown": 4,
-    "startingCapital": 40e9, "startingReputation": 80.0,
+    "startingCapital": 4000000, "startingReputation": 80.0,
     "riskMultiplier": 0.5, "revenueMultiplier": 0.6, "visibilityBonus": 25.0, "regulatoryBonus": 35.0,
     "personality": [0.1, 0.1, 0.9, 0.7, 0.7, 0.6, 0.7, 0.3, 1.0, 0.1, 0.9]
   }

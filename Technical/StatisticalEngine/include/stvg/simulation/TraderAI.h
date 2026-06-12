@@ -332,7 +332,7 @@ private:
         const auto& market = markets[idx];
 
         // Position sizing: Kelly-inspired with personality factor
-        double capitalAllocation = 1e6 * trader.riskMultiplier(); // Base $1M per trader
+        double capitalAllocation = 1e2 * trader.riskMultiplier(); // Base per trader (rescaled /10,000 for $1M-scale bank)
         double kellyFraction = 0.1 * trader.skillFactor();        // Conservative Kelly
         double posSize = capitalAllocation * kellyFraction / market.currentPrice;
 

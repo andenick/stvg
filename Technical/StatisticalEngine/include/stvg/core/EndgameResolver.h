@@ -98,12 +98,12 @@ inline GameEndState QuarterlyTurnManager::checkGameEnd() const {
     }
 
     // Win conditions
-    if (bank_.totalAssets >= 2e12) {
+    if (bank_.totalAssets >= 2e8) {   // $200M win target (rescaled from $2T)
         end.reason = GameEndReason::GrowthTarget;
         end.isVictory = true;
         end.title = "TOO BIG TO FAIL";
-        end.narrative = "Wall Street can scarcely believe it. From a $10B regional bank to a "
-            "$" + std::to_string((int)(bank_.totalAssets / 1e12)) + " trillion institution. "
+        end.narrative = "Wall Street can scarcely believe it. From a one-branch shop to a "
+            "$" + std::to_string((int)(bank_.totalAssets / 1e6)) + " million institution. "
             + bank_.name + " is now a systemically important financial institution. "
             "The regulators are nervous, but the shareholders are ecstatic.";
         return end;

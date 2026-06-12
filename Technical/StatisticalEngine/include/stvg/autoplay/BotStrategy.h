@@ -17,6 +17,11 @@ public:
     virtual std::string name() const = 0;
     virtual std::string chooseOption(const QuarterlyTurnManager& game,
                                       const simulation::Decision& decision) = 0;
+    // STAR_02 P5 rebalance: a bot's risk appetite (0..1), used to seed an
+    // archetype-appropriate starting staff so the archetype P&L distribution
+    // actually engages in autoplay (aggressive bots ⇒ gunslinger-heavy desks).
+    // Default 0.5 = a balanced mix.
+    virtual double riskTolerance() const { return 0.5; }
 };
 
 // ── Random Bot: Pure random choice ──────────────────────────────
@@ -85,8 +90,8 @@ public:
         std::string bestId;
         for (const auto& opt : dec.options) {
             double score = weights_.revenue * revenueScale
-                                * opt.financialImpact.expectedRevenue / 1e6
-                         + weights_.cost * opt.financialImpact.immediateCost / 1e6
+                                * opt.financialImpact.expectedRevenue / 1e2
+                         + weights_.cost * opt.financialImpact.immediateCost / 1e2
                          + riskWeight * opt.riskImpact.riskChange
                          + weights_.success * opt.successProbability;
             int support = 0;

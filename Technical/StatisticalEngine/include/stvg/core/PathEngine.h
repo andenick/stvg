@@ -2,6 +2,8 @@
 
 #include "Types.h"
 #include "BankState.h"
+#include "ArchetypeRegistry.h"
+#include "EmployeeCandidate.h"
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -82,17 +84,40 @@ public:
             state_.archetype());
     }
 
-    // Hiring effect: certain archetypes shift culture
-    void applyHireEffect(const std::string& archetype) {
-        if (archetype == "aggressive" || archetype == "rogue") {
+    // Hiring effect: certain archetypes shift culture.
+    //
+    // STAR_02 P5 §3 (NORTH_STAR fix): this used to expect the strings
+    // "aggressive"/"rogue"/"conservative"/"quant", but hires emit FAMILY ids
+    // ("gunslinger", "lifer", …) — so the culture shift never fired ("hiring
+    // gunslingers shifts culture" was silently broken). We now consume the
+    // per-family cultureShift vector from archetypes.json keyed by the real
+    // family id. A legacy fallback keeps the old string mapping working for any
+    // caller still passing the old vocabulary or when the registry is absent.
+    void applyHireEffect(const std::string& familyId) {
+        const auto& reg = ArchetypeRegistry::instance();
+        const ArchetypeFamily* fam = reg.loaded() ? reg.family(familyId) : nullptr;
+        if (fam && !fam->cultureShift.empty()) {
+            for (const auto& [axis, amount] : fam->cultureShift)
+                applyShift(axis, amount);
+            updatePathFlags();
+            return;
+        }
+        // Legacy fallback (old vocabulary / registry unavailable).
+        if (familyId == "aggressive" || familyId == "rogue" || familyId == "gunslinger") {
             applyShift("riskCulture", 0.03);
-        } else if (archetype == "conservative") {
+        } else if (familyId == "conservative" || familyId == "lifer" || familyId == "patrician") {
             applyShift("riskCulture", -0.02);
-        } else if (archetype == "analytical" || archetype == "quant") {
+        } else if (familyId == "analytical" || familyId == "quant") {
             applyShift("techInvestment", 0.02);
             applyShift("innovationBias", 0.01);
         }
         updatePathFlags();
+    }
+
+    // Typed overload: accept the engine Archetype enum directly.
+    void applyHireEffect(simulation::Archetype a) {
+        nlohmann::json j = a;          // enum -> family id string
+        applyHireEffect(j.get<std::string>());
     }
 
     // Division gating by path (independent of era/regulatory checks)

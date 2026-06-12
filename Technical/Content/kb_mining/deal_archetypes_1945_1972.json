@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "purpose": "STAGING era deal-template candidates for P8, compatible with data/deals/post_war_deals.json pattern. NOT live data. Owner reviews before merge.",
+    "schema_note": "Matches the live post_war_deals.json shape exactly: {title, description, requiredDivision, eraRange:[from,to], risk:{riskLevel,successProbability,duration}, investmentRequired}. PLUS a non-schema 'provenance' and 'draft_quality' (1-5). Strip those before merge. requiredDivision uses Division.h enum json-names. Money at $1M-scale (existing post_war deals run $80,000-$250,000).",
+    "division_constraints_applied": "Only divisions plausibly available 1945-1972: CommercialLending, MortgageLending, TrustAndCustody, CreditCards(1958+), InternationalBanking. Eurodollar/CreditCards eras start 1958+.",
+    "existing_coverage_avoided": "Does not duplicate the 11 live post_war_deals (War Bond Rollover, GI Bill Mortgage Pool, Struggling Regional Bank, Auto Plant Expansion, Wildcat Oil Play, Suburban Shopping Center, Railroad Refinancing, Appliance Maker Credit Line, Eurodollar Placement, BankAmericard Rollout, Defense Contractor Bridge).",
+    "count": 13
+  },
+  "candidates": [
+    {
+      "title": "Negotiable CD Auction",
+      "description": "A corporate treasurer dangles a million in idle cash, payable to whoever bids the sharpest rate on a jumbo certificate. Win it and you've funded next month's loans without waiting for a single passbook deposit. Lose it to the bank across the street and watch your liabilities walk.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1961, 1972],
+      "risk": { "riskLevel": 4, "successProbability": 0.74, "duration": 2 },
+      "investmentRequired": 140000,
+      "provenance": { "source_doc": "1951_Allan_Meltzer_History_Federal_Reserve", "source_chunk_or_page": "CD/Reg Q circumvention pp.454, 605; negotiable-CD birth 1961 from general knowledge", "paraphrase_required": true },
+      "draft_quality": 4
+    },
+    {
+      "title": "Pension Trust Mandate",
+      "description": "A big industrial firm wants a steady hand to manage its swelling pension fund. Dull, prestigious, and lucrative — fees that grow every year the workforce does. Your board will nod approvingly and never ask a hard question.",
+      "requiredDivision": "TrustAndCustody",
+      "eraRange": [1955, 1972],
+      "risk": { "riskLevel": 2, "successProbability": 0.86, "duration": 5 },
+      "investmentRequired": 90000,
+      "provenance": { "source_doc": "model_knowledge", "source_chunk_or_page": "postwar DB-pension growth; general knowledge", "paraphrase_required": false },
+      "draft_quality": 3
+    },
+    {
+      "title": "Country-Bank Correspondent Tie",
+      "description": "A cluster of small heartland banks needs a city partner to clear their checks and place their surplus. Take them on and a quiet river of cheap deposits and loan participations flows your way for years. Sticky, sleepy, and very hard for a rival to steal.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1945, 1968],
+      "risk": { "riskLevel": 2, "successProbability": 0.85, "duration": 5 },
+      "investmentRequired": 110000,
+      "provenance": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "~14,000-bank unit system backdrop (chunk 007); correspondent mechanics from general knowledge", "paraphrase_required": true },
+      "draft_quality": 3
+    },
+    {
+      "title": "Municipal School-Bond Underwriting",
+      "description": "A booming suburb needs to build three schools and a water tower, and it's issuing tax-exempt bonds to pay for it. Underwrite the issue and place the paper with your wealthiest clients, who adore the tax break. Just pray a credit crunch doesn't freeze the muni market while you're still holding it.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1955, 1966],
+      "risk": { "riskLevel": 3, "successProbability": 0.78, "duration": 4 },
+      "investmentRequired": 160000,
+      "provenance": { "source_doc": "1970_Meltzer_Allan_history_Federal_Reserve", "source_chunk_or_page": "1966 crunch hit state/local lending (p.741); muni-boom framing general", "paraphrase_required": true },
+      "draft_quality": 3
+    },
+    {
+      "title": "Installment-Finance Book",
+      "description": "Buy a regional finance company's book of car loans, washing-machine paper, and television installment contracts. Fat consumer yields, and America is buying everything on time. Underwrite carelessly and your lot fills with repossessed Studebakers.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1953, 1972],
+      "risk": { "riskLevel": 4, "successProbability": 0.74, "duration": 4 },
+      "investmentRequired": 150000,
+      "provenance": { "source_doc": "model_knowledge", "source_chunk_or_page": "postwar consumer-installment boom; general knowledge", "paraphrase_required": false },
+      "draft_quality": 3
+    },
+    {
+      "title": "Defense-Electronics Term Loan",
+      "description": "A Cold War electronics contractor needs term financing to ramp up missile-guidance work. Cost-plus contracts, a government that always pays, and a queue of competitors who can't get the security clearance you can. Boring, lucrative, faintly grim.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1950, 1972],
+      "risk": { "riskLevel": 3, "successProbability": 0.84, "duration": 4 },
+      "investmentRequired": 200000,
+      "provenance": { "source_doc": "model_knowledge", "source_chunk_or_page": "Cold War defense-contractor lending; general knowledge", "paraphrase_required": false },
+      "draft_quality": 3
+    },
+    {
+      "title": "One-Bank Holding Company Play",
+      "description": "Wrap your bank in a holding company before Congress closes the loophole, then buy into leasing, data processing, even insurance — businesses a bank could never own outright. Diversify your earnings beyond the spread, or get caught mid-deal when the new law lands.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1968, 1971],
+      "risk": { "riskLevel": 5, "successProbability": 0.66, "duration": 4 },
+      "investmentRequired": 230000,
+      "provenance": { "source_doc": "1970_Meltzer_Allan_history_Federal_Reserve", "source_chunk_or_page": "p.831 surge in one-bank holding company applications before 1970 BHC amendments", "paraphrase_required": true },
+      "draft_quality": 4
+    },
+    {
+      "title": "Master Charge Consortium Buy-In",
+      "description": "A group of banks frozen out of the California card network is launching its own rival. Buy a stake and your cardholders get instant national acceptance — a foothold in the plastic arms race that will own the consumer's wallet. The early losses are brutal; the survivors mint money.",
+      "requiredDivision": "CreditCards",
+      "eraRange": [1966, 1972],
+      "risk": { "riskLevel": 6, "successProbability": 0.6, "duration": 5 },
+      "investmentRequired": 185000,
+      "provenance": { "source_doc": "model_knowledge", "source_chunk_or_page": "Interbank Card Association / Master Charge 1966; general knowledge", "paraphrase_required": false },
+      "draft_quality": 4
+    },
+    {
+      "title": "London Eurodollar Syndication",
+      "description": "Join a syndicate placing a fat Eurodollar loan to a European utility, funded out of the unregulated offshore pool. Pay market rates Washington forbids at home, lend across borders, pocket the spread. The currency exposure is live ammunition once the dollar starts to wobble.",
+      "requiredDivision": "InternationalBanking",
+      "eraRange": [1960, 1972],
+      "risk": { "riskLevel": 6, "successProbability": 0.66, "duration": 3 },
+      "investmentRequired": 175000,
+      "provenance": { "source_doc": "1989_William_Greider_Secrets_Temple_How", "source_chunk_or_page": "Eurodollar '51st state' chunk 007 p.58; syndication mechanics general", "paraphrase_required": true },
+      "draft_quality": 4
+    },
+    {
+      "title": "Penn-Central Rescue Line",
+      "description": "A blue-chip name shut out of the commercial-paper market is begging for an emergency credit line as the panic spreads. Lend into the run and you either save a giant and earn its gratitude for a decade — or you're the bank holding the bag when it files anyway.",
+      "requiredDivision": "CommercialLending",
+      "eraRange": [1970, 1971],
+      "risk": { "riskLevel": 8, "successProbability": 0.5, "duration": 2 },
+      "investmentRequired": 240000,
+      "provenance": { "source_doc": "1951_Allan_Meltzer_History_Federal_Reserve", "source_chunk_or_page": "Penn Central pp.605-607 (firms shut out of $40B CP market sought bank loans)", "paraphrase_required": true },
+      "draft_quality": 5
+    },
+    {
+      "title": "Foreign-Exchange Position Book",
+      "description": "With Bretton Woods cracking, currencies are about to break their pegs. Run a foreign-exchange book and trade the turbulence — sterling, the mark, the franc all in play. A right-way bet pays a year of fees in a week; a wrong-way one ends careers.",
+      "requiredDivision": "InternationalBanking",
+      "eraRange": [1969, 1972],
+      "risk": { "riskLevel": 7, "successProbability": 0.54, "duration": 2 },
+      "investmentRequired": 170000,
+      "provenance": { "source_doc": "1970_Meltzer_Allan_history_Federal_Reserve", "source_chunk_or_page": "Ch.5 currency revaluations (France 1969, Germany 1969/1971, Canada float 1970)", "paraphrase_required": true },
+      "draft_quality": 4
+    },
+    {
+      "title": "Trust-Department Estate Mandate",
+      "description": "An aging industrialist wants your trust department to steward his estate and his grandchildren's futures. White-glove, multigenerational, and almost impossible to lose once you've won it. The fees are modest but eternal.",
+      "requiredDivision": "TrustAndCustody",
+      "eraRange": [1945, 1972],
+      "risk": { "riskLevel": 1, "successProbability": 0.9, "duration": 6 },
+      "investmentRequired": 70000,
+      "provenance": { "source_doc": "model_knowledge", "source_chunk_or_page": "classic postwar trust-department business; general knowledge", "paraphrase_required": false },
+      "draft_quality": 3
+    },
+    {
+      "title": "Garden-Apartment Construction Loan",
+      "description": "A builder wants financing for a sprawl of garden apartments on the new highway ring outside the city. The renters are coming — young families priced out of the suburbs proper. Cyclical, collateralized, and only as safe as the next credit crunch lets it be.",
+      "requiredDivision": "MortgageLending",
+      "eraRange": [1955, 1972],
+      "risk": { "riskLevel": 4, "successProbability": 0.74, "duration": 5 },
+      "investmentRequired": 195000,
+      "provenance": { "source_doc": "model_knowledge", "source_chunk_or_page": "postwar multifamily/suburban construction lending; general knowledge", "paraphrase_required": false },
+      "draft_quality": 3
+    }
+  ]
+}

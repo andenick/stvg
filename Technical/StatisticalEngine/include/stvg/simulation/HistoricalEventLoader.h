@@ -124,11 +124,38 @@ public:
         return ge;
     }
 
-    // Draw N historical events for this quarter (era-filtered, weighted)
+    // Map a historical-event category string to the EventCategory enum so the
+    // sign-bias table can be applied. Mirrors toGameEvent's mapping.
+    static EventCategory categoryEnum(const std::string& c) {
+        if (c == "market") return EventCategory::Market;
+        if (c == "opportunity") return EventCategory::Opportunity;
+        if (c == "regulatory") return EventCategory::Regulatory;
+        if (c == "crisis") return EventCategory::Crisis;
+        if (c == "personnel") return EventCategory::Personnel;
+        if (c == "competitive") return EventCategory::Competitive;
+        if (c == "strategic") return EventCategory::Strategic;
+        if (c == "operational") return EventCategory::Operational;
+        return EventCategory::Market;
+    }
+
+    // Draw N historical events for this quarter (era-filtered, weighted).
+    // P3.4 Stage A: the optional EventBias up/down-weights crisis-vs-boom
+    // flavored events to match the engine's macro direction. Weight-only —
+    // the rng_ draw sequence (one uniform per drawn event, same order) is
+    // unchanged, preserving the day-by-day vs batch lockstep contract.
     std::vector<GameEvent> drawHistoricalEvents(int gameYear, int count,
-                                                  math::RandomEngine& rng) const {
+                                                  math::RandomEngine& rng,
+                                                  const EventBias& bias = {}) const {
         auto available = getEventsForYear(gameYear);
         if (available.empty()) return {};
+
+        // Precompute biased weights once (no rng involved here).
+        std::vector<double> biasedWeights(available.size());
+        for (size_t j = 0; j < available.size(); ++j) {
+            double w = available[j]->weight
+                     * bias.weightFor(categoryEnum(available[j]->category));
+            biasedWeights[j] = std::max(w, 0.0001);
+        }
 
         // Weighted random selection
         std::vector<GameEvent> drawn;
@@ -137,7 +164,7 @@ public:
         for (int i = 0; i < count && i < (int)available.size(); ++i) {
             double totalWeight = 0;
             for (size_t j = 0; j < available.size(); ++j) {
-                if (!used[j]) totalWeight += available[j]->weight;
+                if (!used[j]) totalWeight += biasedWeights[j];
             }
             if (totalWeight <= 0) break;
 
@@ -145,7 +172,7 @@ public:
             double cum = 0;
             for (size_t j = 0; j < available.size(); ++j) {
                 if (used[j]) continue;
-                cum += available[j]->weight;
+                cum += biasedWeights[j];
                 if (cum >= r) {
                     drawn.push_back(toGameEvent(*available[j], rng));
                     used[j] = true;

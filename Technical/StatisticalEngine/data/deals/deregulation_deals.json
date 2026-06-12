@@ -1,50 +1,82 @@
 [
-    {
-        "title": "Leveraged Buyout Financing",
-        "description": "A PE firm needs $500M in high-yield debt to acquire a consumer goods company.",
-        "requiredDivision": "InvestmentBanking",
-        "eraRange": [1985, 2007],
-        "risk": { "riskLevel": 8, "returnRange": [15, 50], "successProbability": 0.50, "duration": 4 },
-        "investmentRequired": 500000000
-    },
-    {
-        "title": "Junk Bond Underwriting",
-        "description": "A high-yield bond offering for a leveraged company. Fees are enormous.",
-        "requiredDivision": "InvestmentBanking",
-        "eraRange": [1985, 1995],
-        "risk": { "riskLevel": 7, "returnRange": [20, 60], "successProbability": 0.55, "duration": 2 },
-        "investmentRequired": 200000000
-    },
-    {
-        "title": "S&L Asset Acquisition",
-        "description": "The RTC is selling a failed S&L's loan portfolio. Good assets mixed with toxic waste.",
-        "requiredDivision": "CommercialLending",
-        "eraRange": [1989, 1995],
-        "risk": { "riskLevel": 6, "returnRange": [10, 40], "successProbability": 0.60, "duration": 6 },
-        "investmentRequired": 150000000
-    },
-    {
-        "title": "CDO Structuring Mandate",
-        "description": "Package $1B in mortgage-backed securities into tranched CDOs. Rating agencies are ready.",
-        "requiredDivision": "Securitization",
-        "eraRange": [2000, 2007],
-        "risk": { "riskLevel": 9, "returnRange": [25, 80], "successProbability": 0.45, "duration": 3 },
-        "investmentRequired": 100000000
-    },
-    {
-        "title": "Interest Rate Swap Portfolio",
-        "description": "A corporate client wants $2B notional in interest rate swaps for hedging.",
-        "requiredDivision": "DerivativesDesk",
-        "eraRange": [1990, 2010],
-        "risk": { "riskLevel": 5, "returnRange": [8, 25], "successProbability": 0.70, "duration": 4 },
-        "investmentRequired": 50000000
-    },
-    {
-        "title": "Dot-Com IPO Underwriting",
-        "description": "A hot internet company wants to go public. Expected valuation: $5B.",
-        "requiredDivision": "InvestmentBanking",
-        "eraRange": [1997, 2000],
-        "risk": { "riskLevel": 7, "returnRange": [20, 100], "successProbability": 0.50, "duration": 1 },
-        "investmentRequired": 75000000
-    }
+  {
+    "title": "Junk Bond Underwriting",
+    "description": "Milken's crowd wants you on a high-yield deal. The fees are obscene. So is the risk. Pour the champagne and read the fine print.",
+    "requiredDivision": "InvestmentBanking",
+    "eraRange": [1983, 1995],
+    "risk": { "riskLevel": 7, "successProbability": 0.55, "duration": 2 },
+    "investmentRequired": 220000
+  },
+  {
+    "title": "Leveraged Buyout",
+    "description": "Take a sleepy conglomerate private, load it with debt, strip it for parts. Barbarians at the gate — and you hold the keys.",
+    "requiredDivision": "PrivateEquity",
+    "eraRange": [1985, 1999],
+    "risk": { "riskLevel": 8, "successProbability": 0.50, "duration": 5 },
+    "investmentRequired": 320000
+  },
+  {
+    "title": "S&L Fire Sale",
+    "description": "The RTC is dumping a failed thrift's loan book. Gold nuggets bobbing in toxic sludge. Strong stomach required; weak ones need not apply.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1989, 1996],
+    "risk": { "riskLevel": 6, "successProbability": 0.60, "duration": 6 },
+    "investmentRequired": 180000
+  },
+  {
+    "title": "Interest Rate Swap Book",
+    "description": "A corporate treasurer wants to hedge. Tidy, technical, lucrative. Nobody understands it but you — which is rather the point.",
+    "requiredDivision": "DerivativesDesk",
+    "eraRange": [1986, 1999],
+    "risk": { "riskLevel": 5, "successProbability": 0.70, "duration": 4 },
+    "investmentRequired": 150000
+  },
+  {
+    "title": "Latin American Debt",
+    "description": "Brady bonds, restructured sovereign paper, double-digit yields. The IMF's got their back. Probably. Mostly.",
+    "requiredDivision": "International",
+    "eraRange": [1982, 1994],
+    "risk": { "riskLevel": 7, "successProbability": 0.52, "duration": 5 },
+    "investmentRequired": 160000
+  },
+  {
+    "title": "Mortgage Securitization",
+    "description": "Slice a thousand home loans into bonds and sell the slices. Alchemy with a rating agency's blessing. What could go wrong?",
+    "requiredDivision": "Securitization",
+    "eraRange": [1985, 1999],
+    "risk": { "riskLevel": 5, "successProbability": 0.72, "duration": 3 },
+    "investmentRequired": 200000
+  },
+  {
+    "title": "Dot-Com IPO",
+    "description": "No revenue, no profits, no problem. A website with a sock-puppet mascot wants to go public at a billion. The music is still playing.",
+    "requiredDivision": "InvestmentBanking",
+    "eraRange": [1997, 2000],
+    "risk": { "riskLevel": 8, "successProbability": 0.48, "duration": 1 },
+    "investmentRequired": 175000
+  },
+  {
+    "title": "Proprietary Trading Desk",
+    "description": "Hire the gunslingers, hand them the firm's capital, let them swing. Glass-Steagall's crumbling — go make a killing. Or get killed.",
+    "requiredDivision": "TradingDesk",
+    "eraRange": [1980, 1999],
+    "risk": { "riskLevel": 8, "successProbability": 0.45, "duration": 1 },
+    "investmentRequired": 240000
+  },
+  {
+    "title": "Telecom Buildout Loan",
+    "description": "Fiber in the ground, dreams in the air. Everyone's wiring the world at once. Heady stuff — and a glut you can already smell.",
+    "requiredDivision": "CommercialLending",
+    "eraRange": [1995, 2001],
+    "risk": { "riskLevel": 6, "successProbability": 0.58, "duration": 5 },
+    "investmentRequired": 210000
+  },
+  {
+    "title": "Universal Bank Merger",
+    "description": "Glass-Steagall is dead. Bolt an investment bank onto your commercial one and become a colossus. Synergies! (Someone always says synergies.)",
+    "requiredDivision": "InvestmentBanking",
+    "eraRange": [1998, 1999],
+    "risk": { "riskLevel": 5, "successProbability": 0.62, "duration": 6 },
+    "investmentRequired": 300000
+  }
 ]

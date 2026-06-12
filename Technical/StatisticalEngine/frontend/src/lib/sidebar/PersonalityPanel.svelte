@@ -6,6 +6,7 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { dwell, panelView } from '../actions/dwell';
 
   const AXES = [
     { key: 'riskTolerance',     label: 'Risk' },
@@ -51,7 +52,7 @@
 </script>
 
 {#if sim.ceoPersonality}
-  <section class="panel" aria-label="CEO Personality">
+  <section class="panel" aria-label="CEO Personality" use:dwell={'panel:PersonalityPanel'} use:panelView={'PersonalityPanel'}>
     <header>
       <h3>Personality</h3>
       {#if sim.ceoName}<span class="ceo-name">{sim.ceoName}</span>{/if}

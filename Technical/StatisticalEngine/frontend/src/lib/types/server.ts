@@ -123,8 +123,10 @@ export interface PendingDecision {
 export interface CharacterRecommendation {
   characterId?: string;
   characterName?: string;
-  recommendation: 'support' | 'oppose' | 'neutral' | string;
+  // engine emits capitalized "Support"/"Oppose"/"Neutral"
+  recommendation: 'support' | 'oppose' | 'neutral' | 'Support' | 'Oppose' | 'Neutral' | string;
   reasoning?: string;
+  argument?: string;     // engine field name for the advisor's reasoning
   confidence?: number;
 }
 
@@ -135,16 +137,49 @@ export interface RiskImpactDelta {
   regulatoryRisk?: number;
 }
 
+/**
+ * The engine sends a structured financial impact (NOT a scalar):
+ *   immediateCost  — one-off cost now
+ *   recurringCost  — cost per quarter for `timelineQuarters`
+ *   expectedRevenue — expected upside over the horizon
+ * Net headline value = expectedRevenue - immediateCost.
+ */
+export interface FinancialImpact {
+  immediateCost?: number;
+  recurringCost?: number;
+  expectedRevenue?: number;
+  timelineQuarters?: number;
+  [key: string]: unknown;
+}
+
 export interface DecisionOption {
   id: string;
   title: string;                 // option headline ("Approve loan", "Decline")
   description?: string;          // body copy
   successProbability?: number;   // 0..1
-  financialImpact?: number;
+  financialImpact?: FinancialImpact | number;  // engine emits a struct; tolerate a legacy number
   riskImpact?: RiskImpactDelta;
   recommendations?: CharacterRecommendation[];
   longTermConsequences?: string[];
 }
+
+/**
+ * Quarterly-brief / advisor message. The engine emits these as OBJECTS
+ * (not strings): a named character speaks with a role, sentiment and tone.
+ * Some legacy code paths may still surface plain strings, so consumers
+ * should accept `string | CharacterMessage`.
+ */
+export interface CharacterMessage {
+  characterId?: string;
+  characterName?: string;
+  content: string;
+  role?: string;
+  sentiment?: number;
+  tone?: string;
+  [key: string]: unknown;
+}
+
+export type FeedMessage = string | CharacterMessage;
 
 export interface GameEvent {
   id: string;
@@ -298,26 +333,110 @@ export interface CEOPersonality {
   longTermFocus: number;
 }
 
+export interface DealRisk {
+  duration?: number;
+  failureLoss?: number;
+  returnRange?: [number, number];
+  riskLevel?: number;
+  successProbability?: number;
+  windfallMultiplier?: number;
+  windfallProbability?: number;
+  [key: string]: unknown;
+}
+
 export interface Deal {
   id: string;
   title: string;
   type?: string;
+  // Real engine shape (commercial-lending prospects etc.)
+  clientName?: string;          // the firm you'd lend to
+  description?: string;
+  investmentRequired?: number;  // size of the loan/commitment
+  requiredLine?: string;        // division/business line that can take it
+  risk?: DealRisk | number;     // engine emits a rich object; older code expected a number
+  // Legacy/optional
   size?: number;
   expectedReturn?: number;
-  risk?: number;
   [key: string]: unknown;
+}
+
+/**
+ * STAR_02 P7 — a resolved-loan outcome event. Emitted by the engine when an
+ * accepted deal matures (DealPortfolio::resolveDeals). The client uses these to
+ * bark the credit officer, fill the Loan Book strip, and list recent results.
+ */
+export interface DealOutcome {
+  dealId: string;
+  title: string;
+  clientName: string;
+  outcome: 'paid_off' | 'defaulted' | 'windfall';
+  investedCapital: number;
+  realizedPnl: number;     // net P&L on the stake (positive = win)
+  quartersHeld: number;
+  resolvedQuarter: number;
+}
+
+/** STAR_02 P7 — cumulative loan-book scoreboard (the "loany" heart). */
+export interface LoanBookStats {
+  accepted: number;
+  paidOff: number;
+  defaulted: number;
+  windfalls: number;
+  realizedPnl: number;
+}
+
+/** STAR_02 P7 — one long position in the CEO's personal trading account. */
+export interface PersonalPosition {
+  marketId: string;
+  qty: number;
+  avgCost: number;
+  price?: number;   // current mark (player-view shape)
+  value?: number;   // qty * price
+  pnl?: number;     // qty * (price - avgCost)
+}
+
+/** STAR_02 P7 — the CEO's off-balance-sheet personal trading account. */
+export interface TradeBook {
+  cash: number;
+  seedCapital: number;
+  costBasis: number;
+  value: number;     // cash + marked positions
+  pnl: number;       // total value − seed
+  positions: PersonalPosition[];
 }
 
 export interface HiringCandidate {
   id: string;
   name: string;
   archetype: string;
+  /** STAR_02 P6: registry specialization id (e.g. "relationship_man"). */
+  specializationId?: string;
   level: number;
   annualSalary: number;
   yearsExperience: number;
   stats: Record<string, number>;
   traits: Array<{ name: string; description: string; positive: boolean }>;
   expectedSharpe?: number;
+}
+
+/**
+ * STAR_02 P6 poach offer — a rival's whole division put up for poaching.
+ * Mirrors simulation::PoachOffer (CompetitorEngine.h).
+ */
+export interface PoachOffer {
+  id: string;
+  rivalId: string;
+  rivalName: string;
+  divisionType: string;
+  divisionName: string;
+  teamSize: number;
+  trackRecord: number;       // their cumulative revenue ("made $X")
+  yearsTrackRecord: number;  // "over Y years"
+  askPrice: number;          // cost to poach
+  archetypeMix: string[];    // family ids the imported team carries
+  active: boolean;
+  offeredQuarter: number;
+  expiresQuarter: number;
 }
 
 export interface GameEndState {
@@ -327,9 +446,60 @@ export interface GameEndState {
   narrative: string;
 }
 
+/**
+ * Per-tick macro block streamed inside `market_tick` (engine: QuarterlyTurnManager
+ * ::marketTickPayload, key `econ`). All rates are DECIMALS (0.05 = 5%); gdpLevel
+ * is an index (100.0 in 1945); gdpGrowth is an annualized decimal growth rate.
+ * Exact keys mirror EconomicEngine state — keep in lockstep with the engine.
+ */
+export interface EconTick {
+  gdpLevel: number;       // index, base 100 at 1945
+  gdpGrowth: number;      // annualized real growth, decimal (0.03 = 3%)
+  unemployment: number;   // decimal (0.04 = 4%)
+  fedFundsRate: number;   // decimal (0.05 = 5%)
+  cpiInflation: number;   // decimal (0.02 = 2%)
+  creditSpread: number;   // decimal (0.015 = 1.5%)
+}
+
+/**
+ * Full macro indicator snapshot — the richer per-quarter shape returned by
+ * GET /api/game/<id>/macro-history (and serialized by the engine's
+ * EconomicIndicators). The intraday `econ` tick block is a subset of this.
+ */
+export interface EconomicIndicators {
+  fedFundsRate: number;
+  cpiInflation: number;
+  gdpGrowth: number;
+  unemployment: number;
+  vix: number;
+  sp500Return: number;
+  treasuryYield10Y: number;
+  creditSpread: number;
+  gdpLevel: number;
+  creditImpulse: number;
+}
+
+/** One per-quarter macro snapshot from the macro-history endpoint. */
+export interface MacroSnapshot {
+  year: number;
+  quarter: number;
+  econ: EconomicIndicators;
+  closes: Record<string, number>;   // marketId → quarter-close price
+}
+
+/** GET /api/game/<id>/macro-history response (data field of the envelope). */
+export interface MacroHistoryResponse {
+  quarters: MacroSnapshot[];
+}
+
 export interface GameState {
   currentYear: number;
   currentQuarter: number;
+  /**
+   * Live macro indicators (engine `EconomicIndicators`, serialized in every
+   * PlayerView under `economics`). Previously discarded by the client (P3.1).
+   */
+  economics?: EconomicIndicators;
   [key: string]: unknown;
 }
 
@@ -342,15 +512,20 @@ export interface PlayerView {
   actionPoints: ActionPoints;
   progression: Progression;
   pendingDecisions: PendingDecision[];
-  messages: string[];
+  messages: FeedMessage[];
   events: GameEvent[];
   activeCrises: CrisisArc[];
   simulationDigest: SimulationDigestEntry[];
   resolvedConsequences: unknown[];
   pendingConsequenceCount: number;
   hiringPool: HiringCandidate[];
+  poachOffers?: PoachOffer[];   // STAR_02 P6
+  reputationTag?: string;       // STAR_02 P6 ReputationLens
   availableDeals: Deal[];
   activeDeals: Deal[];
+  dealOutcomes?: DealOutcome[];   // STAR_02 P7
+  loanBookStats?: LoanBookStats;  // STAR_02 P7
+  tradeBook?: TradeBook;          // STAR_02 P7
   era: Era;
   regulatory: RegulatoryState;
   competitors: Competitor[];
@@ -376,6 +551,26 @@ export interface MarketTickMsg {
   prices: Array<{ id: string; price: number; dailyReturn: number }>;
   bankCapital: number;
   bankAssets: number;
+  // Live balance-sheet stream (added for the real-time financial dashboard)
+  bankLoans?: number;
+  bankSecurities?: number;
+  bankReserves?: number;
+  bankDeposits?: number;
+  bankInterbank?: number;
+  availableDeals?: Deal[];
+  // STAR_02 P6: live hiring pool + poach offers stream so candidates/offers
+  // arrive intra-quarter (the frontend animates new ids).
+  hiringPool?: HiringCandidate[];
+  poachOffers?: PoachOffer[];
+  // STAR_02 P7: live loan-outcome feed + scoreboard, and the personal trading
+  // book's mark-to-market value/P&L (so the Book strip + position pills update
+  // against the ticking tape).
+  dealOutcomes?: DealOutcome[];
+  loanBookStats?: LoanBookStats;
+  personalBookValue?: number;
+  personalBookPnl?: number;
+  // P3.2: per-day macro stream so macro lines move intraday like markets do.
+  econ?: EconTick;
   regime: Regime;
 }
 
@@ -385,7 +580,7 @@ export interface QuarterBoundaryMsg {
   quarter: number;
   phase: 'decision_phase' | 'crisis_response' | 'quarter_complete';
   pendingDecisions?: PendingDecision[];
-  messages?: string[];
+  messages?: FeedMessage[];
   events?: GameEvent[];
   activeCrises?: CrisisArc[];
   report?: AnnualReport;

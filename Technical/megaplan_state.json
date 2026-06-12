@@ -1,0 +1,66 @@
+{
+  "plan": "Technical/Plans/STAR_02_OVERHAUL_PLAN.md",
+  "star": "Stars/STAR_02_DAY_TRADING_FEEL_AND_CHARACTERS.md",
+  "started": "2026-06-11",
+  "owner_answers": "STAR_02 Addendum A",
+  "gates": {
+    "tests": "build\\Debug\\stvg_tests.exe --gtest_brief=1 (442+ green)",
+    "frontend": "cd frontend && npm run build (includes svelte-check)",
+    "autoplay": "build\\Debug\\stvg_autoplay.exe --quick-matrix --parallel",
+    "screenshots": "Technical/_playtest/shoot_live.js -> shots/<batch>/"
+  },
+  "backlog": [
+    {"id": "LEVERAGE_SPIRAL", "title": "Pre-existing leverage death-spiral: 9/12 autoplay bots die Q304 liquidity_crisis at 19.4x leverage (archetype-independent, confirmed via P5 A/B). Needs a dedicated leverage/deleveraging balance pass.", "found": "P5 rebalance gate"},
+    {"id": "KB_MERGE", "title": "Owner review of Technical/Content/kb_mining/REVIEW_SHEET.md -> merge approved events into historical_events.json; decision needed: era-clean vs forward-referencing divisions", "found": "P8"},
+    {"id": "LEVY_REEXTRACT", "title": "Volcker KB: Levy Ages of American Capitalism chunks 14-17 (postwar) not extracted; Kindleberger 0 body; Sorkin/Chernow PREPARED — HDARP pass would unlock richer mining", "found": "P8"}
+  ],
+  "batches": [
+    {
+      "id": "B1", "status": "partial",
+      "items": [
+        {"id": "P0", "title": "Hygiene burn-down 0.1-0.9", "vehicle": "subagent opus", "status": "done", "gate": "443 tests green; svelte-check 0/0; 9/9 items DONE", "note": "SALARY_COST_SCALE=1e-4 at charge sites; ui.annualReportMode auto; ui.dealBadge", "deps": []},
+        {"id": "ARCH", "title": "Archetype roster: doc search + brainstorm + archetypes.json draft + STAR_02 §11", "vehicle": "subagent opus", "status": "done", "gate": "archetypes.json (8 families verbatim-migrated + 33 specializations) + ARCHETYPE_ROSTER_DESIGN.md + STAR_02 §11; owner's original list confirmed NOT on disk", "deps": []}
+      ]
+    },
+    {
+      "id": "B2", "status": "pending",
+      "items": [
+        {"id": "P1", "title": "Telemetry v2 frontend (dwell framework, hover wiring, lifecycle, analyze_session.py)", "vehicle": "subagent opus", "status": "done", "gate": "svelte-check 0/0; live session 676 events / 20 distinct types; analyze_session.py --selftest pass; sample_session_report.md", "note": "KNOWN BUG found: server crashed once on POST /deal/accept — assign to P5/engine batch", "deps": ["P0"]},
+        {"id": "P3E", "title": "Engine: gdpLevel, creditImpulse, MacroHistory, market_tick econ, /macro-history, telemetry meta, event sign-weighting Stage A", "vehicle": "subagent opus", "status": "done", "gate": "orchestrator-verified: 452/452 tests PASSED exit 0 (was 443; +9)", "deps": ["P0"]}
+      ]
+    },
+    {
+      "id": "B3", "status": "pending",
+      "items": [
+        {"id": "P2", "title": "Tabs Economy|Hire|My Bank|Financials + TopBar + HIRE affordability + chart sizing", "vehicle": "subagent opus", "status": "done", "gate": "svelte-check 0/0; 4 tabs screenshot-verified (shots/p2/); 3 layouts + 3 headers deleted, TopBar+TabShell+4 tab components added; keyboard 1-4=tabs, [/]=speed", "deps": ["P1", "P3E"]}
+      ]
+    },
+    {
+      "id": "B4", "status": "pending",
+      "items": [
+        {"id": "P3F", "title": "Economy tab content: macro buffers, hero chart, timescales, explainers, news sync UI", "vehicle": "subagent opus", "status": "done", "gate": "svelte-check 0/0; shots/p3f/ 4 screenshots inspected; GDP/UNEMP/FEDFUNDS strip + INFL/10Y/GDPGROWTH chips + SPREAD; macro-history backfill; Economy P&L 'soon' chip awaiting P5 data", "deps": ["P2"]},
+        {"id": "P4", "title": "Portraits (CharacterCard), unified voices->staff, credibility line-assembler, DiceBear layer, presidents registry", "vehicle": "subagent opus", "status": "done", "gate": "svelte-check 0/0; server rebuilt OK; shots/p4/ live portrait cards + honest-vs-crony pair; 12 bankers + 17 presidents; toasts lifted to clear bust; portrait_shown/dismissed telemetry verified", "deps": ["P2", "ARCH"]}
+      ]
+    },
+    {
+      "id": "B5", "status": "pending",
+      "items": [
+        {"id": "P5", "title": "Engine math: archetype betas+sigma P&L distribution, PathEngine hire->culture fix, event->market Stage B, rebalance", "vehicle": "subagent opus", "status": "done", "gate": "487 tests (486 pass/1 skip/0 fail) exit 0; div-level variance gunslinger>=2x lifer PASS; deal/accept crash fixed (deduct-before-validate); ArchetypeRegistry loads archetypes.json verbatim-verified; eventMarketCoupling gated (server ON, tests OFF); econ block += economyRevenue/economyProfit", "deps": ["ARCH", "P3E"]},
+        {"id": "P8", "title": "KB mining slice: thicken 1945-1972 events from Volcker KB (staging JSON, provenance, paraphrase)", "vehicle": "subagent opus", "status": "done", "gate": "STAGING ONLY: 32 events + 12 characters + 13 deal archetypes + REVIEW_SHEET.md in Technical/Content/kb_mining/; live historical_events.json untouched; owner review required before merge", "deps": []}
+      ]
+    },
+    {
+      "id": "B6", "status": "pending",
+      "items": [
+        {"id": "P6", "title": "Hiring economy: trickle candidates, poach divisions, crowding, reputation lens", "vehicle": "subagent opus", "status": "done", "gate": "498 tests (497/1skip/0fail) exit 0; svelte-check 0/0; shots/p6/ inspected (poach card, FORTRESS BANK reptag); 7 new telemetry events; poach ask=1.5-3x trackRecord by era heat", "deps": ["P5", "P4"]},
+        {"id": "P7", "title": "Lending-first early game (+light trading affordance)", "vehicle": "subagent opus", "status": "done", "gate": "final suite 505 (504 pass/1 skip/0 fail) exit 0; PersonalBook off-balance-sheet (5% seed, SFC-safe); loan outcome loop + dealOutcomes/loanBookStats; shots/p7/ (8)", "deps": ["P6"]}
+      ]
+    },
+    {
+      "id": "B7", "status": "pending",
+      "items": [
+        {"id": "GATE", "title": "Full gate: build, tests, svelte-check, quick-matrix, live screenshots, handoff + PROGRESS_LOG", "vehicle": "inline", "status": "done", "gate": "505 tests 504/1skip/0fail exit 0; svelte-check 177 files 0/0; shots/final/ 4 tabs + title; stale save-version test pin fixed (3 -> kSaveVersion); HANDOFF_20260612_094900.md + PROGRESS_LOG written; quick-matrix covered by P5 full-matrix A/B", "deps": ["P6", "P7", "P3F"]}
+      ]
+    }
+  ]
+}

@@ -15,6 +15,8 @@
    */
 
   import { sim } from '../stores/simulation.svelte';
+  import { fmtMoney } from '../util/money';
+  import { telemetry } from '../telemetry';
 
   type Family = 'lending' | 'trading' | 'ib' | 'asset' | 'intl' | 'innovation' | 'other';
 
@@ -63,14 +65,7 @@
     return TYPE_LABEL[type] ?? type.replace(/_/g, ' ');
   }
 
-  function fmt(v: number): string {
-    const abs = Math.abs(v);
-    const sign = v < 0 ? '-' : '';
-    if (abs >= 1e9)  return `${sign}$${(abs / 1e9).toFixed(2)}B`;
-    if (abs >= 1e6)  return `${sign}$${(abs / 1e6).toFixed(0)}M`;
-    if (abs >= 1e3)  return `${sign}$${(abs / 1e3).toFixed(0)}K`;
-    return `${sign}$${abs.toFixed(0)}`;
-  }
+  const fmt = (v: number): string => fmtMoney(v);
 
   // Net-income mini bar: width proportional to |netIncome| / max(|netIncome|) in
   // the current set. Positive bars extend right, negative left from a centerline.
@@ -92,6 +87,8 @@
           class="card fam-{fam}"
           class:high-risk={highRisk}
           title="Autonomy {(div.autonomy * 100).toFixed(0)}% · Morale {(div.morale * 100).toFixed(0)}%"
+          role="presentation"
+          onmouseenter={() => telemetry.hover(`division:${div.id}`, { type: div.type })}
         >
           <header>
             <span class="type-label">{label(div.type)}</span>
