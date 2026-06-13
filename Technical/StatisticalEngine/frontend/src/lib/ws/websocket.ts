@@ -89,6 +89,25 @@ class WSClient {
   private userPaused = false;
   private autoTimer: ReturnType<typeof setTimeout> | null = null;
 
+  // Heartbeat: Cloudflare's edge closes an idle WebSocket after ~100s. We send
+  // {type:'ping'} every 30s while the socket is open (even while paused) and the
+  // server replies {type:'pong'} with no game-state/RNG effect. Keeps the tunnel
+  // alive through quiet stretches (decision pauses, idle watching).
+  private static readonly HEARTBEAT_MS = 30_000;
+  private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+
+  private startHeartbeat() {
+    this.stopHeartbeat();
+    this.heartbeatTimer = setInterval(() => {
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify({ type: 'ping' }));
+      }
+    }, WSClient.HEARTBEAT_MS);
+  }
+  private stopHeartbeat() {
+    if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
+  }
+
   private clearAuto() {
     if (this.autoTimer) { clearTimeout(this.autoTimer); this.autoTimer = null; }
   }
@@ -150,6 +169,7 @@ class WSClient {
   disconnect() {
     this.intentionalClose = true;
     this.clearAuto();
+    this.stopHeartbeat();
     this.ws?.close();
     this.ws = null;
     sim.connected = false;
@@ -167,6 +187,7 @@ class WSClient {
       sim.connected = true;
       sim.reconnecting = false;
       this.backoffMs = 500;
+      this.startHeartbeat();
       if (this.gameId) this.send({ type: 'subscribe', gameId: this.gameId });
       // 0.8 cold-start fix: a fresh game sits paused at Day 0 with flat 0.0000
       // charts because nothing ever issues the first `play`. The quarter-
@@ -183,6 +204,7 @@ class WSClient {
 
     ws.addEventListener('close', () => {
       sim.connected = false;
+      this.stopHeartbeat();
       if (!this.intentionalClose) this.scheduleReconnect();
     });
 
@@ -268,6 +290,11 @@ class WSClient {
       }
       case 'state': {
         sim.applyPlayerView(env.payload as PlayerView);
+        break;
+      }
+      case 'pong': {
+        // Heartbeat reply — no game-state effect. (Could feed a connection-
+        // quality pill later; for now we simply consume it.)
         break;
       }
       // turn/phase/changed and other legacy events: ignored in real-time mode

@@ -205,14 +205,30 @@ TEST(MacroPlumbing, RecessionBiasRaisesCrisisDrawProbability) {
     HistoricalEventLoader loader;
     // Synthetic in-memory pool would require file IO; instead exercise the
     // EventPool draw which has a built-in starter pool with crisis + opportunity.
+    //
+    // Robustness note (D1): the empirical-count form below is a Monte-Carlo
+    // confirmation of the weight property already asserted deterministically
+    // above (weightFor(Crisis): bear > neutral). The bank is given explicit
+    // hidden risk so the crisis category weight (0.2 + hiddenRisk/1e9) is solidly
+    // non-trivial and crises reliably surface in a 4-of-pool draw; without it the
+    // crisis weight is a bare 0.2 and crisis draws are so rare that the count can
+    // degenerate to a 0-vs-0 tie depending on suite execution order (a fresh
+    // EventPool/Bank are state-free, so this is purely small-sample fragility).
+    // Trials are raised to 400 to keep the separation comfortably significant.
     EventPool pool;
     Bank bank;
+    {
+        Division d;
+        d.id = "ib"; d.type = DivisionType::InvestmentBanking;
+        d.hiddenRisk = 3.0e9;  // material hidden risk → crisis category is live
+        bank.divisions.push_back(d);
+    }
     SimulationState st;
     st.currentYear = 1985;
 
     auto countCrisis = [&](const EventBias& bias) {
         int crisisCount = 0;
-        for (int trial = 0; trial < 200; ++trial) {
+        for (int trial = 0; trial < 400; ++trial) {
             math::RandomEngine rng(1000 + trial);
             auto drawn = pool.drawEvents(bank, st, rng, 4, bias);
             for (const auto& e : drawn)

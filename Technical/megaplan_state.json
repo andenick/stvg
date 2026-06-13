@@ -28,6 +28,21 @@
     ],
     "status_line": "READY FOR PLAY (2026-06-12)"
   },
+  "deployment": {
+    "plan": "Technical/Plans/GAME_VOLCKER_DEPLOYMENT_PLAN.md",
+    "art_plan": "Technical/Plans/ART_PIPELINE_PLAN.md (NON-GPU work only until owner go)",
+    "started": "2026-06-12",
+    "preflight": {"dev_docker": false, "dev_wsl": "Ubuntu-arc", "box_ssh": "OK andenick@192.168.0.174", "box_docker": "29.5.3", "box_free": "819GB / 24GB RAM avail"},
+    "batches": [
+      {"id": "DB1", "items": [
+        {"id": "D1", "title": "Code readiness", "status": "done", "gate": "505 green on Linux Release + Win Debug + Win Release; RNG now BIT-IDENTICAL cross-platform (hand-rolled distributions, Box-Muller w/ serialized spare); pre-existing Bank UB fixed; heartbeat/503/eviction+save/SIGTERM/telemetry-quotas/healthz all probe-verified; Dockerfile rehearsed on box (stvg:d1-rehearsal 144MB healthy, suite ran in build stage); svelte-check 0/0. NOTE: tests must run from engine root (data/ cwd-relative)"},
+        {"id": "ART_INFRA", "title": "Art non-GPU infrastructure", "status": "done", "gate": "Technical/art/ (README, comfy_loop.py untested-by-design, 3 draft workflows, 29 character briefs) + ART_EXPLORATION_PLAN.md E0-E4; ZERO GPU/install actions; FLAGGED: Emotion union (neutral|happy|worried|angry|smug) vs plan set mismatch — resolve at E2"},
+        {"id": "CARSON_DOCS", "title": "Carson-side scaffolding", "status": "done", "gate": "REQUEST intake + RESPONSE + deploy/stvg/{docker-compose.yml,STVG_SERVING.md} + site_docs/game-volcker.md, all PENDING-LIVE; owner 10-min click-path embedded; tunnel-direct-to-container confirmed as as-built pattern"}
+      ]},
+      {"id": "DB2", "items": [{"id": "D2_D3", "title": "Containerize, deploy to box, internal smoke + pull script", "status": "done", "gate": "stvg-web Up(healthy) on homelab_default, image stvg:local 144MB (suite ran in build), stvg:prev rollback tag; smoke ALL PASS (healthz, 8/33 archetypes, WS 101, telemetry per-day JSONL, SIGTERM saved 3 games, has-save true); baseline ~1.8MiB/game, 0.5% CPU @3 games; pull_telemetry.ps1 tested end-to-end incl -Analyze; volume stvg_stvg_data; marketVolScale=2.0 confirmed server-side (no env)"}]},
+      {"id": "DB3", "items": [{"id": "D4_D8", "title": "OWNER dashboard sitting (hostname/Access/WAF + Kuma login) then edge verify, capacity tune, registries, launch gate", "status": "blocked_on_owner", "deps": ["D2_D3"], "note": "click-paths in Council/Carson/Technical/deploy/stvg/STVG_SERVING.md §7-8; Kuma creds not on box — owner login needed"}]}
+    ]
+  },
   "backlog": [
     {"id": "LEVERAGE_SPIRAL", "title": "Pre-existing leverage death-spiral: 9/12 autoplay bots die Q304 liquidity_crisis at 19.4x leverage (archetype-independent, confirmed via P5 A/B). Needs a dedicated leverage/deleveraging balance pass.", "found": "P5 rebalance gate"},
     {"id": "KB_MERGE", "title": "Owner review of Technical/Content/kb_mining/REVIEW_SHEET.md -> merge approved events into historical_events.json; decision needed: era-clean vs forward-referencing divisions", "found": "P8"},

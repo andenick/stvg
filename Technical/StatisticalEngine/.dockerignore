@@ -1,0 +1,16 @@
+# Keep the Docker build context small: only sources the Dockerfile COPYs.
+build/
+build-linux/
+build-*/
+frontend/node_modules/
+frontend/.svelte-kit/
+**/*.o
+**/*.obj
+data-runtime/
+telemetry/
+saves/
+*.log
+probe*.sh
+probe*.py
+ws_probe.py
+.git/

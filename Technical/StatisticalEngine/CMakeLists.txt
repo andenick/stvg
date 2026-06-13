@@ -29,6 +29,20 @@ target_compile_features(stvg_engine PUBLIC cxx_std_20)
 add_executable(stvg_server src/main.cpp)
 target_link_libraries(stvg_server PRIVATE stvg_engine Crow::Crow)
 
+# Optional zlib: when present, the telemetry housekeeper gzips old day-dirs
+# (STVG_HAVE_ZLIB). Absent (e.g. a stock MSVC dev box), housekeeping still does
+# age-based deletion — the disk-protection guarantee — and skips compression.
+# This keeps Windows building without a zlib dependency while the Linux
+# container (ubuntu:24.04 + zlib1g-dev) gets real gzip.
+find_package(ZLIB QUIET)
+if(ZLIB_FOUND)
+    target_link_libraries(stvg_server PRIVATE ZLIB::ZLIB)
+    target_compile_definitions(stvg_server PRIVATE STVG_HAVE_ZLIB)
+    message(STATUS "zlib found — telemetry gzip housekeeping enabled")
+else()
+    message(STATUS "zlib not found — telemetry housekeeping will delete-only (no gzip)")
+endif()
+
 if(WIN32)
     target_link_libraries(stvg_server PRIVATE ws2_32 wsock32)
 endif()
