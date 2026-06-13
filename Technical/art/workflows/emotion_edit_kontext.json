@@ -1,0 +1,74 @@
+{
+  "__DRAFT__": "UNTESTED SKELETON. FLUX.1 Kontext [dev] FP8 instruction-edit graph. Loader node names/wiring follow the official ComfyUI Kontext template and MUST be reconciled live in A0/E0 (encoder/VAE filenames are PLACEHOLDERs). Mutate by _meta.title.",
+  "1": {
+    "class_type": "LoadImage",
+    "_meta": { "title": "BASE_IMAGE" },
+    "inputs": { "image": "PLACEHOLDER_base_portrait.png" }
+  },
+  "2": {
+    "class_type": "UNETLoader",
+    "_meta": { "title": "CHECKPOINT" },
+    "inputs": {
+      "unet_name": "PLACEHOLDER_flux1-kontext-dev-fp8.safetensors",
+      "weight_dtype": "fp8_e4m3fn"
+    }
+  },
+  "3": {
+    "class_type": "DualCLIPLoader",
+    "_meta": { "title": "CLIP_LOADER" },
+    "inputs": {
+      "clip_name1": "PLACEHOLDER_clip_l.safetensors",
+      "clip_name2": "PLACEHOLDER_t5xxl_fp8_e4m3fn.safetensors",
+      "type": "flux"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "_meta": { "title": "VAE_LOADER" },
+    "inputs": { "vae_name": "PLACEHOLDER_ae.safetensors" }
+  },
+  "5": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "POSITIVE_PROMPT" },
+    "inputs": {
+      "text": "PLACEHOLDER edit instruction — e.g. 'make him smug, one eyebrow raised, slight smirk', identity and outfit preserved",
+      "clip": ["3", 0]
+    }
+  },
+  "6": {
+    "class_type": "VAEEncode",
+    "_meta": { "title": "ENCODE_BASE" },
+    "inputs": { "pixels": ["1", 0], "vae": ["4", 0] }
+  },
+  "7": {
+    "class_type": "ReferenceLatent",
+    "_meta": { "title": "KONTEXT_REF" },
+    "inputs": { "conditioning": ["5", 0], "latent": ["6", 0] }
+  },
+  "8": {
+    "class_type": "KSampler",
+    "_meta": { "title": "SEED" },
+    "inputs": {
+      "seed": 0,
+      "steps": 28,
+      "cfg": 2.5,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": ["2", 0],
+      "positive": ["7", 0],
+      "negative": ["7", 0],
+      "latent_image": ["6", 0]
+    }
+  },
+  "9": {
+    "class_type": "VAEDecode",
+    "_meta": { "title": "DECODE" },
+    "inputs": { "samples": ["8", 0], "vae": ["4", 0] }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "_meta": { "title": "SAVE" },
+    "inputs": { "filename_prefix": "stvg_emotion", "images": ["9", 0] }
+  }
+}

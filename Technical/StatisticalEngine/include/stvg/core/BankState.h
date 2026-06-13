@@ -25,17 +25,24 @@ struct Bank {
     std::string id = "bank_01";
     std::string name = "First National Trust";
 
-    double capital;
-    double totalAssets;
-    double totalDeposits;
-    double reserves;
+    // NOTE: these six were previously left without default member initializers.
+    // Bank's factory builders (createCommercialBank/createForPosition/etc.) always
+    // set them, but a bare `Bank bank;` (used in some unit tests and as a scratch
+    // value) left them INDETERMINATE — reading them is UB and the garbage values
+    // leaked through categoryWeight() into event-draw weights, making results
+    // depend on prior stack contents (a test-ordering "ghost"). Zero-initialize so
+    // default construction is deterministic and portable; factories overwrite them.
+    double capital = 0.0;
+    double totalAssets = 0.0;
+    double totalDeposits = 0.0;
+    double reserves = 0.0;
     double totalRevenue = 0.0;
     double totalCosts = 0.0;
     double netIncome = 0.0;
     double reputation = 65.0;
-    double marketShare;
-    int branches;
-    int employees;
+    double marketShare = 0.0;
+    int branches = 0;
+    int employees = 0;
 
     // ── SFC balance sheet components (Phase A) ──────────────────
     double loans = 0.0;              // sum of lending division budgets (asset)

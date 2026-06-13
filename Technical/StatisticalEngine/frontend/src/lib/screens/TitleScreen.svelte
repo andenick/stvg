@@ -111,8 +111,16 @@
       wsClient.connect(gameId);
       ui.screen = 'game';
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : (e as Error).message;
-      beginError = `Could not start game: ${msg}`;
+      // Admission control: a 503 {error:'server_full'} means the box is at
+      // capacity — show a friendly, non-alarming line rather than a raw error.
+      if (e instanceof ApiError && (e.status === 503 || e.message === 'server_full')) {
+        beginError = 'Server full — too many players right now. Try again soon.';
+      } else if (e instanceof ApiError && (e.status === 429 || e.message === 'ip_limit')) {
+        beginError = 'You already have a few games open from this connection. Close one and try again.';
+      } else {
+        const msg = e instanceof ApiError ? e.message : (e as Error).message;
+        beginError = `Could not start game: ${msg}`;
+      }
       toasts.error(beginError);
     } finally {
       starting = false;
@@ -198,6 +206,10 @@
     {#if beginError}
       <p class="error" role="alert">{beginError}</p>
     {/if}
+
+    <p class="privacy">
+      Playtest build — anonymous gameplay events are recorded to improve the game.
+    </p>
   </div>
 
   <footer class="footer">
@@ -382,6 +394,16 @@
     font-size: 0.78rem;
     margin-top: 1.5rem;
     letter-spacing: 0.05em;
+  }
+
+  .privacy {
+    color: var(--ts-ink-muted);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    line-height: 1.4;
+    max-width: 28rem;
+    margin: 1.75rem auto 0 auto;
+    opacity: 0.85;
   }
 
   .footer {

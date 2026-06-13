@@ -5,8 +5,14 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         -Wall -Wextra -Wpedantic
         -Wno-unused-parameter
         -Wno-missing-field-initializers
-        -Wa,-mbig-obj  # MinGW: allow large object files (Crow + nlohmann headers)
     )
+    # -Wa,-mbig-obj is a MinGW/Windows-only assembler flag (PE/COFF objects can
+    # overflow 32k sections with Crow + nlohmann headers). It is NOT a valid
+    # option for the GNU assembler targeting ELF on Linux ("as: unrecognized
+    # option '-mbig-obj'"), so apply it only when targeting Windows (MinGW).
+    if(WIN32)
+        add_compile_options(-Wa,-mbig-obj)
+    endif()
     # Release optimization
     set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
