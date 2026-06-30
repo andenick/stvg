@@ -9,7 +9,7 @@
 #   (Technical\StatisticalEngine\telemetry\) so box and local sessions never mix.
 #
 # MECHANISM (chosen for robustness on this Windows box -- see notes below):
-#   ssh <box> "docker exec stvg-web tar -cz -C /var/lib/stvg telemetry"  | tar -xz ...
+#   ssh <box> "docker exec <container> tar -cz -C /var/lib/stvg telemetry"  | tar -xz ...
 #   i.e. a tar-over-SSH stream read from INSIDE the container, extracted locally
 #   with GNU tar (tar 1.35 ships with Windows 10/11). Rationale:
 #     * `docker exec ... tar` reads from inside the container, so it needs NO sudo
@@ -29,25 +29,32 @@
 #   .\pull_telemetry.ps1                 # pull all days into telemetry_remote\
 #   .\pull_telemetry.ps1 -Analyze        # pull, then run analyze_session.py on each
 #                                        #   pulled session_*.jsonl (writes *report.md)
-#   .\pull_telemetry.ps1 -Host 100.99.131.74   # pull over Tailscale instead of LAN
+#   .\pull_telemetry.ps1 -Host <tailscale-ip>  # pull over Tailscale instead of LAN
 #
 # REQUIREMENTS: OpenSSH client (ssh.exe) + GNU tar (tar.exe) on PATH (both ship with
-#   Windows 10/11); the SSH key at C:\Users\anden\.ssh\id_ed25519; the stvg-web
-#   container running on the box.
+#   Windows 10/11); an SSH key (set STVG_SSH_KEY, default ~/.ssh/id_ed25519); the
+#   serving container (set STVG_CONTAINER) running on the box.
+#
+# CONFIG (override the placeholder defaults via env vars or params):
+#   STVG_BOX_HOST  -> -Host        (box hostname/IP)
+#   STVG_BOX_USER  -> -BoxUser     (SSH user on the box)
+#   STVG_SSH_KEY   -> -KeyPath     (path to the SSH private key)
+#   STVG_CONTAINER -> -Container   (serving container name)
 #
 # FALLBACKS (manual, if the container path ever changes):
-#   (A) scp the per-day dir:  scp -i <key> -r andenick@<host>:<BOXVOL>/telemetry/<day> <dest>
-#       where <BOXVOL> = (ssh box) docker volume inspect stvg_stvg_data -f '{{.Mountpoint}}'
+#   (A) scp the per-day dir:  scp -i <key> -r <user>@<host>:<BOXVOL>/telemetry/<day> <dest>
+#       where <BOXVOL> = (ssh box) docker volume inspect <volume> -f '{{.Mountpoint}}'
 #       -- but that path is root-owned; needs sudo, which the box does not grant.
-#   (B) box-side staging:  ssh box "docker cp stvg-web:/var/lib/stvg/telemetry ~/stvg-tel-export"
+#   (B) box-side staging:  ssh box "docker cp <container>:/var/lib/stvg/telemetry ~/stvg-tel-export"
 #       then scp -r ~/stvg-tel-export <dest>.  The tar-stream below collapses both steps.
 # =====================================================================================
 
 [CmdletBinding()]
 param(
-    [string]$BoxHost = '192.168.0.174',
-    [string]$KeyPath = 'C:\Users\anden\.ssh\id_ed25519',
-    [string]$Container = 'stvg-web',
+    [string]$BoxHost = $(if ($env:STVG_BOX_HOST) { $env:STVG_BOX_HOST } else { '<HOST>' }),
+    [string]$BoxUser = $(if ($env:STVG_BOX_USER) { $env:STVG_BOX_USER } else { '<USER>' }),
+    [string]$KeyPath = $(if ($env:STVG_SSH_KEY)  { $env:STVG_SSH_KEY }  else { "$HOME/.ssh/id_ed25519" }),
+    [string]$Container = $(if ($env:STVG_CONTAINER) { $env:STVG_CONTAINER } else { '<CONTAINER>' }),
     [switch]$Analyze
 )
 
@@ -78,7 +85,7 @@ $tmp = Join-Path $env:TEMP ("stvg_tel_{0}.tgz" -f ([guid]::NewGuid().ToString('N
 try {
     # Redirect ssh stdout (binary gzip) straight to the temp file via cmd to keep
     # PowerShell out of the byte stream entirely.
-    & cmd /c "ssh -i `"$KeyPath`" andenick@$BoxHost `"$remoteCmd`" > `"$tmp`""
+    & cmd /c "ssh -i `"$KeyPath`" $BoxUser@$BoxHost `"$remoteCmd`" > `"$tmp`""
     if ($LASTEXITCODE -ne 0) { Write-Host "ERROR: ssh/docker exec exited $LASTEXITCODE." -ForegroundColor Red; exit 1 }
     if (-not (Test-Path $tmp) -or (Get-Item $tmp).Length -eq 0) {
         Write-Host 'No telemetry returned (empty stream) -- nothing to pull yet.' -ForegroundColor Yellow

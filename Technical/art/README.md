@@ -180,9 +180,8 @@ when present — a ~1 h frontend change scoped in E4. No engine change.
 server processes and shares ports.** Therefore:
 
 - **Art-generation sessions and Hopper jobs are MUTUALLY EXCLUSIVE bookings.**
-  Before any A0–A5 / E0–E4 GPU session, verify Hopper is idle (no `llama-server.exe`,
-  no active Hopper drain) — see the Hopper single-launch / coexistence memory and
-  `Council/Grace/` standards.
+  Before any A0–A5 / E0–E4 GPU session, verify the local VLM engine is idle (no
+  `llama-server.exe`, no active extraction drain) and treat the GPU booking as a lock.
 - **Never** run ComfyUI / Hunyuan3D concurrently with a Hopper drain.
 - **Mid-drain art needs → cloud fallbacks only** (GPT-image-mini, Ideogram, Recraft).
   No local GPU generation while Hopper holds the card.
