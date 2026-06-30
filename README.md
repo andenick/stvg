@@ -77,7 +77,6 @@ See [ARCHITECTURE.md](Technical/StatisticalEngine/docs/ARCHITECTURE.md) for the 
 STVG/
 ├── NORTH_STAR.md                    # Immutable founding vision = STAR_01 (DO NOT MODIFY)
 ├── README.md                        # This file
-├── .claude/instructions.md          # Agent onboarding instructions
 ├── Stars/                           # Vision documents (STAR_01→NORTH_STAR, STAR_02 day-trading
 │   │                                #   overhaul + append-only addenda); see Stars/README.md
 │   └── STAR_02_DAY_TRADING_FEEL_AND_CHARACTERS.md
