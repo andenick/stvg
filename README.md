@@ -96,7 +96,6 @@ STVG/
 │   ├── _playtest/                   # PERMANENT screenshot/telemetry harness — being reorganized
 │   │                                #   into harness/ (keepers) + archive_probes/ (one-off probes)
 │   │                                #   + shots/ (evidence) + analyze_session.py + README
-│   ├── megaplan_state.json          # Canonical megaplan execution state
 │   ├── Handoffs/                    # Session handoff documentation
 │   └── PROGRESS_LOG.md              # Development session log
 ├── Inputs/                          # Source materials (read-only)
@@ -115,8 +114,7 @@ STVG/
 
 **STAR_02 "day-trading feel & characters" overhaul complete (2026-06-12)** — executed as a
 9-subagent megaplan against [STAR_02](Stars/STAR_02_DAY_TRADING_FEEL_AND_CHARACTERS.md); see
-[HANDOFF_20260612_094900.md](Technical/Handoffs/HANDOFF_20260612_094900.md) and
-[megaplan_state.json](Technical/megaplan_state.json). Headlines: a **4-tab Svelte UI**
+[HANDOFF_20260612_094900.md](Technical/Handoffs/HANDOFF_20260612_094900.md). Headlines: a **4-tab Svelte UI**
 (Economy / Hire / My Bank / Financials), a **portrait + credibility system** (Hades-style
 character pop-ups whose language signals honesty), an **archetype × macro P&L engine**
 (division revenue distributed by per-archetype betas + variance), a **lending-first early
