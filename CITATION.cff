@@ -21,6 +21,6 @@ keywords:
   - chief-executives
   - economic-history
   - agent-based
-version: "0.0.0"  # placeholder - no git tag yet; verify before release
-date-released: "2026-01-01"  # placeholder - no release yet; verify before release
+# version: "0.0.0"        # no git tag yet - fill in on first tagged release
+# date-released: "2026-01-01"  # no release yet - fill in on first tagged release
 license: MIT
