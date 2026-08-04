@@ -27,6 +27,7 @@ $exe = Join-Path $engine 'build\Debug\stvg_server.exe'
 
 if (-not (Test-Path $exe)) {
     Write-Host "Server not built. From $engine run:" -ForegroundColor Yellow
+    Write-Host '  cd frontend; npm ci; npm run build; cd ..   # builds the web UI into static/'
     Write-Host '  cmake -B build -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug -Wno-dev'
     Write-Host '  cmake --build build --config Debug --target stvg_server --parallel 4'
     exit 1

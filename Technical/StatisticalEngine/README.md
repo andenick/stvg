@@ -146,7 +146,7 @@ StatisticalEngine/
 ├── tests/           25 test files (253 tests across core, math, simulation, autoplay)
 ├── data/            config JSON, calibration data, scenarios, deal templates, events
 ├── static/          index.html (Alpine.js web demo, ~1700 lines)
-└── docs/            ARCHITECTURE.md, PROJECT_HISTORY.md, FILE_CATALOG.md
+└── docs/            ARCHITECTURE.md, ANDROID_BUILD.md
 ```
 
 ## Dependencies

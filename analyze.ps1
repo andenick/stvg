@@ -16,4 +16,4 @@ foreach ($s in $sessions) {
     python $analyzer $s.FullName -o $report
     Write-Host "Analyzed $($s.Name) -> $(Split-Path $report -Leaf)" -ForegroundColor Green
 }
-Write-Host "`n$($sessions.Count) session(s) analyzed. Share the reports (or just say 'analyze my sessions')."
+Write-Host "`n$($sessions.Count) session(s) analyzed. Reports are written next to each session file."

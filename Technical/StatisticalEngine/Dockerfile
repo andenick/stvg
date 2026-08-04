@@ -1,15 +1,25 @@
 # ════════════════════════════════════════════════════════════════════
-# STVG — multi-stage container for the game.volcker.org public playtest
-# (D1/D2 deployment). Build stage compiles a Release binary via CMake
+# STVG — multi-stage container for the public playtest deployment.
+# Build stage compiles a Release binary via CMake
 # FetchContent and RUNS THE UNIT SUITE (the image only ships if tests pass);
 # the runtime stage is a slim ubuntu:24.04 with just the binary + web assets
 # + game data + curl for the healthcheck.
 #
-#   docker build -t stvg:local .
+#   docker build -t stvg:local .          # builds the frontend AND the engine
 #   docker run --rm -p 8080:8080 -v stvg_data:/var/lib/stvg stvg:local
 #
 # Entrypoint: stvg_server 8080 /srv/static  (binds 0.0.0.0 in-container).
 # ════════════════════════════════════════════════════════════════════
+
+# ── Stage 0: build the web frontend ────────────────────────────
+# The Vite bundle is generated output, not committed. This stage produces
+# /web/static (index.html + hashed /assets/* + portraits/manifest.json).
+FROM node:22-bookworm-slim AS web
+WORKDIR /web/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+RUN npm run build          # vite build -> ../static (see frontend/vite.config.ts)
 
 # ── Stage 1: build + test ───────────────────────────────────────────
 FROM ubuntu:24.04 AS build
@@ -33,7 +43,6 @@ COPY include/ ./include/
 COPY src/ ./src/
 COPY tests/ ./tests/
 COPY data/ ./data/
-COPY static/ ./static/
 
 # Configure Release with IPO, build the three executables.
 RUN cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
@@ -61,7 +70,7 @@ WORKDIR /srv
 # Binary + web assets + game data the engine reads at startup
 # (archetypes, ceos, events, calibration, deals, scenarios, config).
 COPY --from=build /src/build/stvg_server /usr/local/bin/stvg_server
-COPY --from=build /src/static/ /srv/static/
+COPY --from=web   /web/static/ /srv/static/
 COPY --from=build /src/data/   /srv/data/
 
 # Persistent saves + telemetry live here (mount a named volume in production).

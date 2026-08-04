@@ -1,7 +1,7 @@
-# pull_telemetry.ps1 -- pull STVG gameplay telemetry from the Carson box to the dev PC.
+# pull_telemetry.ps1 -- pull STVG gameplay telemetry from the deployment host to a dev machine.
 # =====================================================================================
 # WHAT IT DOES
-#   Streams the box container's telemetry tree (/var/lib/stvg/telemetry, per-day
+#   Streams the remote container's telemetry tree (/var/lib/stvg/telemetry, per-day
 #   YYYY-MM-DD dirs of session_*.jsonl) to this PC, preserving the directory
 #   structure, into:
 #       Technical\StatisticalEngine\telemetry_remote\YYYY-MM-DD\session_*.jsonl
@@ -14,7 +14,7 @@
 #   with GNU tar (tar 1.35 ships with Windows 10/11). Rationale:
 #     * `docker exec ... tar` reads from inside the container, so it needs NO sudo
 #       and NO `docker volume inspect` host-path lookup (the volume Mountpoint under
-#       /var/lib/docker is root-owned and not readable without sudo on the box).
+#       /var/lib/docker is root-owned and not readable without sudo on the host).
 #     * A single compressed stream is faster + more reliable than `scp -r` over many
 #       tiny JSONL files, and needs no rsync (not installed on this dev PC).
 #     * GNU tar handles the gzip + extraction natively on Windows; no WSL required.
@@ -33,18 +33,18 @@
 #
 # REQUIREMENTS: OpenSSH client (ssh.exe) + GNU tar (tar.exe) on PATH (both ship with
 #   Windows 10/11); an SSH key (set STVG_SSH_KEY, default ~/.ssh/id_ed25519); the
-#   serving container (set STVG_CONTAINER) running on the box.
+#   serving container (set STVG_CONTAINER) running on the host.
 #
 # CONFIG (override the placeholder defaults via env vars or params):
 #   STVG_BOX_HOST  -> -Host        (box hostname/IP)
-#   STVG_BOX_USER  -> -BoxUser     (SSH user on the box)
+#   STVG_BOX_USER  -> -BoxUser     (SSH user on the host)
 #   STVG_SSH_KEY   -> -KeyPath     (path to the SSH private key)
 #   STVG_CONTAINER -> -Container   (serving container name)
 #
 # FALLBACKS (manual, if the container path ever changes):
 #   (A) scp the per-day dir:  scp -i <key> -r <user>@<host>:<BOXVOL>/telemetry/<day> <dest>
 #       where <BOXVOL> = (ssh box) docker volume inspect <volume> -f '{{.Mountpoint}}'
-#       -- but that path is root-owned; needs sudo, which the box does not grant.
+#       -- but that path is root-owned; needs sudo, which the host does not grant.
 #   (B) box-side staging:  ssh box "docker cp <container>:/var/lib/stvg/telemetry ~/stvg-tel-export"
 #       then scp -r ~/stvg-tel-export <dest>.  The tar-stream below collapses both steps.
 # =====================================================================================

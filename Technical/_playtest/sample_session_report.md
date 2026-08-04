@@ -1,6 +1,6 @@
 # STVG Session Report
 
-**Source:** `D:\Arcanum\Projects\STVG\Technical\StatisticalEngine\telemetry\session_smqae6dfa7fh0.jsonl`  
+**Source:** `Technical/StatisticalEngine/telemetry/session_smqae6dfa7fh0.jsonl`  
 **Session:** `smqae6dfa7fh0`  
 **Started:** 2026-06-12T03:53:44.571Z  
 **Events:** 676  

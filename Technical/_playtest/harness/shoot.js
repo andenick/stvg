@@ -1,5 +1,5 @@
 /*
- * STVG screenshot harness (rebuilt 2026-06-11 — keep committed; see HANDOFF_20260603 which
+ * STVG screenshot harness (rebuilt 2026-06-11 — keep committed; an earlier revision
  * deleted the original at closeout).
  * Usage: set NODE_PATH to frontend/node_modules, server already running on :8080, then
  *   node shoot.js [outDir]

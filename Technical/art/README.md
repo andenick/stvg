@@ -6,17 +6,14 @@
 > no generation, and no GPU process have been touched. Everything below is the
 > *design* of the pipeline. The first executable session (A0, "rig the loop") may
 > begin **only when the owner says go** (see
-> `../Plans/ART_EXPLORATION_PLAN.md` for the gated execution plan).
+> nothing in this directory has been executed).
 
 This is the operating manual for STVG's visual asset pipeline: how Claude drives a
 local image-generation loop, how generated assets enter the game with zero code
-changes, how provenance is recorded, and the hard GPU-coexistence rule. It is the
-companion reference to:
+changes, how provenance is recorded, and the hard GPU-coexistence rule.
 
-- **`../Plans/ART_PIPELINE_PLAN.md`** — the strategic plan (research verdicts,
-  asset-class table, workstreams A0–A5).
-- **`../Plans/ART_EXPLORATION_PLAN.md`** — the owner-gated session-by-session
-  execution plan (E0 environment → E4 cards/flourishes).
+The strategic and session-by-session execution plans that this directory was
+scaffolded against are not part of the published repository.
 
 ---
 
@@ -176,16 +173,15 @@ when present — a ~1 h frontend change scoped in E4. No engine change.
 
 ## 5. GPU-coexistence rule (HARD)
 
-**The RTX 5090 runs Hopper VLM jobs too, and Hopper's engine blanket-kills GPU
-server processes and shares ports.** Therefore:
+**The workstation GPU may already be busy with other local model work, and some
+model servers claim the whole card and fixed ports.** Therefore:
 
-- **Art-generation sessions and Hopper jobs are MUTUALLY EXCLUSIVE bookings.**
-  Before any A0–A5 / E0–E4 GPU session, verify the local VLM engine is idle (no
-  `llama-server.exe`, no active extraction drain) and treat the GPU booking as a lock.
-- **Never** run ComfyUI / Hunyuan3D concurrently with a Hopper drain.
-- **Mid-drain art needs → cloud fallbacks only** (GPT-image-mini, Ideogram, Recraft).
-  No local GPU generation while Hopper holds the card.
-- Schedule local generation in Hopper idle windows; treat the booking as a lock.
+- **Art-generation sessions and any other local GPU job are MUTUALLY EXCLUSIVE bookings.**
+  Before any A0–A5 / E0–E4 GPU session, verify no other local model server is
+  running and treat the GPU booking as a lock.
+- **Never** run ComfyUI / Hunyuan3D concurrently with another long-running GPU job.
+- **If the card is busy → cloud fallbacks only** (GPT-image-mini, Ideogram, Recraft).
+- Schedule local generation in idle windows; treat the booking as a lock.
 
 ---
 
@@ -215,4 +211,4 @@ in the site's `static/assets/`, not here).
 
 Nothing in this directory has been executed. The code is a readable spec; the
 workflows are skeletons with symbolic node ids; the briefs are prompt seeds. A0/E0
-is the first time any of it runs, and only on the owner's go-ahead.
+would be the first time any of it runs.

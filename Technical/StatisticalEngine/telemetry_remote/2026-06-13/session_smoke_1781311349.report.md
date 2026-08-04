@@ -1,6 +1,6 @@
 # STVG Session Report
 
-**Source:** `D:\Arcanum\Projects\STVG\Technical\StatisticalEngine\telemetry_remote\2026-06-13\session_smoke_1781311349.jsonl`  
+**Source:** `Technical/StatisticalEngine/telemetry_remote/2026-06-13/session_smoke_1781311349.jsonl`  
 **Events:** 3  
 
 ## Overview

@@ -1,5 +1,5 @@
 {
-    "_source": "Calibrated from Robin/FRED data, Volcker stress scenarios, FailingBanks/JST macrohistory",
+    "_source": "Calibrated from FRED macro data, historical stress scenarios, and JST macrohistory",
     "_date": "2026-04-03",
     "_method": "Period mean for mu, autocorrelation for theta, annualized std dev for sigma, historical min/max with 5% buffer for floor/ceiling",
 

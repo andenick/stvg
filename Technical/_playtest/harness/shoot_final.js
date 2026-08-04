@@ -1,4 +1,4 @@
-/* Final megaplan evidence set: begin game, let it run, shoot all four tabs (keys 1-4). */
+/* Final evidence set: begin game, let it run, shoot all four tabs (keys 1-4). */
 const puppeteer = require('puppeteer-core');
 const path = require('path');
 const fs = require('fs');

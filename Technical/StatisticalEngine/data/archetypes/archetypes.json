@@ -1,7 +1,7 @@
 {
   "$schema_version": "1.0.0",
   "produced": "2026-06-11",
-  "produced_by": "STVG megaplan item ARCH (STAR_02_OVERHAUL_PLAN.md §4.2/§5.1)",
+  "produced_by": "STVG STAR_02 overhaul, item ARCH (§4.2/§5.1)",
   "purpose": "Canonical hire-archetype roster for the banking CEO sim (1945-2040). Two levels: 8 base FAMILIES (faithful migration of the engine's CURRENT CharacterGenerator literals so wiring is a pure refactor) + ~36 division-flavored SPECIALIZATIONS. Drives CharacterGenerator (stat weights, integrity, salary), PathEngine::applyHireEffect (cultureShift), P5 archetype x macro -> P&L distribution (macroBetas + sigma), the credibility voice system (credibilityTendency, voiceFlavor), and the portrait layer (portraitDescriptor).",
 
   "stat_order": ["analytical","intuition","judgment","persuasion","networking","leadership","ambition","resilience","stamina","adaptability"],

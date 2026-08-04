@@ -59,7 +59,7 @@ text-encode(edit instruction) → Kontext conditioning/latent → KSampler(denoi
 VAEDecode → SaveImage.
 **Required model (pull in E0):**
 - **FLUX.1 Kontext [dev] FP8** — the day-0 ComfyUI-supported instruction-edit model
-  (12B, fits the 5090 in FP8). HF: `black-forest-labs/FLUX.1-Kontext-dev` (use the
+  (12B; fits a 24 GB+ consumer card in FP8). HF: `black-forest-labs/FLUX.1-Kontext-dev` (use the
   FP8 weight; the ComfyUI-packaged FP8 checkpoint, e.g.
   `flux1-kontext-dev-fp8` in `ComfyUI/models/diffusion_models/` or `checkpoints/`
   per the build's Kontext template). Placeholder in the JSON:

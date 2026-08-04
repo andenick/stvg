@@ -33,7 +33,7 @@ struct GARCHParams {
 
     bool isStationary() const { return persistence() < 1.0; }
 
-    // Named presets calibrated from Robin VIX data (1990-2025)
+    // Named presets calibrated from historical VIX data (1990-2025)
     // Format: {omega, alpha, beta, gamma}
     // Presets ensure persistence = alpha + gamma/2 + beta < 1.0
     static GARCHParams Normal()  { return {0.000252, 0.18, 0.70, 0.12}; } // persist=0.94

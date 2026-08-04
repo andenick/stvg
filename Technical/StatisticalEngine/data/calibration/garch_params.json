@@ -1,6 +1,6 @@
 {
-    "_comment": "GARCH(1,1) parameters calibrated from Robin VIX data (1990-2025)",
-    "_source": "Robin Economic Database - 9,764+ observations, 35+ years",
+    "_comment": "GARCH(1,1) parameters calibrated from historical VIX data (1990-2025)",
+    "_source": "Public macro-financial time series (9,764+ observations, 35+ years)",
     "regimes": {
         "calm": {
             "omega": 0.000150,

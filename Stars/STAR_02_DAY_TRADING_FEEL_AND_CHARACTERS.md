@@ -2,7 +2,7 @@
 
 **Received:** 2026-06-11 (dictated; cleaned of dictation artifacts only)
 **Status:** Active. Extends STAR_01 (`../NORTH_STAR.md`); contradicts nothing in it.
-**Executing plan:** `../Technical/Plans/STAR_02_OVERHAUL_PLAN.md`
+**Status:** executed 2026-06-12 (see the repository README for the delivered scope).
 **Note:** The owner referenced a pasted text block (the hire-archetype list). It did not
 arrive with the message. The archetype language traces to NORTH_STAR.md §7 ("Gunslinger,
 Traditionalist…") and §3 Era 3 ("gunslingers… or stay conservative"), plus "relationship
@@ -141,11 +141,11 @@ Single implementation seam identified at QuarterlyPhases.h:388-395. Plan §P5/P6
 ## 7. Narrative & history sources
 
 - Review all in-game stories/narrative events; mine **financial-history knowledge bases**
-  (Volcker KB: Chernow, Lewis's Liar's Poker, Greider, FDIC crisis histories, FCIC, etc.;
-  Wynne's Minsky cluster) for "clues about events in business history… the history of
+  (Chernow, Lewis's Liar's Poker, Greider, FDIC crisis histories, FCIC, and a
+  Minsky-focused cluster) for "clues about events in business history… the history of
   financial markets" to enrich events, characters, and era vibes.
 
-**Annotation:** Volcker KB mapped: ~1,452 docs, 15 high-value narrative sources
+**Annotation:** source library mapped; 15 high-value narrative sources
 identified, clean chunked markdown, mining workflow drafted. In-copyright trade books →
 facts/beats/paraphrase, not verbatim. Plan §P8.
 
@@ -169,7 +169,7 @@ next playtest is fully recorded).
 
 - **Now:** placeholders are fine — "cute little placeholders, whatever makes sense for the
   types of characters we're trying to display."
-- **Later:** owner's RTX 5090 for local 2D/3D generation; careful prompt control to mint
+- **Later:** a local GPU for 2D/3D generation; careful prompt control to mint
   ~20 emotion/style variants per character; agent inspects its own output with native
   image reading and iterates. Antigravity credits also available.
 - Sprite work informs the vibe — generate a lot of character variants.
@@ -228,7 +228,7 @@ merely low σ. The owner's named trio maps as: *gunslingers* = the Gunslinger fa
 
 **Artifacts:** data → `Technical/StatisticalEngine/data/archetypes/archetypes.json`;
 full design (cost↔value logic, per-family β rationale, crowding classes, era matrix, 5
-worked examples) → `Technical/Plans/ARCHETYPE_ROSTER_DESIGN.md`.
+worked examples) are captured in `Technical/StatisticalEngine/data/archetypes/archetypes.json`.
 
 ### 8-family β / σ summary
 

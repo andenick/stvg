@@ -6,7 +6,7 @@
 
 namespace stvg::math {
 
-// Jump-diffusion parameters calibrated from Robin historical data.
+// Jump-diffusion parameters calibrated from historical market data.
 // Models sudden market dislocations (crashes, flash crashes, regime breaks).
 // dS/S = mu*dt + sigma*dW + J*dN, where N is Poisson with intensity lambda.
 struct JumpParams {

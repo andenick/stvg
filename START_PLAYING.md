@@ -1,13 +1,23 @@
 # START PLAYING — The Banker (STVG)
 
-**One command:** open PowerShell in this folder and run
+**Build it once, then one command to play.** The web frontend is generated output and
+is not committed, so it has to be built before the server has anything to serve:
 
 ```powershell
+# 1. Build the frontend (Node 20+) and the engine (once, or after pulling changes)
+cd Technical\StatisticalEnginerontend; npm ci; npm run build; cd ..
+cmake -B build -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug -Wno-dev
+cmake --build build --config Debug --parallel 4
+cd ..\..
+
+# 2. Play
 .\play.ps1
 ```
 
-That kills any stuck processes, starts the game server, and opens the game in your
+`play.ps1` stops any stuck processes, starts the game server, and opens the game in your
 browser. Close the PowerShell window (or Ctrl+C) when you're done — it stops the server.
+
+No API keys, accounts or network services are required; everything runs locally.
 
 ## Your first 10 minutes (1945, First National Trust, $1M)
 
@@ -35,19 +45,16 @@ browser. Close the PowerShell window (or Ctrl+C) when you're done — it stops t
 ## When you're done playing
 
 Everything you did was recorded locally (every click, what you read and for how long,
-every trade and hire) to `Technical\StatisticalEngine\telemetry\`. Either run
-`.\analyze.ps1` to generate session reports, or just tell Claude **"analyze my
-sessions"** — and say how it *felt* (too fast/slow? money too easy? charts readable?
-characters annoying or fun?). The data plus your feel is how the next iteration gets
-tuned (pace, profit curve, volatility, character cadence are all dials now).
+every trade and hire) to `Technical\StatisticalEngine	elemetry\`. Run `.nalyze.ps1`
+to turn those sessions into readable reports. Nothing is uploaded anywhere.
 
 ## Known rough edges (already on the list)
 
 - Character portraits are procedural placeholders (DiceBear) — real caricature art comes
-  later via local sprite generation on the 5090.
+  later via local sprite generation.
 - "My Bank" tab's trading-floor visual is a placeholder strip (tiny-tower view planned).
-- Mined 1945-72 historical events are staged awaiting your review
-  (`Technical/Content/kb_mining/REVIEW_SHEET.md`) — the early decades get much richer
+- Candidate 1945-72 historical events are staged in `Technical/Content/kb_mining/`
+  and not yet merged into play — the early decades get much richer
   once you approve them.
 - A deep-game balance pass (leverage death-spiral around 2021 for max-leverage
   strategies) is on the backlog.

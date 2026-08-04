@@ -6,7 +6,7 @@
 # This file is a SPEC you can read before any GPU/ComfyUI software exists on the
 # box. It is written to be correct against ComfyUI's documented HTTP API, but it
 # has NOT been executed against a live server — the first run is session A0/E0,
-# and only on the owner's go-ahead (see ../Plans/ART_EXPLORATION_PLAN.md).
+# and only on an explicit go-ahead.
 #
 # Dependencies: Python standard library ONLY (urllib, json, argparse, ...).
 # No torch, no requests, no ComfyUI import — this is a thin HTTP client so it

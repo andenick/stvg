@@ -4,7 +4,7 @@
  * portraitFor(npcId, emotion?) resolves a portrait URL in priority order:
  *   1. A real generated PNG at `/assets/portraits/<id>_<emotion>.png` — IF the
  *      manifest lists it. We probe ONE manifest (`/assets/portraits/manifest.json`)
- *      once, not a 404-per-image storm. The P9 RTX-5090 pipeline backfills hero
+ *      once, not a 404-per-image storm. The P9 sprite pipeline backfills hero
  *      portraits here without touching game code.
  *   2. DiceBear LOCAL generation — a deterministic, OFFLINE SVG data-URI seeded by
  *      npcId (`@dicebear/personas`, the cartoon-business band the owner confirmed).

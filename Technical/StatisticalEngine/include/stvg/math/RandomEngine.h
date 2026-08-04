@@ -20,7 +20,7 @@ namespace stvg::math {
 // distribution, std::student_t_distribution, std::uniform_int_distribution) are
 // NOT — each STL is free to choose its own algorithm, so the same engine bits
 // map to different samples on MSVC vs. libstdc++. Saves move between the dev PC
-// (MSVC) and the Carson box (libstdc++) and tests assert day-by-day==batch and
+// (MSVC) and the Linux deployment host (libstdc++) and tests assert day-by-day==batch and
 // same-seed==same-run, so the sampling algorithms must be platform-independent.
 //
 // All sampling below is therefore HAND-ROLLED on top of mt19937_64's raw 64-bit

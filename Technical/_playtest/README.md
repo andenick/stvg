@@ -1,7 +1,6 @@
 # STVG Playtest Harness
 
-Permanent, *organized* browser-driving harness for the STVG banking-CEO sim
-(process rule R4: organized, not deleted). Every tool here drives a **running
+Browser-driving harness for the STVG banking-CEO sim. Every tool here drives a **running
 `stvg_server` on `http://localhost:8080/`** through a real browser (Microsoft
 Edge via `puppeteer-core`, headless) and produces screenshots and/or exercises
 the telemetry instrumentation.
@@ -68,21 +67,18 @@ python analyze_session.py --selftest
 ```
 `sample_session_report.md` is an example of its output.
 
-## `shots/` — screenshot evidence (stays as-is)
+## `shots/` — screenshot output
 
-Per-phase PNG evidence produced by the harness and the archived probes:
-`shots/` root holds the generic/live shooter output (`01_title`, `10_game_12s`,
-`20_live_20s` …); subdirs `final/`, `p2/`, `p3f/`, `p4/`, `p6/`, `p7/` hold the
-per-phase STAR_02 megaplan evidence. These are written by the scripts' `OUT`
-paths; keep them as the R2 "done = evidence" record.
+The harness writes PNG evidence here: `shots/` root holds the generic/live shooter
+output (`01_title`, `10_game_12s`, `20_live_20s` …); subdirs `final/`, `p2/`, `p3f/`,
+`p4/`, `p6/`, `p7/` hold per-phase output. **Screenshots are not committed** — image
+files are excluded by `.gitignore`, so these directories are empty in a fresh clone and
+fill in when you run the tools. Only the small text logs are tracked.
 
-`shots/ready/` holds the **W4 full-verification-sweep** evidence:
-`verify_ready.js` step screenshots + `verify_ready.log` (18/18 CHECK PASS, 0
-pageerror); `api_smoke.log` (23/23 PASS); `suite_summary.txt` (505 tests:
-504 PASSED / 1 SKIPPED / 0 FAILED); `autoplay_quickmatrix.log` (12 bots × 3
-games, 0 NaN, 0 bankruptcies); `session_report.md` (analyzer output, 32 event
-types); `stability.log` (8× run, 0 pageerror, heap delta < 100 MB, annual
-corner card engaged).
+`shots/ready/` holds the tracked full-verification-sweep logs: `api_smoke.log`
+(23/23 PASS); `suite_summary.txt` (505 tests: 504 PASSED / 1 SKIPPED / 0 FAILED);
+`session_report.md` (analyzer output, 32 event types); `stability.log` (8× run, 0
+pageerror, heap delta < 100 MB, annual corner card engaged).
 
 ## `archive_probes/` — one-off phase probes (reference, NOT maintained)
 
@@ -93,12 +89,12 @@ the current UI and may break; pull patterns from them, don't rely on them:
 `shoot_p4_clean.js`, `shoot_p6.js`, `shoot_p7.js`, `p4_final.js`,
 `check_p4_lengths.js`.
 
-## `archive_probe_sessions/` — archived agent-probe telemetry
+## `archive_probe_sessions/` — local probe telemetry (not committed)
 
-The 30 `session_*.jsonl` files produced by agent probe runs (moved here from
-`StatisticalEngine/telemetry/` during cleanup). They are the only forensic record
-of agent-probe behavior; the owner's real telemetry must land in an empty
-`StatisticalEngine/telemetry/`. Analyze any of them with `analyze_session.py`.
+Automated probe runs write their `session_*.jsonl` here so that real play telemetry
+lands in a clean `StatisticalEngine/telemetry/`. These raw session dumps are excluded
+from the repository; analyze any local one with `analyze_session.py`. A worked example
+of the analyzer's output is `sample_session_report.md`.
 
 ## `node_modules/`
 
