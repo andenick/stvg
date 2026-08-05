@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "STVG: Banking CEO Simulation (1945-2040)"
+message: "If you use this work, please cite it."
+type: software
+authors:
+  - family-names: Anderson
+    given-names: Nicholas
+    website: "https://www.nickanderson.us/"
+repository-code: "https://github.com/andenick/stvg"
