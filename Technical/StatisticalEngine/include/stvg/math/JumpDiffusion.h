@@ -15,14 +15,14 @@ struct JumpParams {
     double jumpStdDev = 0.08;    // Jump size volatility
     double crisisMultiplier = 3.0; // Intensity multiplier during crisis regime
 
-    static JumpParams Robin() { return {0.002, -0.05, 0.08, 3.0}; }
+    static JumpParams CalibratedDefault() { return {0.002, -0.05, 0.08, 3.0}; }
 };
 
 // Composable jump-diffusion process.
 // Call step() each tick to check for a jump event.
 class JumpDiffusionProcess {
 public:
-    explicit JumpDiffusionProcess(const JumpParams& params = JumpParams::Robin())
+    explicit JumpDiffusionProcess(const JumpParams& params = JumpParams::CalibratedDefault())
         : params_(params) {}
 
     // Check for jump this tick. Returns jump magnitude (0.0 if no jump).

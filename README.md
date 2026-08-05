@@ -116,8 +116,8 @@ STVG/
 │   │   ├── telemetry/               # Playtest session_*.jsonl land here (analyze_session.py)
 │   │   └── CMakeLists.txt           # Build config (4 targets)
 │   ├── Content/kb_mining/           # Staged candidate events/characters (not yet merged into play)
-│   ├── _playtest/                   # Screenshot/telemetry harness + analyze_session.py
-│   └── art/                         # Character-art briefs and draft workflows (scaffolding only)
+│   └── _playtest/                   # Screenshot/telemetry harness + analyze_session.py
+├── .env.example                     # Optional runtime tuning variables (nothing required)
 └── play.ps1 / analyze.ps1           # Windows convenience wrappers
 ```
 
@@ -209,8 +209,10 @@ MIT — see [LICENSE](LICENSE).
 - **Node 20+** for the Svelte/Vite frontend (`Technical/StatisticalEngine/frontend`).
 - **Python 3.9+** for `Technical/_playtest/analyze_session.py` — standard library only,
   nothing to `pip install`.
-- **No API keys, accounts or network services.** Everything runs locally; there is no
-  `.env` to fill in.
+- **No API keys, accounts or network services.** Everything runs locally, and nothing
+  has to be configured to play. `.env.example` documents the optional runtime knobs
+  (data directory, session caps, idle eviction) and the variables the telemetry-pull
+  script reads if you run your own remote deployment — every one has a working default.
 
 ---
 

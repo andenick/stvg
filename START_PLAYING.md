@@ -5,7 +5,7 @@ is not committed, so it has to be built before the server has anything to serve:
 
 ```powershell
 # 1. Build the frontend (Node 20+) and the engine (once, or after pulling changes)
-cd Technical\StatisticalEnginerontend; npm ci; npm run build; cd ..
+cd Technical\StatisticalEngine\frontend; npm ci; npm run build; cd ..
 cmake -B build -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug -Wno-dev
 cmake --build build --config Debug --parallel 4
 cd ..\..
@@ -45,7 +45,7 @@ No API keys, accounts or network services are required; everything runs locally.
 ## When you're done playing
 
 Everything you did was recorded locally (every click, what you read and for how long,
-every trade and hire) to `Technical\StatisticalEngine	elemetry\`. Run `.nalyze.ps1`
+every trade and hire) to `Technical\StatisticalEngine\telemetry\`. Run `.\analyze.ps1`
 to turn those sessions into readable reports. Nothing is uploaded anywhere.
 
 ## Known rough edges (already on the list)

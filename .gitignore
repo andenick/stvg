@@ -83,6 +83,7 @@ ENV/
 *.env
 .env
 .env.*
+!.env.example
 api_keys*
 *.key
 *.pem
